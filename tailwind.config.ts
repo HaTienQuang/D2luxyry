@@ -27,9 +27,9 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-bevietnam)', 'Be Vietnam Pro', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['var(--font-serif-luxury)', 'Lora', 'Georgia', 'serif'],
-        handwritten: ['var(--font-caveat)', 'Caveat', 'cursive'],
+        sans: ['var(--font-bevietnam)', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['var(--font-serif-luxury)', 'var(--font-bevietnam)', 'serif'],
+        handwritten: ['var(--font-caveat)', 'cursive'],
       },
       boxShadow: {
         'luxury': '0 10px 30px -10px rgba(138, 79, 44, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
