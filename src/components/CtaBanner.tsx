@@ -35,9 +35,9 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenConsultation }) => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
             {/* Left Copy & CTA */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="inline-block text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#E8DCCF] bg-white/10 backdrop-blur-md px-4 py-1.5 border-l-3 border-[#8A4F2C]">
+              <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#E8DCCF]">
                 ĐỒNG HÀNH CÙNG D2 LUXURY DESIGN
-              </span>
+              </p>
               <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white drop-shadow-md">
                 Bạn đang tìm kiếm <br />
                 một không gian sống lý tưởng?

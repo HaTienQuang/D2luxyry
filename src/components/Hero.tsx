@@ -17,11 +17,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
           {/* Left Column */}
           <div className="lg:col-span-6 space-y-6 sm:space-y-8 animate-fade-in-up">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2EAE0] text-[#733E22] border-l-3 border-[#8A4F2C]">
-              <span className="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase">
-                THIẾT KẾ – THI CÔNG NỘI THẤT TRỌN GÓI
-              </span>
-            </div>
+            <p className="text-xs sm:text-sm lg:text-base font-bold tracking-[0.25em] uppercase text-[#8A4F2C]">
+              THIẾT KẾ – THI CÔNG NỘI THẤT TRỌN GÓI
+            </p>
 
             {/* Main Heading - Enlarged & High Impact */}
             <div className="space-y-2 sm:space-y-4">

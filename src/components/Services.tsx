@@ -46,11 +46,9 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
           <div className="space-y-3.5 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
-                DỊCH VỤ CỦA CHÚNG TÔI
-              </span>
-            </div>
+            <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+              DỊCH VỤ CỦA CHÚNG TÔI
+            </p>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
               Giải pháp nội thất <span className="text-[#8A4F2C]">toàn diện</span>
             </h2>

@@ -73,11 +73,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
           {/* Right Column: Values and Features */}
           <div className="lg:col-span-6 space-y-8 sm:pl-4">
             <div className="space-y-3.5">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
-                  {WHY_CHOOSE_US_DATA.eyebrow}
-                </span>
-              </div>
+              <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+                {WHY_CHOOSE_US_DATA.eyebrow}
+              </p>
               <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
                 {WHY_CHOOSE_US_DATA.title}
               </h2>
