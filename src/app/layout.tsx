@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider, App as AntdApp } from 'antd';
-import { Be_Vietnam_Pro, Lora, Caveat } from 'next/font/google';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import theme from '@/theme/themeConfig';
 import './globals.css';
 
@@ -9,21 +9,6 @@ const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-bevietnam',
-  display: 'swap',
-});
-
-const lora = Lora({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif-luxury',
-  display: 'swap',
-});
-
-const caveat = Caveat({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-caveat',
   display: 'swap',
 });
 
@@ -48,13 +33,13 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${beVietnamPro.variable} ${lora.variable} ${caveat.variable}`}
+      className={beVietnamPro.variable}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-[#FAF8F5] text-[#2D2824]">
         <AntdRegistry>
           <ConfigProvider theme={theme}>
             <AntdApp>{children}</AntdApp>

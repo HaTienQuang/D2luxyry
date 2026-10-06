@@ -58,13 +58,13 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
             </p>
           </div>
 
-          {/* Handwritten aesthetic accent */}
-          <div className="hidden md:block transform -rotate-6 text-right shrink-0">
-            <span className="font-handwritten text-3xl sm:text-4xl text-[#8A4F2C]/85 block font-bold">
-              Mỗi không gian,
+          {/* Luxury quote accent */}
+          <div className="hidden md:flex flex-col items-end justify-center shrink-0 border-l-2 border-[#D5BEA8] pl-6 py-1">
+            <span className="text-xl lg:text-2xl font-bold text-[#8A4F2C] italic">
+              “Mỗi không gian,
             </span>
-            <span className="font-handwritten text-2xl sm:text-3xl text-[#A06037] block">
-              một câu chuyện riêng!
+            <span className="text-lg lg:text-xl font-medium text-[#A06037] italic">
+              một câu chuyện riêng”
             </span>
           </div>
         </div>
