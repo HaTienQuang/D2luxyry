@@ -41,14 +41,16 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
   };
 
   return (
-    <section id="services" className="py-20 bg-[#F9F6F0] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 sm:py-28 bg-[#F9F6F0] relative">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#8A4F2C]">
-              DỊCH VỤ CỦA CHÚNG TÔI
-            </span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+          <div className="space-y-3 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+                DỊCH VỤ CỦA CHÚNG TÔI
+              </span>
+            </div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
               Giải pháp nội thất <span className="text-[#8A4F2C]">toàn diện</span>
             </h2>
@@ -69,20 +71,20 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
           </div>
         </div>
 
-        {/* 6 Services Grid - Full Image Background with Hover Reveal */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* 6 Services Grid - Full Image Background with Hover Reveal & Sharp Architecture Corners */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {SERVICES_DATA.map((service, idx) => (
             <div
               key={service.id}
               onClick={() => setSelectedService(service)}
-              className="group relative h-[440px] sm:h-[480px] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-between p-6 sm:p-7 border border-[#EFE8DF]/40 hover:-translate-y-2"
+              className="group relative h-[440px] sm:h-[480px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-between p-6 sm:p-7 border border-[#EFE8DF] hover:-translate-y-2 shine-overlay"
             >
               {/* Full Background Image */}
               <Image
                 src={service.image}
                 alt={service.title}
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
 
@@ -91,11 +93,11 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
 
               {/* Top Bar: Service Number Badge & Icon Badge */}
               <div className="relative z-10 flex items-center justify-between">
-                <span className="w-10 h-10 rounded-2xl bg-black/40 backdrop-blur-md text-white font-mono font-bold text-xs flex items-center justify-center border border-white/20 shadow-sm">
+                <span className="w-10 h-10 bg-black/50 backdrop-blur-md text-white font-mono font-bold text-xs flex items-center justify-center border border-white/20 shadow-sm">
                   0{idx + 1}
                 </span>
 
-                <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center justify-center group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shadow-md">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center justify-center group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shadow-md">
                   {getServiceIcon(service.iconName)}
                 </div>
               </div>
@@ -112,7 +114,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
                 {/* Resting State Preview Cue */}
                 <div className="flex items-center justify-between pt-1 group-hover:hidden transition-all text-xs text-stone-300 font-medium">
                   <span className="italic">Chạm xem chi tiết hạng mục</span>
-                  <div className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white border border-white/20">
+                  <div className="w-8 h-8 bg-white/15 backdrop-blur-sm flex items-center justify-center text-white border border-white/20">
                     <ArrowRightOutlined className="text-xs -rotate-45" />
                   </div>
                 </div>
@@ -126,7 +128,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
                   <ul className="space-y-2 text-xs sm:text-[13px] text-stone-200">
                     {service.points.map((pt, pIdx) => (
                       <li key={pIdx} className="flex items-start gap-2">
-                        <span className="w-4 h-4 rounded-full bg-[#8A4F2C] flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5 font-bold">
+                        <span className="w-4 h-4 bg-[#8A4F2C] flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5 font-bold">
                           ✓
                         </span>
                         <span>{pt}</span>

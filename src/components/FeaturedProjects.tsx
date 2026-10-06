@@ -28,7 +28,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [fitMode, setFitMode] = useState<'cover' | 'contain'>('cover');
 
-  const pageSize = 9;
+  const pageSize = 12;
 
   // Filter logic
   const filteredProjects = PROJECTS_DATA.filter((p) => {
@@ -66,13 +66,15 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
   };
 
   return (
-    <section id="projects" className="py-24 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 sm:py-28 bg-white relative">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#8A4F2C]">
-            BỘ SƯU TẬP DỰ ÁN
-          </span>
+        <div className="text-center max-w-4xl mx-auto space-y-3 mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#FAF8F5] border border-[#E8DFC0] text-[#8A4F2C]">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+              BỘ SƯU TẬP DỰ ÁN
+            </span>
+          </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
             Dự Án Tiêu Biểu
           </h2>
@@ -84,7 +86,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
 
         {/* Search & Category Filter Controls */}
         <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
-          {/* Category Filter Tabs - Horizontal Swipe on Mobile, Centered on Desktop */}
+          {/* Category Filter Tabs */}
           <div className="flex sm:flex-wrap items-center sm:justify-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-1.5 -mx-4 sm:mx-0 px-4 sm:px-0 scroll-smooth">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.key;
@@ -97,15 +99,15 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                     setActiveCategory(cat.key);
                     setCurrentPage(1);
                   }}
-                  className={`h-10 sm:h-11 px-4 sm:px-6 rounded-full text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 whitespace-nowrap ${
+                  className={`h-10 sm:h-11 px-4 sm:px-6 text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 whitespace-nowrap border ${
                     isActive
-                      ? 'bg-[#8A4F2C] text-white shadow-md font-semibold ring-2 ring-[#8A4F2C]/20'
-                      : 'bg-[#FAF8F5] text-[#5C554E] hover:bg-[#F3EAE1] hover:text-[#8A4F2C] border border-[#EFE8DF] font-medium'
+                      ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-md font-semibold'
+                      : 'bg-[#FAF8F5] text-[#5C554E] hover:bg-[#F3EAE1] hover:text-[#8A4F2C] border-[#EFE8DF] font-medium'
                   }`}
                 >
                   <span>{cat.label}</span>
                   <span
-                    className={`text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 rounded-full font-semibold ${
+                    className={`text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 font-semibold ${
                       isActive ? 'bg-white/25 text-white' : 'bg-[#EAE2D7] text-[#733E22]'
                     }`}
                   >
@@ -116,7 +118,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
             })}
           </div>
 
-          {/* Search Box - Centered below filter tabs */}
+          {/* Search Box */}
           <div className="max-w-md mx-auto">
             <Input
               prefix={<SearchOutlined className="text-[#8A4F2C] text-base mr-1" />}
@@ -127,14 +129,14 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="!rounded-full !h-11 !px-4 !border-[#D5BEA8] !bg-[#FAF8F5] hover:!border-[#8A4F2C] focus:!border-[#8A4F2C] shadow-xs"
+              className="!h-11 !px-4 !border-[#D5BEA8] !bg-[#FAF8F5] hover:!border-[#8A4F2C] focus:!border-[#8A4F2C] shadow-xs"
             />
           </div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - Sharp Rectangular Architecture Cards with Luxury Shine Hover */}
         {visibleProjects.length === 0 ? (
-          <div className="text-center py-16 bg-[#FAF8F5] rounded-3xl border border-[#EFE8DF]">
+          <div className="text-center py-16 bg-[#FAF8F5] border border-[#EFE8DF]">
             <PictureOutlined className="text-4xl text-[#C5A880] mb-3" />
             <p className="text-base font-semibold text-[#1A1613]">
               Không tìm thấy dự án phù hợp với từ khóa &ldquo;{searchQuery}&rdquo;
@@ -146,39 +148,39 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                 setActiveCategory('all');
                 setCurrentPage(1);
               }}
-              className="mt-4 !rounded-full"
+              className="mt-4"
             >
               Xem tất cả dự án
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
             {visibleProjects.map((project) => (
               <div
                 key={project.id}
                 onClick={() => handleOpenProject(project)}
-                className="group cursor-pointer rounded-2xl overflow-hidden bg-white border border-[#EFE8DF] shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col hover:-translate-y-2 relative"
+                className="group cursor-pointer overflow-hidden bg-white border border-[#EFE8DF] shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col hover:-translate-y-2 relative shine-overlay"
               >
                 {/* Image with Tag & Photo Count */}
-                <div className="relative h-72 w-full overflow-hidden bg-stone-100">
+                <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-stone-900">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, (max-width: 1536px) 33vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-                  {/* Floating Category Tag */}
-                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md">
+                  {/* Floating Sharp Category Tag */}
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 shadow-md border-l-2 border-[#8A4F2C]">
                     <span className="text-[11px] font-bold text-[#8A4F2C] tracking-wide uppercase">
                       {project.categoryLabel}
                     </span>
                   </div>
 
                   {/* Photo Count Badge */}
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-[11px] font-semibold flex items-center gap-1 border border-white/20">
+                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-2.5 py-1 text-white text-[11px] font-semibold flex items-center gap-1 border border-white/20">
                     <PictureOutlined className="text-xs text-[#E8DCCF]" />
                     <span>{project.gallery.length} ảnh</span>
                   </div>
@@ -194,8 +196,8 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                       </p>
                     </div>
 
-                    {/* Circular Detail Button */}
-                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shrink-0 shadow-md">
+                    {/* Square Detail Button */}
+                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shrink-0 shadow-md">
                       <ArrowRightOutlined className="text-xs -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                     </div>
                   </div>

@@ -17,7 +17,7 @@ import { FOOTER_DATA } from '@/data/landingData';
 export const Footer: React.FC = () => {
   return (
     <footer id="contact" className="bg-[#1A1613] text-stone-300 pt-14 sm:pt-20 pb-8 sm:pb-10 border-t border-[#2C241E]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-12 pb-10 sm:pb-16 border-b border-[#2C241E]">
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-5">

@@ -12,12 +12,12 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
   return (
     <section id="hero" className="relative pt-24 sm:pt-28 pb-12 sm:pb-16 lg:pt-36 lg:pb-24 bg-[#FAF8F5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
           {/* Left Column */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-8">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-8 animate-fade-in-up">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#F2EAE0] text-[#733E22]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#F2EAE0] text-[#733E22] border-l-2 border-[#8A4F2C]">
               <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">
                 THIẾT KẾ – THI CÔNG NỘI THẤT TRỌN GÓI
               </span>
@@ -25,10 +25,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
 
             {/* Main Heading */}
             <div className="space-y-1.5 sm:space-y-3">
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-[56px] font-bold text-[#1A1613] tracking-tight leading-[1.2]">
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-[58px] font-bold text-[#1A1613] tracking-tight leading-[1.15]">
                 Không gian đẹp
               </h1>
-              <div className="font-serif text-3xl sm:text-5xl lg:text-[56px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.2]">
+              <div className="font-serif text-3xl sm:text-5xl lg:text-[58px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.15]">
                 Bắt đầu từ bạn
               </div>
             </div>
@@ -48,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                 icon={<ArrowRightOutlined className="!text-xs !text-white transition-transform group-hover:translate-x-1" />}
                 iconPosition="end"
                 onClick={onOpenConsultation}
-                className="!h-12 sm:!h-13 !px-8 !text-sm sm:!text-[15px] !font-semibold !rounded-full shadow-sm hover:shadow-md group !text-white !w-full sm:!w-auto"
+                className="!h-12 sm:!h-13 !px-8 !text-sm sm:!text-[15px] !font-semibold shadow-sm hover:shadow-md group !text-white !w-full sm:!w-auto"
               >
                 Nhận tư vấn miễn phí
               </Button>
@@ -59,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                   size="large"
                   icon={<ArrowRightOutlined className="!text-xs text-[#8A4F2C] transition-transform group-hover:translate-x-1" />}
                   iconPosition="end"
-                  className="!h-12 sm:!h-13 !px-7 !text-sm sm:!text-[15px] !font-semibold !rounded-full !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] hover:!text-[#8A4F2C] group !w-full sm:!w-auto"
+                  className="!h-12 sm:!h-13 !px-7 !text-sm sm:!text-[15px] !font-semibold !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] hover:!text-[#8A4F2C] group !w-full sm:!w-auto"
                 >
                   Xem dự án thực tế
                 </Button>
@@ -151,14 +151,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
           </div>
 
           {/* Right Hero Image */}
-          <div className="lg:col-span-6">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-2 sm:border-4 border-white aspect-[4/3] sm:aspect-[16/11] bg-stone-100">
+          <div className="lg:col-span-6 animate-fade-in-up">
+            <div className="relative overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-[16/11] bg-stone-900 shine-overlay">
               <Image
                 src="/images/hero/luxury-interior.jpg"
                 alt="Không gian nội thất cao cấp"
                 fill
                 priority
-                className="object-cover hover:scale-102 transition-transform duration-700 ease-out"
+                className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>

@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           : 'bg-[#FAF8F5]/90 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none py-2.5 sm:py-3 border-b border-[#EFE8DF]/50 sm:border-none'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="#hero" className="flex items-center group">
           <div className="relative h-12 sm:h-16 flex items-center group-hover:scale-105 transition-transform duration-300">

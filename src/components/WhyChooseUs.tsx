@@ -35,23 +35,23 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
   };
 
   return (
-    <section id="about" className="py-24 bg-[#FAF8F5] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section id="about" className="py-20 sm:py-28 bg-[#FAF8F5] relative overflow-hidden">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Left Column: Authentic Architectural Visual */}
           <div className="lg:col-span-6 relative">
             {/* Main Real Interior Photo */}
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-[#EFE8DF] bg-white aspect-[4/3] sm:aspect-[16/11]">
+            <div className="relative overflow-hidden shadow-2xl border border-[#EFE8DF] bg-white aspect-[4/3] sm:aspect-[16/11] shine-overlay">
               <Image
                 src={WHY_CHOOSE_US_DATA.videoThumbnail}
                 alt="Không gian nội thất thực tế D'Luxury Design"
                 fill
-                className="object-cover hover:scale-103 transition-transform duration-700 ease-out"
+                className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
 
               {/* Subtle Editorial Caption */}
-              <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-stone-200/80 shadow-md flex items-center gap-2.5">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto bg-white/95 backdrop-blur-md px-4 py-2.5 border-l-2 border-[#8A4F2C] border-y border-r border-stone-200/80 shadow-md flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-[#8A4F2C]" />
                 <span className="text-xs font-semibold text-[#1A1613] tracking-wide">
                   {WHY_CHOOSE_US_DATA.projectTag}
@@ -63,7 +63,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
                 type="button"
                 onClick={() => setVideoModalOpen(true)}
                 aria-label="Xem video quy trình hoàn thiện"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md text-[#8A4F2C] shadow-2xl flex items-center justify-center hover:scale-110 hover:bg-[#8A4F2C] hover:text-white transition-all duration-300 group cursor-pointer border border-white/40"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md text-[#8A4F2C] shadow-2xl flex items-center justify-center hover:scale-110 hover:bg-[#8A4F2C] hover:text-white transition-all duration-300 group cursor-pointer border border-white/40 animate-pulse-ring"
               >
                 <PlayCircleFilled className="text-3xl transition-transform group-hover:scale-105" />
               </button>
@@ -73,9 +73,11 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
           {/* Right Column: Values and Features */}
           <div className="lg:col-span-6 space-y-8 sm:pl-4">
             <div className="space-y-3">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#8A4F2C]">
-                {WHY_CHOOSE_US_DATA.eyebrow}
-              </span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+                  {WHY_CHOOSE_US_DATA.eyebrow}
+                </span>
+              </div>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
                 {WHY_CHOOSE_US_DATA.title}
               </h2>
@@ -84,14 +86,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
               </p>
             </div>
 
-            {/* 4 Feature Points Grid */}
+            {/* 4 Feature Points Grid - Sharp Architectural Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
               {WHY_CHOOSE_US_DATA.features.map((item, idx) => (
                 <div
                   key={item.title}
-                  className="p-5 rounded-2xl bg-white border border-[#EFE8DF] hover:border-[#D5BEA8] transition-all duration-300 hover:shadow-md flex flex-col space-y-2 group"
+                  className="p-5 bg-white border border-[#EFE8DF] hover:border-[#8A4F2C] transition-all duration-300 hover:shadow-xl flex flex-col space-y-2 group hover:-translate-y-1"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#FAF8F5] shadow-xs flex items-center justify-center border border-[#EFE8DF] text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white transition-all duration-300">
+                  <div className="w-10 h-10 bg-[#FAF8F5] shadow-xs flex items-center justify-center border border-[#EFE8DF] text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white transition-all duration-300">
                     {getFeatureIcon(idx)}
                   </div>
                   <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A1613]">{item.title}</h3>
@@ -110,7 +112,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
                 icon={<ArrowRightOutlined />}
                 iconPosition="end"
                 onClick={onOpenConsultation}
-                className="!h-12 !px-8 !rounded-full"
+                className="!h-12 !px-8 !font-semibold !text-white"
               >
                 Đặt lịch khảo sát ngay
               </Button>

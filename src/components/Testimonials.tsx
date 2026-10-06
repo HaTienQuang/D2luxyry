@@ -18,14 +18,16 @@ export const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-24 bg-[#FAF8F5] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="py-20 sm:py-28 bg-[#FAF8F5] relative">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#8A4F2C]">
-              KHÁCH HÀNG NÓI VỀ CHÚNG TÔI
-            </span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+          <div className="space-y-3 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+                KHÁCH HÀNG NÓI VỀ CHÚNG TÔI
+              </span>
+            </div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
               Sự hài lòng của bạn là động lực để chúng tôi phát triển
             </h2>
@@ -34,13 +36,11 @@ export const Testimonials: React.FC = () => {
           {/* Nav Controls */}
           <div className="flex items-center gap-3 shrink-0">
             <Button
-              shape="circle"
               icon={<LeftOutlined className="text-xs" />}
               onClick={handlePrev}
               className="!w-10 !h-10 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C]"
             />
             <Button
-              shape="circle"
               icon={<RightOutlined className="text-xs" />}
               onClick={handleNext}
               className="!w-10 !h-10 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C]"
@@ -48,12 +48,12 @@ export const Testimonials: React.FC = () => {
           </div>
         </div>
 
-        {/* Testimonials 3 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Testimonials 3 Cards Grid - Sharp Rectangular Architecture Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {TESTIMONIALS_DATA.slice(0, 3).map((item) => (
             <div
               key={item.id}
-              className="bg-white p-8 rounded-2xl border border-[#EFE8DF] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
+              className="bg-white p-8 border border-[#EFE8DF] shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between space-y-6 hover:-translate-y-1.5 shine-overlay"
             >
               {/* Quote text */}
               <div className="space-y-4">
