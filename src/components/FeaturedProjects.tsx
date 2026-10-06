@@ -69,25 +69,25 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
     <section id="projects" className="py-20 sm:py-28 bg-white relative">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-3 mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#FAF8F5] border border-[#E8DFC0] text-[#8A4F2C]">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FAF8F5] border border-[#E8DFC0] text-[#8A4F2C]">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
               BỘ SƯU TẬP DỰ ÁN
             </span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
             Dự Án Tiêu Biểu
           </h2>
-          <p className="text-sm sm:text-base text-[#6B635B] max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] max-w-3xl mx-auto leading-relaxed">
             Khám phá các công trình thiết kế và thi công nội thất biệt thự, căn hộ cao cấp, nhà phố
             và penthouse được thực hiện bởi D&apos;Luxury Design.
           </p>
         </div>
 
         {/* Search & Category Filter Controls */}
-        <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
+        <div className="space-y-5 sm:space-y-6 mb-12 sm:mb-16">
           {/* Category Filter Tabs */}
-          <div className="flex sm:flex-wrap items-center sm:justify-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-1.5 -mx-4 sm:mx-0 px-4 sm:px-0 scroll-smooth">
+          <div className="flex sm:flex-wrap items-center sm:justify-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar py-1.5 -mx-4 sm:mx-0 px-4 sm:px-0 scroll-smooth">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.key;
               const count = getCategoryCount(cat.key);
@@ -99,15 +99,15 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                     setActiveCategory(cat.key);
                     setCurrentPage(1);
                   }}
-                  className={`h-10 sm:h-11 px-4 sm:px-6 text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 whitespace-nowrap border ${
+                  className={`h-11 sm:h-12 px-5 sm:px-7 text-sm sm:text-base transition-all duration-300 flex items-center gap-2 cursor-pointer shrink-0 whitespace-nowrap border ${
                     isActive
-                      ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-md font-semibold'
-                      : 'bg-[#FAF8F5] text-[#5C554E] hover:bg-[#F3EAE1] hover:text-[#8A4F2C] border-[#EFE8DF] font-medium'
+                      ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-md font-bold ring-2 ring-[#8A4F2C]/20'
+                      : 'bg-[#FAF8F5] text-[#4A423B] hover:bg-[#F3EAE1] hover:text-[#8A4F2C] border-[#EFE8DF] font-semibold'
                   }`}
                 >
                   <span>{cat.label}</span>
                   <span
-                    className={`text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 font-semibold ${
+                    className={`text-xs px-2 py-0.5 font-bold ${
                       isActive ? 'bg-white/25 text-white' : 'bg-[#EAE2D7] text-[#733E22]'
                     }`}
                   >
@@ -119,9 +119,9 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
           </div>
 
           {/* Search Box */}
-          <div className="max-w-md mx-auto">
+          <div className="max-w-lg mx-auto">
             <Input
-              prefix={<SearchOutlined className="text-[#8A4F2C] text-base mr-1" />}
+              prefix={<SearchOutlined className="text-[#8A4F2C] text-lg mr-2" />}
               placeholder="Tìm kiếm dự án theo tên, vị trí, phong cách..."
               allowClear
               value={searchQuery}
@@ -129,7 +129,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="!h-11 !px-4 !border-[#D5BEA8] !bg-[#FAF8F5] hover:!border-[#8A4F2C] focus:!border-[#8A4F2C] shadow-xs"
+              className="!h-12 sm:!h-13 !px-5 !text-base !border-[#D5BEA8] !bg-[#FAF8F5] hover:!border-[#8A4F2C] focus:!border-[#8A4F2C] shadow-sm"
             />
           </div>
         </div>
@@ -137,18 +137,19 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
         {/* Projects Grid - Sharp Rectangular Architecture Cards with Luxury Shine Hover */}
         {visibleProjects.length === 0 ? (
           <div className="text-center py-16 bg-[#FAF8F5] border border-[#EFE8DF]">
-            <PictureOutlined className="text-4xl text-[#C5A880] mb-3" />
-            <p className="text-base font-semibold text-[#1A1613]">
+            <PictureOutlined className="text-5xl text-[#C5A880] mb-3" />
+            <p className="text-lg font-semibold text-[#1A1613]">
               Không tìm thấy dự án phù hợp với từ khóa &ldquo;{searchQuery}&rdquo;
             </p>
             <Button
               type="primary"
+              size="large"
               onClick={() => {
                 setSearchQuery('');
                 setActiveCategory('all');
                 setCurrentPage(1);
               }}
-              className="mt-4"
+              className="mt-4 !font-bold"
             >
               Xem tất cả dự án
             </Button>
@@ -162,7 +163,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                 className="group cursor-pointer overflow-hidden bg-white border border-[#EFE8DF] shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col hover:-translate-y-2 relative shine-overlay"
               >
                 {/* Image with Tag & Photo Count */}
-                <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-stone-900">
+                <div className="relative h-72 sm:h-80 xl:h-84 w-full overflow-hidden bg-stone-900">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -173,32 +174,32 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
                   {/* Floating Sharp Category Tag */}
-                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 shadow-md border-l-2 border-[#8A4F2C]">
-                    <span className="text-[11px] font-bold text-[#8A4F2C] tracking-wide uppercase">
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 shadow-md border-l-3 border-[#8A4F2C]">
+                    <span className="text-xs sm:text-[13px] font-bold text-[#8A4F2C] tracking-wide uppercase">
                       {project.categoryLabel}
                     </span>
                   </div>
 
                   {/* Photo Count Badge */}
-                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-2.5 py-1 text-white text-[11px] font-semibold flex items-center gap-1 border border-white/20">
+                  <div className="absolute top-4 right-4 bg-black/75 backdrop-blur-md px-3 py-1 text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
                     <PictureOutlined className="text-xs text-[#E8DCCF]" />
                     <span>{project.gallery.length} ảnh</span>
                   </div>
 
                   {/* Bottom Overlay Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white flex items-end justify-between">
+                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white flex items-end justify-between">
                     <div className="pr-3">
-                      <h3 className="font-serif text-lg font-bold text-white group-hover:text-[#D5BEA8] transition-colors leading-snug line-clamp-1">
+                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-white group-hover:text-[#D5BEA8] transition-colors leading-snug line-clamp-1">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-stone-300 mt-1">
+                      <p className="text-xs sm:text-sm text-stone-200 mt-1 font-medium">
                         {project.style} &bull; {project.area}
                       </p>
                     </div>
 
                     {/* Square Detail Button */}
-                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shrink-0 shadow-md">
-                      <ArrowRightOutlined className="text-xs -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                    <div className="w-11 h-11 bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shrink-0 shadow-md">
+                      <ArrowRightOutlined className="text-sm -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                     </div>
                   </div>
                 </div>

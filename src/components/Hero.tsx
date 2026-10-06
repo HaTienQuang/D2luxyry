@@ -15,40 +15,39 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
           {/* Left Column */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-8 animate-fade-in-up">
+          <div className="lg:col-span-6 space-y-6 sm:space-y-8 animate-fade-in-up">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#F2EAE0] text-[#733E22] border-l-2 border-[#8A4F2C]">
-              <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2EAE0] text-[#733E22] border-l-3 border-[#8A4F2C]">
+              <span className="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase">
                 THIẾT KẾ – THI CÔNG NỘI THẤT TRỌN GÓI
               </span>
             </div>
 
-            {/* Main Heading */}
-            <div className="space-y-1.5 sm:space-y-3">
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-[58px] font-bold text-[#1A1613] tracking-tight leading-[1.15]">
+            {/* Main Heading - Enlarged & High Impact */}
+            <div className="space-y-2 sm:space-y-4">
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[64px] xl:text-[72px] font-extrabold text-[#1A1613] tracking-tight leading-[1.12]">
                 Không gian đẹp
               </h1>
-              <div className="font-serif text-3xl sm:text-5xl lg:text-[58px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.15]">
+              <div className="font-serif text-4xl sm:text-6xl lg:text-[64px] xl:text-[72px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.12]">
                 Bắt đầu từ bạn
               </div>
             </div>
 
-            {/* Description */}
-            <p className="text-sm sm:text-lg text-[#5C554E] leading-relaxed max-w-xl font-normal">
+            {/* Description - Larger & Clear */}
+            <p className="text-base sm:text-xl lg:text-[21px] text-[#4A423B] leading-relaxed max-w-2xl font-normal">
               Chúng tôi mang đến giải pháp nội thất toàn diện, từ ý tưởng, thiết kế đến thi công và
-              hoàn thiện. Kiến tạo không gian sống tiện nghi, thẩm mỹ và phù hợp với phong cách của
-              bạn.
+              hoàn thiện. Kiến tạo không gian sống tiện nghi, thẩm mỹ và trường tồn cùng thời gian.
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1">
+            {/* Action Buttons - Enlarged */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
               <Button
                 type="primary"
                 size="large"
-                icon={<ArrowRightOutlined className="!text-xs !text-white transition-transform group-hover:translate-x-1" />}
+                icon={<ArrowRightOutlined className="!text-sm !text-white transition-transform group-hover:translate-x-1" />}
                 iconPosition="end"
                 onClick={onOpenConsultation}
-                className="!h-12 sm:!h-13 !px-8 !text-sm sm:!text-[15px] !font-semibold shadow-sm hover:shadow-md group !text-white !w-full sm:!w-auto"
+                className="!h-14 sm:!h-15 !px-9 sm:!px-10 !text-base sm:!text-[17px] !font-bold shadow-md hover:shadow-lg group !text-white !w-full sm:!w-auto"
               >
                 Nhận tư vấn miễn phí
               </Button>
@@ -57,26 +56,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                 <Button
                   type="default"
                   size="large"
-                  icon={<ArrowRightOutlined className="!text-xs text-[#8A4F2C] transition-transform group-hover:translate-x-1" />}
+                  icon={<ArrowRightOutlined className="!text-sm text-[#8A4F2C] transition-transform group-hover:translate-x-1" />}
                   iconPosition="end"
-                  className="!h-12 sm:!h-13 !px-7 !text-sm sm:!text-[15px] !font-semibold !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] hover:!text-[#8A4F2C] group !w-full sm:!w-auto"
+                  className="!h-14 sm:!h-15 !px-8 sm:!px-9 !text-base sm:!text-[17px] !font-bold !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] hover:!text-[#8A4F2C] group !w-full sm:!w-auto shadow-xs"
                 >
                   Xem dự án thực tế
                 </Button>
               </a>
             </div>
 
-            {/* Clean Stats Bar */}
-            <div className="pt-6 sm:pt-8 border-t border-[#E8DFC0]/80 grid grid-cols-3 gap-2 sm:gap-8">
+            {/* Clean Stats Bar - Enlarged */}
+            <div className="pt-8 sm:pt-10 border-t border-[#E8DFC0] grid grid-cols-3 gap-3 sm:gap-8">
               {/* Stat 1 */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-3 text-center sm:text-left">
-                <div className="mt-0.5 text-[#8A4F2C] shrink-0 hidden sm:block">
+                <div className="mt-1 text-[#8A4F2C] shrink-0 hidden sm:block">
                   <svg
-                    className="w-6 h-6 sm:w-7 sm:h-7"
+                    className="w-7 h-7 lg:w-8 lg:h-8"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.75"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -85,10 +84,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-3xl font-extrabold text-[#1A1613] tracking-tight leading-none">
-                    500<span className="text-[#8A4F2C] font-bold text-lg sm:text-2xl ml-0.5">+</span>
+                  <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#1A1613] tracking-tight leading-none">
+                    500<span className="text-[#8A4F2C] font-bold text-xl sm:text-3xl ml-0.5">+</span>
                   </div>
-                  <div className="text-[11px] sm:text-[13px] text-[#78716C] font-medium mt-1 leading-tight">
+                  <div className="text-xs sm:text-sm lg:text-[15px] text-[#6B635B] font-semibold mt-1.5 leading-tight">
                     Dự án hoàn thành
                   </div>
                 </div>
@@ -96,13 +95,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
 
               {/* Stat 2 */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-3 text-center sm:text-left">
-                <div className="mt-0.5 text-[#8A4F2C] shrink-0 hidden sm:block">
+                <div className="mt-1 text-[#8A4F2C] shrink-0 hidden sm:block">
                   <svg
-                    className="w-6 h-6 sm:w-7 sm:h-7"
+                    className="w-7 h-7 lg:w-8 lg:h-8"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.75"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -113,10 +112,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-3xl font-extrabold text-[#1A1613] tracking-tight leading-none">
-                    98<span className="text-[#8A4F2C] font-bold text-base sm:text-xl ml-0.5">%</span>
+                  <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#1A1613] tracking-tight leading-none">
+                    98<span className="text-[#8A4F2C] font-bold text-lg sm:text-2xl ml-0.5">%</span>
                   </div>
-                  <div className="text-[11px] sm:text-[13px] text-[#78716C] font-medium mt-1 leading-tight">
+                  <div className="text-xs sm:text-sm lg:text-[15px] text-[#6B635B] font-semibold mt-1.5 leading-tight">
                     Khách hàng hài lòng
                   </div>
                 </div>
@@ -124,13 +123,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
 
               {/* Stat 3 */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-3 text-center sm:text-left">
-                <div className="mt-0.5 text-[#8A4F2C] shrink-0 hidden sm:block">
+                <div className="mt-1 text-[#8A4F2C] shrink-0 hidden sm:block">
                   <svg
-                    className="w-6 h-6 sm:w-7 sm:h-7"
+                    className="w-7 h-7 lg:w-8 lg:h-8"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.75"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
@@ -139,10 +138,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-3xl font-extrabold text-[#1A1613] tracking-tight leading-none">
-                    10<span className="text-[#8A4F2C] font-bold text-lg sm:text-2xl ml-0.5">+</span>
+                  <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#1A1613] tracking-tight leading-none">
+                    10<span className="text-[#8A4F2C] font-bold text-xl sm:text-3xl ml-0.5">+</span>
                   </div>
-                  <div className="text-[11px] sm:text-[13px] text-[#78716C] font-medium mt-1 leading-tight">
+                  <div className="text-xs sm:text-sm lg:text-[15px] text-[#6B635B] font-semibold mt-1.5 leading-tight">
                     Năm kinh nghiệm
                   </div>
                 </div>

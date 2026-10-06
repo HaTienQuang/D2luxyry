@@ -2328,10 +2328,10 @@ export const TESTIMONIALS_DATA: TestimonialItem[] = [
 ];
 
 export const FOOTER_DATA = {
-  companyName: "D'LUXURY DESIGN",
+  companyName: "D2 LUXURY DESIGN",
   slogan: "Khơi nguồn cảm hứng cho không gian sống hoàn mỹ.",
-  address: "Tầng 5, Tòa nhà D'Luxury, Hà Nội & TP. HCM",
+  address: "Tầng 5, Tòa nhà D2 Luxury, Hà Nội & TP. HCM",
   hotline: "0967 323 335",
   email: "d2luxurydesign@gmail.com",
-  copyright: `© ${new Date().getFullYear()} D'LUXURY DESIGN. All rights reserved.`,
+  copyright: `© ${new Date().getFullYear()} D2 LUXURY DESIGN. All rights reserved.`,
 };

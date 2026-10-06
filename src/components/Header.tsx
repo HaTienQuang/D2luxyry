@@ -42,26 +42,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
     >
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="#hero" className="flex items-center group">
-          <div className="relative h-12 sm:h-16 flex items-center group-hover:scale-105 transition-transform duration-300">
+        <Link href="#hero" className="flex items-center group py-0.5">
+          <div className="relative h-13 sm:h-18 lg:h-20 flex items-center group-hover:scale-105 transition-transform duration-300">
             <Image
               src="/images/logo.png"
-              alt="D'Luxury Design Logo"
-              width={200}
-              height={160}
+              alt="D2 Luxury Design Logo"
+              width={260}
+              height={180}
               priority
-              className="h-11 sm:h-16 w-auto object-contain mix-blend-multiply drop-shadow-sm"
+              className="h-12 sm:h-16 lg:h-18 w-auto object-contain drop-shadow-sm"
             />
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-7">
+        <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-[14px] font-medium text-[#4A423B] hover:text-[#8A4F2C] transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#8A4F2C] hover:after:w-full after:transition-all after:duration-300"
+              className="text-[16px] lg:text-[17px] font-semibold text-[#3D3835] hover:text-[#8A4F2C] transition-colors duration-200 relative py-1.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2.5px] after:bg-[#8A4F2C] hover:after:w-full after:transition-all after:duration-300 tracking-tight"
             >
               {link.label}
             </a>
@@ -76,17 +76,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
             icon={<ArrowRightOutlined className="!text-xs !text-white transition-transform group-hover:translate-x-1" />}
             iconPosition="end"
             onClick={onOpenConsultation}
-            className="!font-semibold !px-6 !h-11 !rounded-full group !text-white"
+            className="!font-bold !px-7 !h-12 !text-[15px] sm:!text-[16px] group !text-white shadow-md"
           >
             Nhận tư vấn
           </Button>
         </div>
 
         {/* Mobile menu trigger */}
-        <div className="lg:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-2.5">
           <a
             href="tel:0967323335"
-            className="w-10 h-10 rounded-full bg-[#8A4F2C] text-white flex items-center justify-center text-sm shadow-md"
+            className="w-11 h-11 rounded-full bg-[#8A4F2C] text-white flex items-center justify-center text-base shadow-md"
             aria-label="Gọi hotline"
           >
             <PhoneOutlined />
@@ -94,9 +94,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           <Button
             type="default"
             shape="circle"
-            icon={<MenuOutlined className="text-base text-[#5C311C]" />}
+            icon={<MenuOutlined className="text-lg text-[#5C311C]" />}
             onClick={() => setMobileDrawerOpen(true)}
-            className="!border-[#D5BEA8] !h-10 !w-10 !flex !items-center !justify-center"
+            className="!border-[#D5BEA8] !h-11 !w-11 !flex !items-center !justify-center"
           />
         </div>
       </div>
@@ -107,10 +107,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           <div className="flex items-center">
             <Image
               src="/images/logo.png"
-              alt="D'Luxury Design Logo"
-              width={160}
-              height={60}
-              className="h-10 w-auto object-contain mix-blend-multiply"
+              alt="D2 Luxury Design Logo"
+              width={180}
+              height={70}
+              className="h-12 w-auto object-contain"
             />
           </div>
         }

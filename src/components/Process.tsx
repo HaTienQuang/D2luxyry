@@ -35,16 +35,16 @@ export const Process: React.FC = () => {
     <section id="process" className="py-16 sm:py-28 bg-[#FAF8F5] relative border-y border-[#EFE8DF]">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-2.5 sm:space-y-3 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
-            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
               QUY TRÌNH LÀM VIỆC
             </span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
             Rõ ràng – Chuyên nghiệp – Minh bạch
           </h2>
-          <p className="text-xs sm:text-base text-[#6B635B] leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed max-w-2xl mx-auto">
             Chúng tôi đồng hành cùng bạn trong từng bước, đảm bảo dự án được triển khai hiệu quả và
             đúng mong đợi.
           </p>
@@ -55,33 +55,33 @@ export const Process: React.FC = () => {
           {PROCESS_STEPS.map((step, idx) => (
             <div
               key={step.step}
-              className="relative flex flex-col items-center text-center p-4 sm:p-5 bg-white border border-[#EFE8DF] hover:border-[#8A4F2C] hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5 shine-overlay"
+              className="relative flex flex-col items-center text-center p-4 sm:p-6 bg-white border border-[#EFE8DF] hover:border-[#8A4F2C] hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5 shine-overlay"
             >
               {/* Connector Arrow (Desktop only between items) */}
               {idx < PROCESS_STEPS.length - 1 && (
-                <div className="hidden lg:flex absolute top-[68px] -translate-y-1/2 -right-3.5 xl:-right-4 z-20 text-[#8A4F2C] items-center justify-center pointer-events-none">
-                  <ArrowRightOutlined className="text-sm opacity-70" />
+                <div className="hidden lg:flex absolute top-[70px] -translate-y-1/2 -right-3.5 xl:-right-4 z-20 text-[#8A4F2C] items-center justify-center pointer-events-none">
+                  <ArrowRightOutlined className="text-base opacity-80" />
                 </div>
               )}
 
               {/* Step Circle & Badge */}
-              <div className="relative mb-3 sm:mb-5">
+              <div className="relative mb-3.5 sm:mb-5">
                 {/* Step Number Tag */}
-                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#8A4F2C] text-white text-[11px] sm:text-xs font-bold flex items-center justify-center mx-auto mb-2 shadow-sm">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8A4F2C] text-white text-xs sm:text-sm font-bold flex items-center justify-center mx-auto mb-2 shadow-sm">
                   {step.step}
                 </div>
 
                 {/* Main Icon Box */}
-                <div className="w-13 h-13 sm:w-16 sm:h-16 bg-[#FAF8F5] border border-[#E8DFC0] shadow-sm flex items-center justify-center text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white group-hover:scale-105 transition-all duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-[#FAF8F5] border border-[#E8DFC0] shadow-sm flex items-center justify-center text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white group-hover:scale-105 transition-all duration-300 text-2xl">
                   {getStepIcon(step.iconName)}
                 </div>
               </div>
 
               {/* Title & Subtitle */}
-              <h3 className="font-serif text-sm sm:text-base font-bold text-[#1A1613] group-hover:text-[#8A4F2C] transition-colors mb-1 sm:mb-2 min-h-[36px] sm:min-h-[48px] flex items-center justify-center leading-snug">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A1613] group-hover:text-[#8A4F2C] transition-colors mb-1.5 sm:mb-2 min-h-[40px] sm:min-h-[48px] flex items-center justify-center leading-snug">
                 {step.title}
               </h3>
-              <p className="text-[11px] sm:text-xs text-[#78716C] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#78716C] leading-relaxed">
                 {step.subtitle}
               </p>
             </div>

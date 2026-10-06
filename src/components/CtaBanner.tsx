@@ -35,14 +35,14 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenConsultation }) => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
             {/* Left Copy & CTA */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#E8DCCF] bg-white/10 backdrop-blur-md px-3.5 py-1 border-l-2 border-[#8A4F2C]">
-                ĐỒNG HÀNH CÙNG D&apos;LUXURY
+              <span className="inline-block text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#E8DCCF] bg-white/10 backdrop-blur-md px-4 py-1.5 border-l-3 border-[#8A4F2C]">
+                ĐỒNG HÀNH CÙNG D2 LUXURY DESIGN
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white drop-shadow-md">
+              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white drop-shadow-md">
                 Bạn đang tìm kiếm <br />
                 một không gian sống lý tưởng?
               </h2>
-              <p className="text-base sm:text-lg text-stone-200 max-w-lg leading-relaxed drop-shadow">
+              <p className="text-base sm:text-xl lg:text-2xl text-stone-200 max-w-2xl leading-relaxed drop-shadow">
                 Hãy để chúng tôi đồng hành cùng bạn từ những ý tưởng đầu tiên đến khi hoàn thiện tổ
                 ấm mơ ước.
               </p>
@@ -50,10 +50,10 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenConsultation }) => {
               <div className="pt-2">
                 <Button
                   size="large"
-                  icon={<ArrowRightOutlined className="!text-xs text-[#8A4F2C]" />}
+                  icon={<ArrowRightOutlined className="!text-sm text-[#8A4F2C]" />}
                   iconPosition="end"
                   onClick={onOpenConsultation}
-                  className="!h-13 !px-8 !text-base !font-bold !bg-white !text-[#8A4F2C] !border-none shadow-2xl hover:!bg-[#F5EFE6] transition-all transform hover:-translate-y-1"
+                  className="!h-14 sm:!h-15 !px-9 sm:!px-11 !text-base sm:!text-[17px] !font-bold !bg-white !text-[#8A4F2C] !border-none shadow-2xl hover:!bg-[#F5EFE6] transition-all transform hover:-translate-y-1"
                 >
                   Nhận tư vấn ngay
                 </Button>
@@ -62,29 +62,29 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenConsultation }) => {
 
             {/* Right Value Points - Sharp Architectural Glass Cards */}
             <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-4 justify-center">
-              <div className="flex items-center gap-3.5 bg-black/45 hover:bg-black/60 backdrop-blur-md px-5 py-4 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
-                <div className="w-10 h-10 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <CheckCircleFilled className="text-lg text-white" />
+              <div className="flex items-center gap-4 bg-black/50 hover:bg-black/65 backdrop-blur-md px-6 py-4.5 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
+                <div className="w-12 h-12 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <CheckCircleFilled className="text-xl text-white" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-white tracking-wide">
+                <span className="text-base sm:text-lg font-bold text-white tracking-wide">
                   Tư vấn và khảo sát miễn phí
                 </span>
               </div>
 
-              <div className="flex items-center gap-3.5 bg-black/45 hover:bg-black/60 backdrop-blur-md px-5 py-4 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
-                <div className="w-10 h-10 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <ClockCircleFilled className="text-lg text-white" />
+              <div className="flex items-center gap-4 bg-black/50 hover:bg-black/65 backdrop-blur-md px-6 py-4.5 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
+                <div className="w-12 h-12 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <ClockCircleFilled className="text-xl text-white" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-white tracking-wide">
+                <span className="text-base sm:text-lg font-bold text-white tracking-wide">
                   Báo giá nhanh chóng trong 24h
                 </span>
               </div>
 
-              <div className="flex items-center gap-3.5 bg-black/45 hover:bg-black/60 backdrop-blur-md px-5 py-4 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
-                <div className="w-10 h-10 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
-                  <DollarCircleFilled className="text-lg text-white" />
+              <div className="flex items-center gap-4 bg-black/50 hover:bg-black/65 backdrop-blur-md px-6 py-4.5 border border-white/20 hover:border-[#8A4F2C] transition-all duration-300 shadow-lg hover:-translate-y-1">
+                <div className="w-12 h-12 bg-[#8A4F2C] flex items-center justify-center text-white shrink-0 shadow-md">
+                  <DollarCircleFilled className="text-xl text-white" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-white tracking-wide">
+                <span className="text-base sm:text-lg font-bold text-white tracking-wide">
                   Giải pháp tối ưu ngân sách
                 </span>
               </div>

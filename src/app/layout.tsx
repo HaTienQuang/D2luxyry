@@ -13,11 +13,11 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "D'Luxury Design – Thiết Kế & Thi Công Nội Thất Trọn Gói Cao Cấp",
+  title: "D2 Luxury Design – Thiết Kế & Thi Công Kiến Trúc - Nội Thất Cao Cấp",
   description:
-    "D'Luxury Design mang đến giải pháp thiết kế và thi công nội thất trọn gói toàn diện, kiến tạo không gian sống tiện nghi, thẩm mỹ và đẳng cấp hàng đầu.",
+    "D2 Luxury Design mang đến giải pháp thiết kế và thi công kiến trúc & nội thất trọn gói toàn diện, kiến tạo không gian sống tiện nghi, thẩm mỹ và đẳng cấp hàng đầu.",
   keywords:
-    "D'Luxury Design, thiết kế nội thất, thi công nội thất trọn gói, nội thất biệt thự, nội thất chung cư cao cấp, luxury interior",
+    "D2 Luxury Design, thiết kế nội thất, thi công nội thất trọn gói, nội thất biệt thự, thiết kế kiến trúc, nội thất chung cư cao cấp, luxury interior",
   icons: {
     icon: '/images/logo.png',
     shortcut: '/images/logo.png',

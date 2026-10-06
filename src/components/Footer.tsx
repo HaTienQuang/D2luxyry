@@ -22,66 +22,66 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-5">
             <Link href="#hero" className="inline-flex items-center group">
-              <div className="bg-white/95 px-4 py-2.5 rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-300">
+              <div className="bg-white px-4 py-2 shadow-lg group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/images/logo.png"
-                  alt="D'Luxury Design Logo"
-                  width={200}
+                  alt="D2 Luxury Design Logo"
+                  width={220}
                   height={160}
-                  className="h-14 sm:h-16 w-auto object-contain mix-blend-multiply"
+                  className="h-14 sm:h-16 w-auto object-contain"
                 />
               </div>
             </Link>
 
-            <p className="text-sm text-[#A89F95] leading-relaxed max-w-sm">
+            <p className="text-sm sm:text-[15px] text-[#B8AEA3] leading-relaxed max-w-sm">
               {FOOTER_DATA.slogan} Đồng hành cùng bạn kiến tạo những không gian sống đẳng cấp, tiện nghi và trường tồn cùng thời gian.
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3.5 pt-2">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
                 aria-label="Facebook"
               >
-                <FacebookFilled className="text-base" />
+                <FacebookFilled className="text-lg" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
                 aria-label="Instagram"
               >
-                <InstagramOutlined className="text-base" />
+                <InstagramOutlined className="text-lg" />
               </a>
               <a
                 href="https://youtube.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
                 aria-label="YouTube"
               >
-                <YoutubeFilled className="text-base" />
+                <YoutubeFilled className="text-lg" />
               </a>
               <a
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
                 aria-label="TikTok"
               >
-                <TikTokOutlined className="text-base" />
+                <TikTokOutlined className="text-lg" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links: Về D'Luxury Design */}
+          {/* Quick Links: Về D2 Luxury Design */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Về D&apos;Luxury</h4>
-            <ul className="space-y-2.5 text-sm">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Về D2 Luxury</h4>
+            <ul className="space-y-3 text-[15px]">
               <li>
                 <a href="#about" className="hover:text-[#D5BEA8] transition-colors">
                   Giới thiệu
@@ -112,8 +112,8 @@ export const Footer: React.FC = () => {
 
           {/* Dịch vụ */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Dịch vụ</h4>
-            <ul className="space-y-2.5 text-sm">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">Dịch vụ</h4>
+            <ul className="space-y-3 text-[15px]">
               <li>
                 <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
                   Thiết kế nội thất cao cấp
@@ -144,25 +144,25 @@ export const Footer: React.FC = () => {
 
           {/* Liên hệ & QR Code */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+            <h4 className="text-base font-bold text-white uppercase tracking-wider">
               Thông tin liên hệ
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-3.5 text-[15px]">
               <li className="flex items-start gap-3">
-                <EnvironmentOutlined className="text-[#8A4F2C] mt-1 shrink-0 text-base" />
+                <EnvironmentOutlined className="text-[#8A4F2C] mt-1 shrink-0 text-lg" />
                 <span className="text-stone-300">{FOOTER_DATA.address}</span>
               </li>
               <li className="flex items-center gap-3">
-                <PhoneOutlined className="text-[#8A4F2C] shrink-0 text-base" />
+                <PhoneOutlined className="text-[#8A4F2C] shrink-0 text-lg" />
                 <a
                   href={`tel:${FOOTER_DATA.hotline.replace(/\s+/g, '')}`}
-                  className="text-stone-300 hover:text-white font-semibold"
+                  className="text-stone-300 hover:text-white font-bold text-base"
                 >
                   {FOOTER_DATA.hotline}
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <MailOutlined className="text-[#8A4F2C] shrink-0 text-base" />
+                <MailOutlined className="text-[#8A4F2C] shrink-0 text-lg" />
                 <a
                   href={`mailto:${FOOTER_DATA.email}`}
                   className="text-stone-300 hover:text-white"

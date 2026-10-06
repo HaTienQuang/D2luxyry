@@ -45,27 +45,27 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
-              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+          <div className="space-y-3.5 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-[#E8DFC0] text-[#8A4F2C]">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
                 DỊCH VỤ CỦA CHÚNG TÔI
               </span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1613] tracking-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
               Giải pháp nội thất <span className="text-[#8A4F2C]">toàn diện</span>
             </h2>
-            <p className="text-base text-[#6B635B] leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed">
               Từ tư vấn ý tưởng, thiết kế, thi công đến hoàn thiện, chúng tôi đồng hành cùng bạn
               kiến tạo không gian sống lý tưởng.
             </p>
           </div>
 
           {/* Luxury quote accent */}
-          <div className="hidden md:flex flex-col items-end justify-center shrink-0 border-l-2 border-[#D5BEA8] pl-6 py-1">
-            <span className="text-xl lg:text-2xl font-bold text-[#8A4F2C] italic">
+          <div className="hidden md:flex flex-col items-end justify-center shrink-0 border-l-3 border-[#D5BEA8] pl-6 py-1">
+            <span className="text-2xl lg:text-3xl font-bold text-[#8A4F2C] italic">
               “Mỗi không gian,
             </span>
-            <span className="text-lg lg:text-xl font-medium text-[#A06037] italic">
+            <span className="text-xl lg:text-2xl font-semibold text-[#A06037] italic">
               một câu chuyện riêng”
             </span>
           </div>
@@ -77,7 +77,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
             <div
               key={service.id}
               onClick={() => setSelectedService(service)}
-              className="group relative h-[440px] sm:h-[480px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-between p-6 sm:p-7 border border-[#EFE8DF] hover:-translate-y-2 shine-overlay"
+              className="group relative h-[440px] sm:h-[490px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-between p-6 sm:p-8 border border-[#EFE8DF] hover:-translate-y-2 shine-overlay"
             >
               {/* Full Background Image */}
               <Image
@@ -93,39 +93,39 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
 
               {/* Top Bar: Service Number Badge & Icon Badge */}
               <div className="relative z-10 flex items-center justify-between">
-                <span className="w-10 h-10 bg-black/50 backdrop-blur-md text-white font-mono font-bold text-xs flex items-center justify-center border border-white/20 shadow-sm">
+                <span className="w-11 h-11 bg-black/55 backdrop-blur-md text-white font-mono font-bold text-sm flex items-center justify-center border border-white/25 shadow-sm">
                   0{idx + 1}
                 </span>
 
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center justify-center group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shadow-md">
+                <div className="w-13 h-13 bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center justify-center group-hover:bg-[#8A4F2C] group-hover:border-[#8A4F2C] transition-all duration-300 shadow-md text-xl">
                   {getServiceIcon(service.iconName)}
                 </div>
               </div>
 
               {/* Bottom Content Area: Title always visible, checklist points reveal on hover */}
-              <div className="relative z-10 space-y-3">
+              <div className="relative z-10 space-y-3.5">
                 {/* Service Title */}
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-[26px] font-bold text-white leading-snug group-hover:text-[#F3EAE1] transition-colors">
+                  <h3 className="font-serif text-2xl sm:text-[28px] lg:text-[30px] font-bold text-white leading-snug group-hover:text-[#F3EAE1] transition-colors">
                     {service.title}
                   </h3>
                 </div>
 
                 {/* Resting State Preview Cue */}
-                <div className="flex items-center justify-between pt-1 group-hover:hidden transition-all text-xs text-stone-300 font-medium">
+                <div className="flex items-center justify-between pt-1 group-hover:hidden transition-all text-sm text-stone-200 font-medium">
                   <span className="italic">Chạm xem chi tiết hạng mục</span>
-                  <div className="w-8 h-8 bg-white/15 backdrop-blur-sm flex items-center justify-center text-white border border-white/20">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white border border-white/25">
                     <ArrowRightOutlined className="text-xs -rotate-45" />
                   </div>
                 </div>
 
                 {/* Hover Revealing Section (Points & Buttons) */}
                 <div className="max-h-0 opacity-0 group-hover:max-h-80 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-out space-y-4 pt-1">
-                  <p className="text-xs text-stone-300 leading-relaxed line-clamp-2">
+                  <p className="text-xs sm:text-sm text-stone-200 leading-relaxed line-clamp-2">
                     {service.description}
                   </p>
 
-                  <ul className="space-y-2 text-xs sm:text-[13px] text-stone-200">
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-stone-100">
                     {service.points.map((pt, pIdx) => (
                       <li key={pIdx} className="flex items-start gap-2">
                         <span className="w-4 h-4 bg-[#8A4F2C] flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5 font-bold">
