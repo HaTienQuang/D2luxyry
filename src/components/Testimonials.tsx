@@ -20,30 +20,17 @@ export const Testimonials: React.FC = () => {
   return (
     <section id="testimonials" className="py-20 sm:py-28 bg-[#FAF8F5] relative">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-          <div className="space-y-3.5 max-w-3xl">
-            <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
-              KHÁCH HÀNG NÓI VỀ CHÚNG TÔI
-            </p>
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
-              Sự hài lòng của bạn là động lực để chúng tôi phát triển
-            </h2>
-          </div>
-
-          {/* Nav Controls */}
-          <div className="flex items-center gap-3 shrink-0">
-            <Button
-              icon={<LeftOutlined className="text-sm" />}
-              onClick={handlePrev}
-              className="!w-12 !h-12 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C]"
-            />
-            <Button
-              icon={<RightOutlined className="text-sm" />}
-              onClick={handleNext}
-              className="!w-12 !h-12 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C]"
-            />
-          </div>
+        {/* Section Header Centered */}
+        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+            KHÁCH HÀNG NÓI VỀ CHÚNG TÔI
+          </p>
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+            Sự hài lòng của bạn là động lực để chúng tôi phát triển
+          </h2>
+          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] max-w-2xl mx-auto leading-relaxed">
+            Những chia sẻ và đánh giá thực tế từ các gia chủ đã tin tưởng lựa chọn D2 Luxury Design để kiến tạo không gian sống.
+          </p>
         </div>
 
         {/* Testimonials 3 Cards Grid - Sharp Rectangular Architecture Cards */}
@@ -82,6 +69,20 @@ export const Testimonials: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Navigation Buttons Centered Below Cards */}
+        <div className="flex items-center justify-center gap-3 pt-10">
+          <Button
+            icon={<LeftOutlined className="text-sm" />}
+            onClick={handlePrev}
+            className="!w-12 !h-12 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] shadow-xs"
+          />
+          <Button
+            icon={<RightOutlined className="text-sm" />}
+            onClick={handleNext}
+            className="!w-12 !h-12 !flex !items-center !justify-center !border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] shadow-xs"
+          />
         </div>
       </div>
     </section>
