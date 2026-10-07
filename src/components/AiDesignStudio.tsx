@@ -11,7 +11,7 @@ import {
   BulbOutlined,
   ClearOutlined,
   CheckOutlined,
-  SparklesOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 
 const { TextArea } = Input;
@@ -207,7 +207,7 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-bold text-[#8A4F2C] uppercase tracking-wider flex items-center gap-1.5">
-                  <SparklesOutlined className="text-base" /> Mô Tả Ý Tưởng Thiết Kế Của Bạn
+                  <EditOutlined className="text-base" /> Mô Tả Ý Tưởng Thiết Kế Của Bạn
                 </label>
                 <div className="flex items-center gap-2">
                   <Tooltip title="Lấy ý tưởng mẫu ngẫu nhiên">
