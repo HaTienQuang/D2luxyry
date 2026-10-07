@@ -13,7 +13,6 @@ import {
   ReloadOutlined,
   CheckCircleFilled,
   LoadingOutlined,
-  SparklesIcon,
 } from '@ant-design/icons';
 
 interface AiDesignStudioProps {
