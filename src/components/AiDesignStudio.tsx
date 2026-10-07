@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Input, message, Tooltip } from 'antd';
 import {
   ThunderboltFilled,
-  HomeOutlined,
-  AppstoreOutlined,
-  BgColorsOutlined,
   ArrowRightOutlined,
   ReloadOutlined,
-  CheckCircleFilled,
   LoadingOutlined,
   BulbOutlined,
   ClearOutlined,
-  EditOutlined,
+  CheckOutlined,
+  SparklesOutlined,
 } from '@ant-design/icons';
 
 const { TextArea } = Input;
@@ -24,169 +21,151 @@ interface AiDesignStudioProps {
 }
 
 const SPACE_OPTIONS = [
-  { id: 'phong-khach', label: 'Phòng Khách', icon: '🛋️', phrase: 'Phòng khách thông tầng trần cao' },
-  { id: 'phong-ngu', label: 'Phòng Ngủ Master', icon: '🛏️', phrase: 'Phòng ngủ Master ấm cúng' },
-  { id: 'phong-bep', label: 'Phòng Bếp & Ăn', icon: '🍳', phrase: 'Phòng bếp & bàn ăn mở hiện đại' },
-  { id: 'biet-thu', label: 'Biệt Thự & Villa', icon: '🏰', phrase: 'Không gian nội thất biệt thự villa cao cấp' },
-  { id: 'can-ho', label: 'Căn Hộ Penthouse', icon: '🏙️', phrase: 'Căn hộ Penthouse view panorama triệu đô' },
+  { id: 'phong-khach', label: '🛋️ Phòng Khách', matchRegex: /khách/i, phrase: 'Phòng khách thông tầng trần cao' },
+  { id: 'phong-ngu', label: '🛏️ Phòng Ngủ Master', matchRegex: /ngủ|bedroom/i, phrase: 'Phòng ngủ Master ấm cúng sang trọng' },
+  { id: 'phong-bep', label: '🍳 Phòng Bếp & Ăn', matchRegex: /bếp|ăn|dining|kitchen/i, phrase: 'Phòng bếp & bàn ăn mở hiện đại' },
+  { id: 'biet-thu', label: '🏰 Biệt Thự & Villa', matchRegex: /biệt thự|villa/i, phrase: 'Không gian nội thất biệt thự villa cao cấp' },
+  { id: 'can-ho', label: '🏙️ Căn Hộ Penthouse', matchRegex: /căn hộ|penthouse|chung cư/i, phrase: 'Căn hộ Penthouse view panorama triệu đô' },
 ];
 
 const STYLE_OPTIONS = [
-  { id: 'hien-dai', label: 'Hiện Đại (Modern Luxury)', desc: 'Tối ưu công năng, đường nét tinh tế', phrase: 'phong cách Hiện đại sang trọng' },
-  { id: 'tan-co', label: 'Tân Cổ Điển (Neoclassical)', desc: 'Phào chỉ tỉ mỉ, quý phái vương giả', phrase: 'phong cách Tân cổ điển quý phái với phào chỉ tinh tế' },
-  { id: 'indochine', label: 'Đông Dương (Indochine)', desc: 'Giao thoa Á - Âu, hoài niệm sang trọng', phrase: 'phong cách Đông Dương Indochine hoài niệm với gỗ tự nhiên' },
-  { id: 'wabi-sabi', label: 'Wabi Sabi', desc: 'Vẻ đẹp mộc mạc, tĩnh lặng và an yên', phrase: 'phong cách Wabi Sabi mộc mạc an yên với vách đá tự nhiên' },
-  { id: 'toi-gian', label: 'Tối Giản (Minimalism)', desc: 'Gọn gàng, thoáng đãng, nhiều ánh sáng', phrase: 'phong cách Tối giản Minimalism gọn gàng ngập tràn ánh sáng' },
+  { id: 'hien-dai', label: 'Hiện Đại (Modern Luxury)', matchRegex: /hiện đại|modern/i, phrase: 'phong cách Hiện đại sang trọng' },
+  { id: 'tan-co', label: 'Tân Cổ Điển (Neoclassical)', matchRegex: /tân cổ|neoclassical/i, phrase: 'phong cách Tân cổ điển quý phái với phào chỉ tinh tế' },
+  { id: 'indochine', label: 'Đông Dương (Indochine)', matchRegex: /đông dương|indochine/i, phrase: 'phong cách Đông Dương Indochine hoài niệm' },
+  { id: 'wabi-sabi', label: 'Wabi Sabi', matchRegex: /wabi|sabi/i, phrase: 'phong cách Wabi Sabi mộc mạc an yên' },
+  { id: 'toi-gian', label: 'Tối Giản (Minimalism)', matchRegex: /tối giản|minimal/i, phrase: 'phong cách Tối giản Minimalism ngập tràn ánh sáng' },
 ];
 
 const COLOR_OPTIONS = [
-  { id: 'vang-dong', label: 'Vàng Đồng & Trầm Ấm', color: 'bg-[#C5A880]', phrase: 'tông màu Vàng đồng & trầm ấm sang trọng' },
-  { id: 'trang-kem', label: 'Trắng Kem & Gỗ Sồi', color: 'bg-[#F5EFE6]', phrase: 'tông màu Trắng kem & gỗ sồi thanh lịch' },
-  { id: 'ghi-xam', label: 'Ghi Xám & Đen Huyền Bí', color: 'bg-[#3D3835]', phrase: 'tông màu Ghi xám & đen huyền bí thời thượng' },
-  { id: 'xanh-ngoc', label: 'Xanh Ngọc & Ánh Kim', color: 'bg-[#2E5B5B]', phrase: 'tông màu Xanh ngọc lục bảo kết hợp ánh kim quý tộc' },
+  { id: 'vang-dong', label: 'Vàng Đồng & Trầm Ấm', colorDot: '#C5A880', matchRegex: /vàng|đồng|amber/i, phrase: 'tông màu Vàng đồng & trầm ấm sang trọng' },
+  { id: 'trang-kem', label: 'Trắng Kem & Gỗ Sồi', colorDot: '#F5EFE6', matchRegex: /trắng|kem|sồi|ivory/i, phrase: 'tông màu Trắng kem & gỗ sồi thanh lịch' },
+  { id: 'ghi-xam', label: 'Ghi Xám & Đen Huyền Bí', colorDot: '#3D3835', matchRegex: /ghi|xám|đen|black/i, phrase: 'tông màu Ghi xám & đen huyền bí thời thượng' },
+  { id: 'xanh-ngoc', label: 'Xanh Ngọc & Ánh Kim', colorDot: '#2E5B5B', matchRegex: /xanh|ngọc|lục|teal|emerald/i, phrase: 'tông màu Xanh ngọc lục bảo kết hợp ánh kim quý tộc' },
 ];
 
-const QUICK_IDEA_TAGS = [
-  'Đèn chùm pha lê thông tầng',
-  'Vách đá cẩm thạch Calacatta vân mây',
-  'Sofa da bò Ý màu nâu camel',
-  'Tủ rượu cánh kính đèn LED ấm',
-  'Gỗ óc chó tự nhiên cao cấp',
-  'Cửa kính lớn view sân vườn hồ bơi',
-  'Bàn đảo bếp mặt đá Quartz thác nước',
-  'Trần giật cấp đèn hắt nghệ thuật',
+const DETAIL_TAGS = [
+  { label: '+ Sofa da bò Ý màu nâu', phrase: 'bộ sofa chữ L bọc da bò Ý màu nâu camel' },
+  { label: '+ Đèn chùm pha lê thông tầng', phrase: 'đèn chùm pha lê xoắn ốc thả thông tầng ánh sáng vàng ấm' },
+  { label: '+ Vách đá Calacatta vân mây', phrase: 'vách tivi ốp đá cẩm thạch Calacatta vân mây' },
+  { label: '+ Tủ rượu cánh kính đèn LED', phrase: 'tủ rượu cánh kính kịch trần đèn LED ấm' },
+  { label: '+ Gỗ óc chó tự nhiên', phrase: 'nội thất gỗ óc chó tự nhiên cao cấp' },
+  { label: '+ Cửa kính view sân vườn', phrase: 'cửa kính panorama kịch trần nhìn ra sân vườn hồ bơi' },
+  { label: '+ Bàn đảo bếp mặt đá', phrase: 'bàn đảo bếp ốp đá quartz trắng vân mây dạng thác nước' },
+  { label: '+ Trần giật cấp đèn hắt', phrase: 'trần thạch cao giật cấp đèn hắt nghệ thuật' },
 ];
 
-const SAMPLE_IDEAS = [
-  'Phòng khách biệt thự thông tầng trần cao 7m, bộ sofa chữ L bọc da bò Ý màu nâu camel, đèn chùm pha lê xoắn ốc thả thông tầng ánh sáng vàng ấm, vách tivi ốp đá cẩm thạch Calacatta vân mây xám trắng kết hợp lam gỗ óc chó, cửa kính panorama nhìn ra sân vườn hồ bơi.',
-  'Phòng ngủ Master phong cách Indochine hoài niệm tông màu xanh ngọc và gỗ sồi, giường bọc nỉ cao cấp, vách ốp lụa họa tiết chim hoa, quạt trần gỗ cổ điển, hệ tủ quần áo cánh kính đèn led và ban công nhiều cây xanh.',
-  'Không gian bếp mở liên thông phòng ăn căn hộ Penthouse hiện đại tông ghi xám và vàng đồng, bàn đảo bếp ốp đá quartz trắng vân mây dạng thác nước, tủ rượu cánh kính kịch trần đèn led vàng ấm, bộ bàn ăn 8 ghế bọc da Ý.',
-  'Phòng khách Tân cổ điển vương giả với các diện tường trang trí phào chỉ dát ánh kim tinh xảo, lò sưởi decor châu Âu, đèn chùm pha lê nến lung linh, sàn lát gạch thảm hoa cương bóng loáng.',
+const SAMPLE_PROMPTS = [
+  'Phòng khách biệt thự thông tầng trần cao, phong cách Hiện đại sang trọng, tông màu Xanh ngọc lục bảo kết hợp ánh kim quý tộc, bộ sofa chữ L bọc da bò Ý màu nâu camel, đèn chùm pha lê xoắn ốc thả thông tầng ánh sáng vàng ấm, vách tivi ốp đá cẩm thạch Calacatta vân mây, cửa kính panorama nhìn ra sân vườn cây xanh.',
+  'Phòng ngủ Master phong cách Indochine hoài niệm, tông màu Trắng kem & gỗ sồi thanh lịch, giường ngủ bọc nỉ cao cấp, vách ốp lụa họa tiết chim hoa, quạt trần gỗ cổ điển, hệ tủ quần áo cánh kính đèn LED và ban công nhiều cây xanh.',
+  'Không gian bếp & bàn ăn mở hiện đại, phong cách Hiện đại sang trọng, tông màu Ghi xám & đen huyền bí thời thượng, bàn đảo bếp ốp đá quartz trắng vân mây dạng thác nước, tủ rượu cánh kính kịch trần đèn LED ấm, bộ bàn ăn 8 ghế bọc da cao cấp.',
+  'Phòng khách Tân cổ điển quý phái với phào chỉ tinh tế, tông màu Vàng đồng & trầm ấm sang trọng, lò sưởi decor phong cách châu Âu, đèn chùm pha lê nến lung linh, sàn lát gạch thảm hoa cương bóng loáng.',
 ];
 
 export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultation }) => {
-  const [spaceType, setSpaceType] = useState('phong-khach');
-  const [style, setStyle] = useState('hien-dai');
-  const [colorPalette, setColorPalette] = useState('vang-dong');
-  const [userIdea, setUserIdea] = useState(SAMPLE_IDEAS[0]);
+  const [promptText, setPromptText] = useState(SAMPLE_PROMPTS[0]);
+  const [selectedSpace, setSelectedSpace] = useState('phong-khach');
+  const [selectedStyle, setSelectedStyle] = useState('hien-dai');
+  const [selectedColor, setSelectedColor] = useState('xanh-ngoc');
   
   const [loading, setLoading] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85'
   );
-  const [appliedPrompt, setAppliedPrompt] = useState<string>(SAMPLE_IDEAS[0]);
+  const [appliedPrompt, setAppliedPrompt] = useState<string>(SAMPLE_PROMPTS[0]);
 
-  // Synchronize when selecting a space
-  const handleSelectSpace = (spaceId: string) => {
-    setSpaceType(spaceId);
+  // Intelligent real-time parser: When user types or pastes in prompt, sync the active buttons
+  useEffect(() => {
+    // 1. Detect Space
+    const matchedSpace = SPACE_OPTIONS.find((s) => s.matchRegex.test(promptText));
+    if (matchedSpace) setSelectedSpace(matchedSpace.id);
+
+    // 2. Detect Style
+    const matchedStyle = STYLE_OPTIONS.find((s) => s.matchRegex.test(promptText));
+    if (matchedStyle) setSelectedStyle(matchedStyle.id);
+
+    // 3. Detect Color
+    const matchedColor = COLOR_OPTIONS.find((c) => c.matchRegex.test(promptText));
+    if (matchedColor) setSelectedColor(matchedColor.id);
+  }, [promptText]);
+
+  // When clicking a space button
+  const handleSpaceClick = (spaceId: string) => {
+    setSelectedSpace(spaceId);
     const spaceObj = SPACE_OPTIONS.find((s) => s.id === spaceId);
-    const styleObj = STYLE_OPTIONS.find((s) => s.id === style);
-    const colorObj = COLOR_OPTIONS.find((c) => c.id === colorPalette);
-    
-    // Smoothly update prompt text if user wants
-    if (spaceObj) {
-      setUserIdea((prev) => {
-        // Replace previous space keyword or prepend
-        const baseTags = prev.split(',').filter((part) => !SPACE_OPTIONS.some((s) => part.includes(s.label))).join(',');
-        return `${spaceObj.phrase}, ${styleObj?.phrase || ''}, ${colorObj?.phrase || ''}${baseTags ? ', ' + baseTags.trim() : ''}`.replace(/\s+/g, ' ').trim();
-      });
+    if (!spaceObj) return;
+
+    let newPrompt = promptText;
+    const existingSpace = SPACE_OPTIONS.find((s) => s.matchRegex.test(newPrompt));
+    if (existingSpace) {
+      newPrompt = newPrompt.replace(existingSpace.matchRegex, spaceObj.phrase.split(' ')[0]);
+    } else {
+      newPrompt = `${spaceObj.phrase}, ${newPrompt}`;
     }
+    setPromptText(newPrompt);
   };
 
-  // Synchronize when selecting a style
-  const handleSelectStyle = (styleId: string) => {
-    setStyle(styleId);
-    const spaceObj = SPACE_OPTIONS.find((s) => s.id === spaceType);
+  // When clicking a style button
+  const handleStyleClick = (styleId: string) => {
+    setSelectedStyle(styleId);
     const styleObj = STYLE_OPTIONS.find((s) => s.id === styleId);
-    const colorObj = COLOR_OPTIONS.find((c) => c.id === colorPalette);
+    if (!styleObj) return;
 
-    if (styleObj) {
-      setUserIdea((prev) => {
-        const withoutOldStyle = prev
-          .replace(/phong cách [^,]+/gi, '')
-          .replace(/,\s*,/g, ',')
-          .trim();
-        return `${spaceObj?.phrase || 'Phòng khách sang trọng'}, ${styleObj.phrase}, ${colorObj?.phrase || ''}${withoutOldStyle ? ', ' + withoutOldStyle : ''}`.replace(/\s+/g, ' ').replace(/^,\s*/, '').trim();
-      });
+    let newPrompt = promptText;
+    const existingStyle = STYLE_OPTIONS.find((s) => s.matchRegex.test(newPrompt));
+    if (existingStyle) {
+      newPrompt = newPrompt.replace(/phong cách [^,]+/i, styleObj.phrase);
+    } else {
+      newPrompt = `${newPrompt}, ${styleObj.phrase}`;
     }
+    setPromptText(newPrompt.replace(/,\s*,/g, ',').trim());
   };
 
-  // Synchronize when selecting a color
-  const handleSelectColor = (colorId: string) => {
-    setColorPalette(colorId);
-    const spaceObj = SPACE_OPTIONS.find((s) => s.id === spaceType);
-    const styleObj = STYLE_OPTIONS.find((s) => s.id === style);
+  // When clicking a color button
+  const handleColorClick = (colorId: string) => {
+    setSelectedColor(colorId);
     const colorObj = COLOR_OPTIONS.find((c) => c.id === colorId);
+    if (!colorObj) return;
 
-    if (colorObj) {
-      setUserIdea((prev) => {
-        const withoutOldColor = prev
-          .replace(/tông màu [^,]+/gi, '')
-          .replace(/,\s*,/g, ',')
-          .trim();
-        return `${spaceObj?.phrase || 'Phòng khách sang trọng'}, ${styleObj?.phrase || ''}, ${colorObj.phrase}${withoutOldColor ? ', ' + withoutOldColor : ''}`.replace(/\s+/g, ' ').replace(/^,\s*/, '').trim();
-      });
+    let newPrompt = promptText;
+    const existingColor = COLOR_OPTIONS.find((c) => c.matchRegex.test(newPrompt));
+    if (existingColor) {
+      newPrompt = newPrompt.replace(/tông màu [^,]+/i, colorObj.phrase);
+    } else {
+      newPrompt = `${newPrompt}, ${colorObj.phrase}`;
+    }
+    setPromptText(newPrompt.replace(/,\s*,/g, ',').trim());
+  };
+
+  // When clicking a detail feature tag
+  const handleDetailTagClick = (phrase: string) => {
+    if (!promptText.toLowerCase().includes(phrase.toLowerCase())) {
+      setPromptText((prev) => (prev ? `${prev.trim()}, ${phrase}` : phrase));
     }
   };
 
-  const handleAddTag = (tag: string) => {
-    if (!userIdea.trim()) {
-      setUserIdea(tag);
-    } else if (!userIdea.toLowerCase().includes(tag.toLowerCase())) {
-      setUserIdea(`${userIdea.trim()}, ${tag}`);
-    }
+  // Surprise / Random prompt
+  const handleRandomPrompt = () => {
+    const randomIdx = Math.floor(Math.random() * SAMPLE_PROMPTS.length);
+    setPromptText(SAMPLE_PROMPTS[randomIdx]);
   };
 
-  const handleRandomIdea = () => {
-    const randomIdx = Math.floor(Math.random() * SAMPLE_IDEAS.length);
-    const chosen = SAMPLE_IDEAS[randomIdx];
-    setUserIdea(chosen);
-
-    // Auto-sync buttons with chosen sample
-    if (/ngủ/i.test(chosen)) setSpaceType('phong-ngu');
-    else if (/bếp/i.test(chosen)) setSpaceType('phong-bep');
-    else if (/biệt thự/i.test(chosen)) setSpaceType('biet-thu');
-    else if (/penthouse/i.test(chosen)) setSpaceType('can-ho');
-    else setSpaceType('phong-khach');
-
-    if (/tân cổ/i.test(chosen)) setStyle('tan-co');
-    else if (/indochine/i.test(chosen)) setStyle('indochine');
-    else if (/wabi/i.test(chosen)) setStyle('wabi-sabi');
-    else if (/tối giản/i.test(chosen)) setStyle('toi-gian');
-    else setStyle('hien-dai');
-
-    if (/xanh ngọc/i.test(chosen)) setColorPalette('xanh-ngoc');
-    else if (/trắng kem/i.test(chosen)) setColorPalette('trang-kem');
-    else if (/ghi xám/i.test(chosen)) setColorPalette('ghi-xam');
-    else setColorPalette('vang-dong');
-  };
-
+  // Main Render Action
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const selectedSpace = SPACE_OPTIONS.find((s) => s.id === spaceType);
-      const selectedStyle = STYLE_OPTIONS.find((s) => s.id === style);
-      const selectedColor = COLOR_OPTIONS.find((c) => c.id === colorPalette);
-
       const response = await fetch('/api/generate-design', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          spaceType,
-          spaceLabel: selectedSpace?.label,
-          style,
-          styleLabel: selectedStyle?.label,
-          colorPalette,
-          colorLabel: selectedColor?.label,
-          userIdea: userIdea.trim(),
+          userIdea: promptText.trim(),
         }),
       });
 
       const data = await response.json();
       if (data.success && data.imageUrl) {
         setGeneratedImage(data.imageUrl);
-        setAppliedPrompt(userIdea.trim() || `${selectedSpace?.label} - ${selectedStyle?.label}`);
-        message.success('Đã hiện thực hóa ý tưởng của bạn thành bản vẽ 3D mới!');
+        setAppliedPrompt(promptText.trim());
+        message.success('Đã hiện thực hóa ý tưởng của bạn thành bản vẽ 3D!');
       } else {
         message.error('Không thể tạo ảnh, vui lòng thử lại!');
       }
@@ -198,56 +177,53 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
   };
 
   const handleConsultWithDesign = () => {
-    const space = SPACE_OPTIONS.find((s) => s.id === spaceType)?.label;
-    const styleLabel = STYLE_OPTIONS.find((s) => s.id === style)?.label;
-    const details = userIdea ? ` (Chi tiết ý tưởng: ${userIdea.slice(0, 140)}...)` : '';
-    onOpenConsultation(`Tư vấn thi công mẫu AI: ${space} - ${styleLabel}${details}`);
+    const details = promptText ? ` (${promptText.slice(0, 140)}...)` : '';
+    onOpenConsultation(`Tư vấn thi công theo ý tưởng AI${details}`);
   };
 
   return (
     <section id="ai-studio" className="py-20 sm:py-28 bg-[#F5EFE6] relative overflow-hidden border-y border-[#EFE8DF]">
-      {/* Subtle architectural background texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#8A4F2C_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
+        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-10 sm:mb-14">
           <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
-            TRẢI NGHIỆM CÔNG NGHỆ 9ROUTER AI & FLUX ENGINE
+            TRẢI NGHIỆM CÔNG NGHỆ 9ROUTER AI STUDIO
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
-            AI Studio – Hiện Thực Hóa Ý Tưởng Của Bạn
+            Phác Họa Không Gian 3D Theo Ý Tưởng
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed max-w-3xl mx-auto">
-            Mọi ý tưởng, sở thích màu sắc và vật liệu của bạn đều được AI phân tích và biến thành bản vẽ 3D chân thực, sắc nét chỉ sau vài giây.
+          <p className="text-base sm:text-lg text-[#5C554E] leading-relaxed max-w-3xl mx-auto">
+            Gõ mô tả hoặc chọn các tiêu chí thiết kế bên dưới. AI sẽ đồng bộ thông minh và vẽ phối cảnh kiến trúc 3D chuẩn xác trong 5 giây.
           </p>
         </div>
 
-        {/* Main 2-Column Studio: Left Controls / Right Canvas */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Controls Form */}
-          <div className="lg:col-span-5 bg-white p-6 sm:p-8 border border-[#EFE8DF] shadow-xl space-y-6">
-            {/* Step 1: Primary User Text Idea (TRỌNG TÂM Ý TƯỞNG) */}
-            <div className="space-y-3 p-4 bg-[#FAF8F5] border-2 border-[#8A4F2C]/40 rounded-sm">
+        {/* Main 2-Column Studio */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left Controls: Unified Smart Prompt Studio */}
+          <div className="lg:col-span-5 bg-white p-6 sm:p-7 border border-[#EFE8DF] shadow-xl space-y-5">
+            {/* 1. MASTER PROMPT TEXTAREA */}
+            <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-bold text-[#8A4F2C] uppercase tracking-wider flex items-center gap-2">
-                  <EditOutlined className="text-base" /> 1. Ý tưởng & Mô tả không gian của bạn
+                <label className="text-sm font-bold text-[#8A4F2C] uppercase tracking-wider flex items-center gap-1.5">
+                  <SparklesOutlined className="text-base" /> Mô Tả Ý Tưởng Thiết Kế Của Bạn
                 </label>
                 <div className="flex items-center gap-2">
-                  <Tooltip title="Đổi mẫu ý tưởng khác ngẫu nhiên">
+                  <Tooltip title="Lấy ý tưởng mẫu ngẫu nhiên">
                     <button
                       type="button"
-                      onClick={handleRandomIdea}
+                      onClick={handleRandomPrompt}
                       className="text-xs font-semibold text-[#8A4F2C] hover:text-[#9C623C] flex items-center gap-1 cursor-pointer bg-amber-50 px-2 py-0.5 border border-amber-200 rounded"
                     >
                       <BulbOutlined /> Gợi ý mẫu
                     </button>
                   </Tooltip>
-                  {userIdea && (
-                    <Tooltip title="Xóa để viết lại">
+                  {promptText && (
+                    <Tooltip title="Xóa để viết mới">
                       <button
                         type="button"
-                        onClick={() => setUserIdea('')}
+                        onClick={() => setPromptText('')}
                         className="text-xs text-stone-400 hover:text-stone-700 cursor-pointer px-1.5 py-0.5"
                       >
                         <ClearOutlined /> Xóa
@@ -259,110 +235,121 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
 
               <TextArea
                 rows={4}
-                value={userIdea}
-                onChange={(e) => setUserIdea(e.target.value)}
-                placeholder="Ví dụ: Phòng khách có sofa da bò Ý màu nâu camel, đèn chùm pha lê thông tầng, vách đá cẩm thạch Calacatta vân mây, cửa kính panorama view hồ bơi..."
-                className="!text-sm !text-[#1A1613] !bg-white !border-[#EFE8DF] focus:!border-[#8A4F2C] focus:!shadow-none leading-relaxed"
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+                placeholder="Nhập mô tả hoặc bấm các nút chọn bên dưới để AI tự động điền..."
+                className="!text-sm !text-[#1A1613] !bg-[#FAF8F5] !border-2 !border-[#8A4F2C]/30 focus:!border-[#8A4F2C] focus:!shadow-none leading-relaxed p-3"
               />
+            </div>
 
-              {/* Quick Idea Inspiration Chips */}
-              <div className="space-y-1.5 pt-1">
-                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider">
-                  + Thêm nhanh chi tiết vào ý tưởng:
+            {/* 2. QUICK SELECTOR PILLS (Auto-synchronized) */}
+            <div className="space-y-4 pt-1 border-t border-[#EFE8DF]">
+              {/* Space Selector */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider block">
+                  Loại không gian:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {QUICK_IDEA_TAGS.map((tag) => (
+                  {SPACE_OPTIONS.map((item) => {
+                    const isActive = selectedSpace === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleSpaceClick(item.id)}
+                        className={`text-xs px-3 py-1.5 border transition-all cursor-pointer font-medium flex items-center gap-1 rounded-sm ${
+                          isActive
+                            ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-sm ring-1 ring-[#8A4F2C]'
+                            : 'bg-[#FAF8F5] text-[#3D3835] border-[#EFE8DF] hover:border-stone-400'
+                        }`}
+                      >
+                        {item.label}
+                        {isActive && <CheckOutlined className="text-[10px]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Style Selector */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider block">
+                  Phong cách kiến trúc:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {STYLE_OPTIONS.map((item) => {
+                    const isActive = selectedStyle === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleStyleClick(item.id)}
+                        className={`text-xs px-3 py-1.5 border transition-all cursor-pointer font-medium flex items-center gap-1 rounded-sm ${
+                          isActive
+                            ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-sm ring-1 ring-[#8A4F2C]'
+                            : 'bg-[#FAF8F5] text-[#3D3835] border-[#EFE8DF] hover:border-stone-400'
+                        }`}
+                      >
+                        {item.label}
+                        {isActive && <CheckOutlined className="text-[10px]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Color Selector */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider block">
+                  Tông màu chủ đạo:
+                </span>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {COLOR_OPTIONS.map((item) => {
+                    const isActive = selectedColor === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleColorClick(item.id)}
+                        className={`text-xs px-2.5 py-1.5 border transition-all cursor-pointer font-medium flex items-center gap-2 rounded-sm ${
+                          isActive
+                            ? 'bg-[#FAF8F5] text-[#8A4F2C] border-[#8A4F2C] ring-2 ring-[#8A4F2C] shadow-sm'
+                            : 'bg-white text-[#3D3835] border-[#EFE8DF] hover:border-stone-400'
+                        }`}
+                      >
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border border-black/20 shrink-0"
+                          style={{ backgroundColor: item.colorDot }}
+                        />
+                        <span className="truncate">{item.label}</span>
+                        {isActive && <CheckOutlined className="text-[11px] ml-auto text-[#8A4F2C]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Detail Accent Tags */}
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider block">
+                  + Thêm nhanh chi tiết nội thất:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {DETAIL_TAGS.map((tag) => (
                     <button
-                      key={tag}
+                      key={tag.label}
                       type="button"
-                      onClick={() => handleAddTag(tag)}
+                      onClick={() => handleDetailTagClick(tag.phrase)}
                       className="text-[11px] px-2.5 py-1 bg-white hover:bg-[#8A4F2C] hover:text-white text-[#5C554E] border border-[#E8DFC0] transition-colors rounded-sm cursor-pointer"
                     >
-                      + {tag}
+                      {tag.label}
                     </button>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Step 2: Loại không gian */}
-            <div className="space-y-2.5">
-              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <HomeOutlined className="text-[#8A4F2C]" /> 2. Loại không gian
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {SPACE_OPTIONS.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleSelectSpace(item.id)}
-                    className={`p-2.5 text-xs font-semibold border transition-all text-left flex items-center gap-2 cursor-pointer ${
-                      spaceType === item.id
-                        ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-sm'
-                        : 'bg-[#FAF8F5] text-[#3D3835] hover:border-[#8A4F2C]/50 border-[#EFE8DF]'
-                    }`}
-                  >
-                    <span>{item.icon}</span>
-                    <span className="truncate">{item.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Step 3: Phong cách thiết kế */}
-            <div className="space-y-2.5">
-              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <AppstoreOutlined className="text-[#8A4F2C]" /> 3. Phong cách thiết kế
-              </label>
-              <div className="space-y-1.5">
-                {STYLE_OPTIONS.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleSelectStyle(item.id)}
-                    className={`w-full p-2.5 text-xs border transition-all text-left flex items-center justify-between cursor-pointer ${
-                      style === item.id
-                        ? 'bg-[#FAF8F5] border-[#8A4F2C] border-l-4 shadow-sm'
-                        : 'bg-white hover:bg-[#FAF8F5] border-[#EFE8DF]'
-                    }`}
-                  >
-                    <div>
-                      <div className={`font-bold ${style === item.id ? 'text-[#8A4F2C]' : 'text-[#1A1613]'}`}>
-                        {item.label}
-                      </div>
-                      <div className="text-[11px] text-[#78716C]">{item.desc}</div>
-                    </div>
-                    {style === item.id && <CheckCircleFilled className="text-[#8A4F2C] text-sm" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Step 4: Tông màu chủ đạo */}
-            <div className="space-y-2.5">
-              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <BgColorsOutlined className="text-[#8A4F2C]" /> 4. Tông màu chủ đạo
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {COLOR_OPTIONS.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleSelectColor(item.id)}
-                    className={`p-2 text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer ${
-                      colorPalette === item.id
-                        ? 'bg-[#FAF8F5] border-[#8A4F2C] ring-1 ring-[#8A4F2C]'
-                        : 'bg-white border-[#EFE8DF] hover:border-stone-300'
-                    }`}
-                  >
-                    <span className={`w-3.5 h-3.5 rounded-full ${item.color} border border-black/10 shrink-0`} />
-                    <span className="truncate">{item.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Submit Action Button */}
+            {/* Primary Action Button */}
             <Button
               type="primary"
               size="large"
@@ -370,9 +357,9 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
               loading={loading}
               onClick={handleGenerate}
               icon={<ThunderboltFilled className="text-amber-300" />}
-              className="!h-14 !text-base sm:!text-[17px] !font-bold !bg-[#8A4F2C] hover:!bg-[#9C623C] !text-white shadow-xl hover:shadow-2xl transition-all cursor-pointer"
+              className="!h-14 !text-base sm:!text-[17px] !font-bold !bg-[#8A4F2C] hover:!bg-[#9C623C] !text-white shadow-xl hover:shadow-2xl transition-all cursor-pointer mt-2"
             >
-              {loading ? 'AI Đang Vẽ Theo Ý Tưởng Của Bạn...' : 'Vẽ Không Gian Theo Ý Tưởng (Render 3D)'}
+              {loading ? 'AI Đang Render Phối Cảnh 3D...' : 'Vẽ Không Gian Theo Ý Tưởng (Render 3D)'}
             </Button>
           </div>
 
@@ -387,7 +374,7 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                 </span>
               </div>
               <div className="text-xs text-[#8A4F2C] font-semibold bg-[#FAF8F5] px-3 py-1 border border-[#E8DFC0]">
-                {SPACE_OPTIONS.find((s) => s.id === spaceType)?.label} &bull; {STYLE_OPTIONS.find((s) => s.id === style)?.label.split(' ')[0]}
+                {SPACE_OPTIONS.find((s) => s.id === selectedSpace)?.label} &bull; {STYLE_OPTIONS.find((s) => s.id === selectedStyle)?.label.split(' ')[0]}
               </div>
             </div>
 
@@ -445,7 +432,7 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
             {/* Canvas Actions */}
             <div className="pt-4 border-t border-[#EFE8DF] mt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <div className="text-xs text-[#78716C]">
-                💡 <span className="font-semibold text-[#1A1613]">Mẹo:</span> Bạn có thể bấm <span className="text-[#8A4F2C] font-bold">"Tạo góc nhìn mới"</span> để AI tạo thêm các phương án khác nhau cho cùng ý tưởng này.
+                💡 <span className="font-semibold text-[#1A1613]">Mẹo:</span> Bạn có thể bấm <span className="text-[#8A4F2C] font-bold">"Tạo góc nhìn mới"</span> để AI tạo thêm các phương án phối cảnh khác.
               </div>
 
               <div className="flex items-center gap-2.5">
