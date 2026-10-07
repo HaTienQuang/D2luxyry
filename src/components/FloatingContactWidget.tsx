@@ -87,19 +87,19 @@ export const FloatingContactWidget: React.FC<FloatingContactWidgetProps> = ({
           </button>
         </div>
 
-        {/* 4. Scroll To Top Button */}
+        {/* 4. Scroll To Top Button - Synced Size (w-14 h-14 lg:w-16 lg:h-16) */}
         {showBackTop && (
-          <div className="relative group flex items-center pt-1 animate-fade-in-up">
-            <span className="absolute right-full mr-3.5 px-3 py-1 bg-stone-800 text-stone-200 text-xs rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
+          <div className="relative group flex items-center animate-fade-in-up">
+            <span className="absolute right-full mr-3.5 px-3.5 py-1.5 bg-[#5C311C] text-white text-xs font-semibold rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 pointer-events-none after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:left-full after:border-4 after:border-transparent after:border-l-[#5C311C]">
               Lên đầu trang
             </span>
             <button
               type="button"
               onClick={scrollToTop}
               aria-label="Cuộn lên đầu trang"
-              className="w-12 h-12 lg:w-13 lg:h-13 rounded-full bg-white/95 text-stone-700 hover:text-[#8A4F2C] hover:bg-white border border-[#E8DFC0] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+              className="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-white text-[#5C311C] hover:bg-[#8A4F2C] hover:text-white border-2 border-[#D5BEA8] hover:border-[#8A4F2C] flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
             >
-              <ArrowUpOutlined className="text-base lg:text-lg" />
+              <ArrowUpOutlined className="text-xl lg:text-2xl transition-transform group-hover:-translate-y-0.5" />
             </button>
           </div>
         )}
