@@ -294,19 +294,6 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                 Ảnh {activePhotoIndex + 1} / {selectedProject.gallery.length}
               </div>
 
-              {/* Official Brand Watermark Badge - Covers old watermark seamlessly */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-4 py-1.5 border border-white/25 shadow-xl pointer-events-none z-20 flex items-center gap-2">
-                <Image
-                  src="/images/logo.png"
-                  alt="D2 Luxury Design"
-                  width={24}
-                  height={24}
-                  className="h-4 w-auto object-contain"
-                />
-                <span className="text-[11px] sm:text-xs font-bold tracking-[0.25em] text-[#E8DCCF] uppercase drop-shadow">
-                  D2 LUXURY DESIGN
-                </span>
-              </div>
 
               {/* Prev / Next navigation arrows */}
               {selectedProject.gallery.length > 1 && (
