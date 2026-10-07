@@ -38,11 +38,11 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenConsultation }) => {
               <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#E8DCCF]">
                 ĐỒNG HÀNH CÙNG D2 LUXURY DESIGN
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white drop-shadow-md">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-white drop-shadow-md">
                 Bạn đang tìm kiếm <br />
                 một không gian sống lý tưởng?
               </h2>
-              <p className="text-base sm:text-xl lg:text-2xl text-stone-200 max-w-2xl leading-relaxed drop-shadow">
+              <p className="text-sm sm:text-base lg:text-lg text-stone-200 max-w-xl leading-relaxed drop-shadow">
                 Hãy để chúng tôi đồng hành cùng bạn từ những ý tưởng đầu tiên đến khi hoàn thiện tổ
                 ấm mơ ước.
               </p>

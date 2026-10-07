@@ -69,14 +69,14 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
     <section id="projects" className="py-20 sm:py-28 bg-white relative">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
-          <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
             BỘ SƯU TẬP DỰ ÁN
           </p>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight">
             Dự Án Tiêu Biểu
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5C554E] max-w-2xl mx-auto leading-relaxed">
             Khám phá các công trình thiết kế và thi công nội thất biệt thự, căn hộ cao cấp, nhà phố
             và penthouse được thực hiện bởi D&apos;Luxury Design.
           </p>
@@ -187,7 +187,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
                   {/* Bottom Overlay Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white flex items-end justify-between">
                     <div className="pr-3">
-                      <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-white group-hover:text-[#D5BEA8] transition-colors leading-snug line-clamp-1">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-[#D5BEA8] transition-colors leading-snug line-clamp-1">
                         {project.title}
                       </h3>
                       <p className="text-xs sm:text-sm text-stone-200 mt-1 font-medium">
@@ -238,7 +238,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onOpenConsul
         centered
         width={960}
         title={
-          <div className="font-serif text-xl sm:text-2xl font-bold text-[#1A1613] pr-6">
+          <div className="text-xl sm:text-2xl font-bold text-[#1A1613] pr-6">
             {selectedProject?.title}
           </div>
         }

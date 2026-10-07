@@ -76,7 +76,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
               <CheckCircleFilled />
             </div>
-            <h3 className="font-serif text-2xl font-bold text-[#1A1613]">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#1A1613]">
               Gửi yêu cầu thành công!
             </h3>
             <p className="text-sm text-[#6B635B] max-w-sm mx-auto leading-relaxed">
@@ -95,7 +95,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8A4F2C]">
                 ĐĂNG KÝ TƯ VẤN MIỄN PHÍ
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1613]">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#1A1613]">
                 Kiến Tạo Không Gian Sống Của Bạn
               </h3>
               <p className="text-xs sm:text-sm text-[#78716C]">

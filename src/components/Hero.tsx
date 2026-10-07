@@ -21,18 +21,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
               THIẾT KẾ – THI CÔNG NỘI THẤT TRỌN GÓI
             </p>
 
-            {/* Main Heading - Enlarged & High Impact */}
-            <div className="space-y-2 sm:space-y-4">
-              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[64px] xl:text-[72px] font-extrabold text-[#1A1613] tracking-tight leading-[1.12]">
+            {/* Main Heading - Harmonious & Balanced */}
+            <div className="space-y-1 sm:space-y-2">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-bold text-[#1A1613] tracking-tight leading-[1.2]">
                 Không gian đẹp
               </h1>
-              <div className="font-serif text-4xl sm:text-6xl lg:text-[64px] xl:text-[72px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.12]">
+              <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-normal italic text-[#8A4F2C] tracking-tight leading-[1.2]">
                 Bắt đầu từ bạn
               </div>
             </div>
 
-            {/* Description - Larger & Clear */}
-            <p className="text-base sm:text-xl lg:text-[21px] text-[#4A423B] leading-relaxed max-w-2xl font-normal">
+            {/* Description */}
+            <p className="text-sm sm:text-base lg:text-lg text-[#5C554E] leading-relaxed max-w-xl font-normal">
               Chúng tôi mang đến giải pháp nội thất toàn diện, từ ý tưởng, thiết kế đến thi công và
               hoàn thiện. Kiến tạo không gian sống tiện nghi, thẩm mỹ và trường tồn cùng thời gian.
             </p>

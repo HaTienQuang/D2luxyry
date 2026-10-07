@@ -45,25 +45,25 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-          <div className="space-y-3.5 max-w-3xl">
-            <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+          <div className="space-y-3 max-w-2xl">
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
               DỊCH VỤ CỦA CHÚNG TÔI
             </p>
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight leading-tight">
               Giải pháp nội thất <span className="text-[#8A4F2C]">toàn diện</span>
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed">
+            <p className="text-sm sm:text-base text-[#5C554E] leading-relaxed">
               Từ tư vấn ý tưởng, thiết kế, thi công đến hoàn thiện, chúng tôi đồng hành cùng bạn
               kiến tạo không gian sống lý tưởng.
             </p>
           </div>
 
           {/* Luxury quote accent */}
-          <div className="hidden md:flex flex-col items-end justify-center shrink-0 border-l-3 border-[#D5BEA8] pl-6 py-1">
-            <span className="text-2xl lg:text-3xl font-bold text-[#8A4F2C] italic">
+          <div className="hidden md:flex flex-col items-end justify-center shrink-0 border-l-2 border-[#D5BEA8] pl-5 py-1">
+            <span className="text-xl lg:text-2xl font-bold text-[#8A4F2C] italic">
               “Mỗi không gian,
             </span>
-            <span className="text-xl lg:text-2xl font-semibold text-[#A06037] italic">
+            <span className="text-base lg:text-lg font-semibold text-[#A06037] italic">
               một câu chuyện riêng”
             </span>
           </div>
@@ -104,7 +104,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
               <div className="relative z-10 space-y-3.5">
                 {/* Service Title */}
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-[28px] lg:text-[30px] font-bold text-white leading-snug group-hover:text-[#F3EAE1] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug group-hover:text-[#F3EAE1] transition-colors">
                     {service.title}
                   </h3>
                 </div>
@@ -174,7 +174,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
         centered
         width={600}
         title={
-          <div className="font-serif text-2xl font-bold text-[#1A1613]">
+          <div className="text-xl sm:text-2xl font-bold text-[#1A1613]">
             {selectedService?.title}
           </div>
         }

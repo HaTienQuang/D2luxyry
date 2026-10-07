@@ -72,14 +72,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
 
           {/* Right Column: Values and Features */}
           <div className="lg:col-span-6 space-y-8 sm:pl-4">
-            <div className="space-y-3.5">
-              <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+            <div className="space-y-3">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
                 {WHY_CHOOSE_US_DATA.eyebrow}
               </p>
-              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight leading-tight">
                 {WHY_CHOOSE_US_DATA.title}
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base text-[#5C554E] leading-relaxed max-w-xl">
                 {WHY_CHOOSE_US_DATA.subtitle}
               </p>
             </div>
@@ -89,13 +89,13 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
               {WHY_CHOOSE_US_DATA.features.map((item, idx) => (
                 <div
                   key={item.title}
-                  className="p-6 bg-white border border-[#EFE8DF] hover:border-[#8A4F2C] transition-all duration-300 hover:shadow-xl flex flex-col space-y-2.5 group hover:-translate-y-1"
+                  className="p-6 bg-white border border-[#EFE8DF] hover:border-[#8A4F2C] transition-all duration-300 hover:shadow-xl flex flex-col space-y-2 group hover:-translate-y-1"
                 >
-                  <div className="w-12 h-12 bg-[#FAF8F5] shadow-xs flex items-center justify-center border border-[#EFE8DF] text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white transition-all duration-300 text-xl">
+                  <div className="w-11 h-11 bg-[#FAF8F5] shadow-xs flex items-center justify-center border border-[#EFE8DF] text-[#8A4F2C] group-hover:bg-[#8A4F2C] group-hover:text-white transition-all duration-300 text-lg">
                     {getFeatureIcon(idx)}
                   </div>
-                  <h3 className="font-serif text-lg sm:text-xl lg:text-[22px] font-bold text-[#1A1613]">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-[#6B635B] leading-relaxed">
+                  <h3 className="text-base sm:text-lg font-bold text-[#1A1613]">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-[#6B635B] leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
         centered
         width={800}
         title={
-          <span className="font-serif text-lg font-bold text-[#1A1613]">
+          <span className="text-base sm:text-lg font-bold text-[#1A1613]">
             Khám phá quy trình thiết kế và thi công tại D&apos;Luxury Design
           </span>
         }

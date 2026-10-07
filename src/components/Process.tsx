@@ -35,14 +35,14 @@ export const Process: React.FC = () => {
     <section id="process" className="py-16 sm:py-28 bg-[#FAF8F5] relative border-y border-[#EFE8DF]">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
-          <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
             QUY TRÌNH LÀM VIỆC
           </p>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight">
             Rõ ràng – Chuyên nghiệp – Minh bạch
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#5C554E] leading-relaxed max-w-xl mx-auto">
             Chúng tôi đồng hành cùng bạn trong từng bước, đảm bảo dự án được triển khai hiệu quả và
             đúng mong đợi.
           </p>
@@ -76,7 +76,7 @@ export const Process: React.FC = () => {
               </div>
 
               {/* Title & Subtitle */}
-              <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A1613] group-hover:text-[#8A4F2C] transition-colors mb-1.5 sm:mb-2 min-h-[40px] sm:min-h-[48px] flex items-center justify-center leading-snug">
+              <h3 className="text-sm sm:text-base font-bold text-[#1A1613] group-hover:text-[#8A4F2C] transition-colors mb-1.5 sm:mb-2 min-h-[40px] sm:min-h-[44px] flex items-center justify-center leading-snug">
                 {step.title}
               </h3>
               <p className="text-xs sm:text-sm text-[#78716C] leading-relaxed">

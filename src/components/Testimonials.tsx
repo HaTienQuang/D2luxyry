@@ -21,14 +21,14 @@ export const Testimonials: React.FC = () => {
     <section id="testimonials" className="py-20 sm:py-28 bg-[#FAF8F5] relative">
       <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header Centered */}
-        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-12 sm:mb-16">
-          <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
             KHÁCH HÀNG NÓI VỀ CHÚNG TÔI
           </p>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight">
             Sự hài lòng của bạn là động lực để chúng tôi phát triển
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-[#5C554E] max-w-2xl mx-auto leading-relaxed">
             Những chia sẻ và đánh giá thực tế từ các gia chủ đã tin tưởng lựa chọn D2 Luxury Design để kiến tạo không gian sống.
           </p>
         </div>
@@ -42,21 +42,21 @@ export const Testimonials: React.FC = () => {
             >
               {/* Quote text */}
               <div className="space-y-4">
-                <div className="text-4xl font-serif text-[#C5A880] leading-none select-none">“</div>
-                <p className="text-base sm:text-lg lg:text-xl text-[#3D3835] italic leading-relaxed">
+                <div className="text-3xl text-[#C5A880] leading-none select-none font-sans">“</div>
+                <p className="text-sm sm:text-base text-[#3D3835] italic leading-relaxed">
                   &ldquo;{item.content}&rdquo;
                 </p>
               </div>
 
               {/* Author & Rating */}
-              <div className="pt-6 border-t border-[#F5EFE6] flex items-center justify-between">
-                <div className="flex items-center gap-3.5">
-                  <div className="relative w-13 h-13 rounded-full overflow-hidden border-2 border-[#D5BEA8] shrink-0">
+              <div className="pt-5 border-t border-[#F5EFE6] flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-[#D5BEA8] shrink-0">
                     <Image src={item.avatar} alt={item.name} fill className="object-cover" />
                   </div>
                   <div>
-                    <h4 className="text-base sm:text-lg font-bold text-[#1A1613]">{item.name}</h4>
-                    <p className="text-xs sm:text-sm text-[#78716C]">{item.role}</p>
+                    <h4 className="text-sm sm:text-base font-bold text-[#1A1613]">{item.name}</h4>
+                    <p className="text-xs text-[#78716C]">{item.role}</p>
                   </div>
                 </div>
 
