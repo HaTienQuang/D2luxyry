@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Services } from '@/components/Services';
 import { WhyChooseUs } from '@/components/WhyChooseUs';
+import { AiDesignStudio } from '@/components/AiDesignStudio';
 import { Process } from '@/components/Process';
 import { FeaturedProjects } from '@/components/FeaturedProjects';
 import { Testimonials } from '@/components/Testimonials';
@@ -32,6 +33,7 @@ export default function HomePage() {
         <Hero onOpenConsultation={() => handleOpenConsultation()} />
         <Services onOpenConsultation={(svc) => handleOpenConsultation(svc)} />
         <WhyChooseUs onOpenConsultation={() => handleOpenConsultation()} />
+        <AiDesignStudio onOpenConsultation={(prompt) => handleOpenConsultation(prompt)} />
         <Process />
         <FeaturedProjects onOpenConsultation={(proj) => handleOpenConsultation(proj)} />
         <Testimonials />

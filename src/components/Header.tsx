@@ -26,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
     { label: 'Trang chủ', href: '#hero' },
     { label: 'Giới thiệu', href: '#about' },
     { label: 'Dịch vụ', href: '#services' },
+    { label: 'AI Studio', href: '#ai-studio' },
     { label: 'Dự án', href: '#projects' },
     { label: 'Quy trình', href: '#process' },
     { label: 'Đánh giá', href: '#testimonials' },
