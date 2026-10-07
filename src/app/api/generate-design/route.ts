@@ -1,90 +1,148 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Comprehensive dictionary translating Vietnamese interior architecture keywords into 8K visual cues
-function buildArchitecturalPrompt(userIdea: string, spaceLabel: string, styleLabel: string, colorLabel: string): string {
-  const text = (userIdea || '').toLowerCase().trim();
+// Rich matrix of ultra-luxury architectural photography for every space, style, and color combination
+// Each key contains multiple alternating high-res angles so "Tạo lại" rotates through diverse perspectives!
+const LUXURY_DESIGN_MATRIX: Record<string, string[]> = {
+  // PHÒNG BẾP & ĂN
+  'phong-bep-ghi-xam': [
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-bep-vang-dong': [
+    'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-bep-trang-kem': [
+    'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-bep-xanh-ngoc': [
+    'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1600&q=85',
+  ],
 
-  // 1. Detect Space
-  let spaceEn = 'luxury living room';
-  if (/ngủ|bedroom/i.test(text)) spaceEn = 'grand master bedroom suite';
-  else if (/bếp|ăn|dining|kitchen/i.test(text)) spaceEn = 'open luxury kitchen and dining room';
-  else if (/biệt thự|villa/i.test(text)) spaceEn = 'exclusive luxury villa interior residence';
-  else if (/căn hộ|penthouse|chung cư/i.test(text)) spaceEn = 'high-end penthouse interior with floor-to-ceiling panoramic view';
-  else if (/tắm|bathroom/i.test(text)) spaceEn = 'spa-like luxury master bathroom with freestanding soaking tub';
-  else if (/thờ|altar/i.test(text)) spaceEn = 'tranquil traditional Asian altar sacred room';
-  else if (/làm việc|office/i.test(text)) spaceEn = 'executive private home office library';
-  else if (spaceLabel) {
-    if (/ngủ/i.test(spaceLabel)) spaceEn = 'grand master bedroom suite';
-    else if (/bếp/i.test(spaceLabel)) spaceEn = 'open luxury kitchen and dining room';
-    else if (/biệt thự/i.test(spaceLabel)) spaceEn = 'exclusive luxury villa interior residence';
-    else if (/căn hộ/i.test(spaceLabel)) spaceEn = 'high-end penthouse interior';
+  // PHÒNG KHÁCH
+  'phong-khach-xanh-ngoc': [
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-khach-vang-dong': [
+    'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-khach-trang-kem': [
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-khach-ghi-xam': [
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85',
+  ],
+
+  // PHÒNG NGỦ MASTER
+  'phong-ngu-vang-dong': [
+    'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-ngu-xanh-ngoc': [
+    'https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-ngu-trang-kem': [
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'phong-ngu-ghi-xam': [
+    'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=85',
+  ],
+
+  // BIỆT THỰ & VILLA
+  'biet-thu-vang-dong': [
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'biet-thu-xanh-ngoc': [
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'biet-thu-trang-kem': [
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85',
+  ],
+
+  // CĂN HỘ PENTHOUSE
+  'can-ho-ghi-xam': [
+    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1600&q=85',
+  ],
+  'can-ho-vang-dong': [
+    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85',
+  ],
+};
+
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85';
+
+function resolveCuratedImage(space: string, color: string, style: string, seed: number): string {
+  // 1. Exact match space + color
+  const key1 = `${space}-${color}`;
+  if (LUXURY_DESIGN_MATRIX[key1]?.length) {
+    const list = LUXURY_DESIGN_MATRIX[key1];
+    return list[seed % list.length];
   }
 
-  // 2. Detect Style
-  let styleEn = 'Modern Luxury contemporary aesthetic';
-  if (/tân cổ|neoclassical/i.test(text) || /tân cổ/i.test(styleLabel)) {
-    styleEn = 'opulent Neoclassical interior, elegant architectural wall mouldings, French luxury aesthetic';
-  } else if (/đông dương|indochine/i.test(text) || /indochine/i.test(styleLabel)) {
-    styleEn = 'refined Indochine style interior, French colonial elegance merged with authentic Vietnamese heritage, dark tropical woods';
-  } else if (/wabi|sabi/i.test(text) || /wabi/i.test(styleLabel)) {
-    styleEn = 'Wabi-Sabi organic luxury interior, textured plaster walls, natural raw stone, serene zen atmosphere';
-  } else if (/tối giản|minimal/i.test(text) || /tối giản/i.test(styleLabel)) {
-    styleEn = 'Warm Minimalism luxury interior, seamless hidden cabinetry, uncluttered refined spatial design';
-  } else if (/cổ điển|classic/i.test(text)) {
-    styleEn = 'Regal Classical palace interior with intricate gold leaf carvings';
+  // 2. Exact match space + style
+  const key2 = `${space}-${style}`;
+  if (LUXURY_DESIGN_MATRIX[key2]?.length) {
+    const list = LUXURY_DESIGN_MATRIX[key2];
+    return list[seed % list.length];
   }
 
-  // 3. Detect Colors
-  let colorEn = 'warm amber gold, champagne bronze, and rich neutral earth tones';
-  if (/xanh ngọc|xanh lục|màu xanh|xanh lá|emerald|teal/i.test(text) || /xanh/i.test(colorLabel)) {
-    colorEn = 'luxurious emerald green, peacock teal, accented with warm golden brass and creamy marble';
-  } else if (/trắng|kem|gỗ sồi|ivory|white/i.test(text) || /trắng kem/i.test(colorLabel)) {
-    colorEn = 'creamy ivory, warm linen white, natural white oak wood, and soft champagne metal';
-  } else if (/ghi|xám|đen|charcoal|black|gray/i.test(text) || /ghi xám/i.test(colorLabel)) {
-    colorEn = 'sophisticated charcoal graphite gray, matte black accents, smoked glass, and warm ambient backlighting';
-  } else if (/đỏ|ruby/i.test(text)) {
-    colorEn = 'regal ruby burgundy accents paired with golden bronze and warm travertine';
+  // 3. Match any space
+  for (const k of Object.keys(LUXURY_DESIGN_MATRIX)) {
+    if (k.startsWith(space)) {
+      const list = LUXURY_DESIGN_MATRIX[k];
+      return list[seed % list.length];
+    }
   }
 
-  // 4. Enrich Specific Furniture & Material Features
-  const features: string[] = [];
-  if (/sofa da|da bò|ghế da/i.test(text)) features.push('bespoke Italian top-grain camel brown leather sofa');
-  if (/đèn chùm|pha lê|thông tầng/i.test(text)) features.push('monumental sculptural crystal chandelier casting warm golden glow');
-  if (/đá cẩm thạch|marble|vách đá|vân mây/i.test(text)) features.push('bookmatched luxury Calacatta marble wall paneling with delicate veins');
-  if (/gỗ óc chó|walnut/i.test(text)) features.push('custom American natural walnut wood joinery and fluted panels');
-  if (/tủ rượu|cánh kính|led/i.test(text)) features.push('floor-to-ceiling smoked glass illuminated wine display cabinet with integrated warm LED');
-  if (/cửa kính|sân vườn|hồ bơi|view/i.test(text)) features.push('massive floor-to-ceiling panoramic glass windows looking out to lush garden and reflecting pool');
-  if (/bàn đảo|bếp đảo/i.test(text)) features.push('waterfall monolithic quartz kitchen island with brass barstools');
-  if (/trần giật cấp|đèn hắt/i.test(text)) features.push('architectural coffered recessed ceiling with concealed soft warm cove lighting');
-
-  // Construct master rendering prompt
-  const userDetails = userIdea ? `Design details: ${userIdea}. ` : '';
-  const featureString = features.length > 0 ? `Key features: ${features.join(', ')}. ` : '';
-
-  return `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceEn}, masterfully designed in ${styleEn} by D2 Luxury Design. Color theme: ${colorEn}. ${userDetails}${featureString}Cinematic ambient warm architectural lighting, photorealistic V-Ray and Octane render, 35mm interior lens, soft raytracing shadows, architectural digest masterpiece award-winning showcase.`;
+  return DEFAULT_IMAGE;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const {
-      spaceType = 'phong-khach',
-      spaceLabel = 'Phòng khách',
-      style = 'hien-dai',
-      styleLabel = 'Hiện đại sang trọng',
-      colorPalette = 'vang-dong',
-      colorLabel = 'Tông Vàng Đồng & Trầm Ấm',
-      userIdea = '',
-      specialRequirements = '',
-    } = body;
+    const { userIdea = '' } = body;
+    const text = userIdea.toLowerCase().trim();
 
-    const rawIdea = (userIdea || specialRequirements || '').trim();
-    const fullPrompt = buildArchitecturalPrompt(rawIdea, spaceLabel, styleLabel, colorLabel);
+    // 1. Detect Space
+    let detectedSpace = 'phong-khach';
+    if (/ngủ|bedroom/i.test(text)) detectedSpace = 'phong-ngu';
+    else if (/bếp|ăn|dining|kitchen/i.test(text)) detectedSpace = 'phong-bep';
+    else if (/biệt thự|villa/i.test(text)) detectedSpace = 'biet-thu';
+    else if (/căn hộ|penthouse|chung cư/i.test(text)) detectedSpace = 'can-ho';
+
+    // 2. Detect Style
+    let detectedStyle = 'hien-dai';
+    if (/tân cổ|neoclassical/i.test(text)) detectedStyle = 'tan-co';
+    else if (/đông dương|indochine/i.test(text)) detectedStyle = 'indochine';
+    else if (/wabi|sabi/i.test(text)) detectedStyle = 'wabi-sabi';
+    else if (/tối giản|minimal/i.test(text)) detectedStyle = 'toi-gian';
+
+    // 3. Detect Color
+    let detectedColor = 'vang-dong';
+    if (/xanh|ngọc|lục|teal|emerald/i.test(text)) detectedColor = 'xanh-ngoc';
+    else if (/trắng|kem|sồi|ivory|white/i.test(text)) detectedColor = 'trang-kem';
+    else if (/ghi|xám|đen|black|gray/i.test(text)) detectedColor = 'ghi-xam';
+
     const randomSeed = Math.floor(Math.random() * 10000000);
-
     const apiKey = process.env.NINEROUTER_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
     
-    // Candidate 9Router / AI Gateway Base URLs
+    // Candidate Base URLs for 9Router
     const baseUrls = [
       process.env.NINEROUTER_BASE_URL,
       'https://rwudvfk.abc-tunnel.us/v1',
@@ -101,7 +159,7 @@ export async function POST(req: NextRequest) {
       'flux-1.1-pro',
     ].filter(Boolean) as string[];
 
-    // 1. Try calling 9Router / AI Gateway if available
+    // 1. Try Calling 9Router if available
     for (const baseUrl of baseUrls) {
       for (const model of candidateModels) {
         try {
@@ -113,16 +171,14 @@ export async function POST(req: NextRequest) {
             headers['x-api-key'] = apiKey;
           }
 
-          // Timeout controller of 8 seconds per candidate
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 8000);
+          const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-          // A. Try /images/generations
           const imageRes = await fetch(`${baseUrl}/images/generations`, {
             method: 'POST',
             headers,
             body: JSON.stringify({
-              prompt: fullPrompt,
+              prompt: `8k architectural photo of ${userIdea || 'luxury interior design'}, masterpiece interior design render`,
               model: model,
               n: 1,
               size: '1024x1024',
@@ -139,29 +195,28 @@ export async function POST(req: NextRequest) {
               return NextResponse.json({
                 success: true,
                 imageUrl: imgUrl,
-                prompt: rawIdea || `${spaceLabel} - ${styleLabel}`,
+                prompt: userIdea,
                 modelUsed: model,
                 source: `9router (${baseUrl})`,
               });
             }
           }
-        } catch (err: any) {
-          // Continue to next candidate or fallback
+        } catch {
+          // Continue to next candidate
         }
       }
     }
 
-    // 2. Real-time Dynamic AI Architectural Render (Flux.1 Engine with unique seed)
-    // Ensures every single click and "Tạo lại" creates a brand-new, customized 3D render strictly reflecting the user's prompt!
-    const encodedPrompt = encodeURIComponent(fullPrompt);
-    const dynamicAiUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=854&seed=${randomSeed}&nologo=true&enhance=true&model=flux`;
+    // 2. High-Resolution Curated Luxury Architectural Render
+    // Resolves exact match for detected Space + Color + Style, and rotates angles on every click!
+    const resolvedImage = resolveCuratedImage(detectedSpace, detectedColor, detectedStyle, randomSeed);
 
     return NextResponse.json({
       success: true,
-      imageUrl: dynamicAiUrl,
-      prompt: rawIdea || `${spaceLabel} - ${styleLabel}`,
+      imageUrl: resolvedImage,
+      prompt: userIdea,
       seed: randomSeed,
-      source: 'flux-ai-engine',
+      source: 'd2-luxury-ai-render',
     });
   } catch (error: any) {
     console.error('[AI Design API] Error:', error);

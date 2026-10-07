@@ -379,9 +379,9 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
             </div>
 
             {/* Main Visual Frame */}
-            <div className="relative aspect-[16/10] sm:aspect-[16/11] w-full bg-stone-950 overflow-hidden shadow-inner flex items-center justify-center group">
+            <div className="relative aspect-[16/10] sm:aspect-[16/11] w-full bg-stone-900 overflow-hidden shadow-inner flex items-center justify-center group">
               {loading ? (
-                <div className="flex flex-col items-center justify-center text-white space-y-4 p-8 text-center">
+                <div className="flex flex-col items-center justify-center text-white space-y-4 p-8 text-center z-10">
                   <LoadingOutlined className="text-5xl text-[#C5A880] animate-spin" />
                   <div className="space-y-1">
                     <p className="text-lg font-bold text-[#E8DCCF]">Đang phân tích ý tưởng & render 3D kiến trúc...</p>
@@ -395,13 +395,16 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                     alt="AI Generated Interior Design"
                     fill
                     unoptimized={true}
+                    onError={() => {
+                      setGeneratedImage('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85');
+                    }}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 1024px) 100vw, 800px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
 
                   {/* Brand Watermark Badge */}
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 border border-white/20 flex items-center gap-2 shadow-lg pointer-events-none">
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 border border-white/20 flex items-center gap-2 shadow-lg pointer-events-none z-10">
                     <Image
                       src="/images/logo.png"
                       alt="D2 Luxury Design"
