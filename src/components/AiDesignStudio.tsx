@@ -182,20 +182,18 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
   };
 
   return (
-    <section id="ai-studio" className="py-20 sm:py-28 bg-[#F5EFE6] relative overflow-hidden border-y border-[#EFE8DF]">
-      <div className="absolute inset-0 bg-[radial-gradient(#8A4F2C_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-
-      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 relative z-10">
+    <section id="ai-studio" className="py-20 sm:py-28 bg-[#F9F6F0] relative">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-3.5 mb-10 sm:mb-14">
-          <p className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
-            TRẢI NGHIỆM CÔNG NGHỆ 9ROUTER AI STUDIO
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8A4F2C]">
+            CÔNG NGHỆ THIẾT KẾ AI
           </p>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
-            Phác Họa Không Gian 3D Theo Ý Tưởng
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1613] tracking-tight">
+            Phác Họa Không Gian 3D <span className="text-[#8A4F2C]">Theo Ý Tưởng</span>
           </h2>
-          <p className="text-base sm:text-lg text-[#5C554E] leading-relaxed max-w-3xl mx-auto">
-            Gõ mô tả hoặc chọn các tiêu chí thiết kế bên dưới. AI sẽ đồng bộ thông minh và vẽ phối cảnh kiến trúc 3D chuẩn xác trong 5 giây.
+          <p className="text-sm sm:text-base text-[#5C554E] max-w-2xl mx-auto leading-relaxed">
+            Nhập mô tả ý tưởng hoặc chọn các tiêu chí thiết kế bên dưới. Trí tuệ nhân tạo sẽ hiện thực hóa bản vẽ phối cảnh 3D độc bản cho không gian của bạn trong 5 giây.
           </p>
         </div>
 
