@@ -27,6 +27,39 @@ const PRESET_GALLERY: Record<string, string> = {
 
 const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85';
 
+// Helper to enrich Vietnamese interior design keywords into professional visual cues
+function enrichPromptDetails(userText: string): string {
+  if (!userText || !userText.trim()) return '';
+
+  const keywordMap: Array<[RegExp, string]> = [
+    [/đèn chùm|chùm pha lê/gi, 'monumental crystal chandelier with warm ambient glow'],
+    [/vách đá|đá cẩm thạch|marble/gi, 'bookmatched luxury Calacatta marble feature wall'],
+    [/gỗ óc chó|walnut/gi, 'premium natural American walnut wood paneling and joinery'],
+    [/sofa da|da bò/gi, 'custom Italian leather sofa set in rich earthy tones'],
+    [/tủ rượu|cánh kính/gi, 'floor-to-ceiling illuminated glass wine display cabinet with integrated warm LED strip lighting'],
+    [/ánh sáng tự nhiên|cửa sổ|ban công/gi, 'large floor-to-ceiling panoramic glass windows with soft natural sunlight streaming in'],
+    [/sân vườn|hồ bơi|cây xanh/gi, 'lush landscaped private garden and reflecting water view outside'],
+    [/bàn đảo|bếp/gi, 'monolithic waterfall quartz island counter with brushed brass accents'],
+    [/trần thạch cao|giật cấp/gi, 'architectural recessed coffered ceiling with concealed soft cove lighting'],
+    [/tối giản|gọn gàng/gi, 'clean seamless lines, hidden handleless storage, clutter-free minimalist luxury'],
+    [/phào chỉ|tân cổ/gi, 'refined neoclassical wall mouldings and gilded delicate cornices'],
+  ];
+
+  let enriched = userText.trim();
+  const matchedEnhancements: string[] = [];
+
+  for (const [regex, enhancement] of keywordMap) {
+    if (regex.test(enriched)) {
+      matchedEnhancements.push(enhancement);
+    }
+  }
+
+  if (matchedEnhancements.length > 0) {
+    return `${enriched} (featuring: ${matchedEnhancements.join(', ')})`;
+  }
+  return enriched;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -37,11 +70,15 @@ export async function POST(req: NextRequest) {
       styleLabel = 'Hiện đại sang trọng',
       colorPalette = 'vang-dong',
       colorLabel = 'Tông Vàng Đồng & Trầm Ấm',
+      userIdea = '',
       specialRequirements = '',
     } = body;
 
+    const rawIdeaText = userIdea || specialRequirements || '';
+    const visualDetails = enrichPromptDetails(rawIdeaText);
+
     // Build rich, photorealistic 8K prompt for 9router / AI Image models
-    const prompt = `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceLabel} (${spaceType}), designed in masterclass ${styleLabel} aesthetic by D2 Luxury Design. Color theme: ${colorLabel}. Details: ${specialRequirements ? specialRequirements + ', ' : ''}bespoke high-end furnishings, cinematic ambient warm architectural lighting, rich Italian marble, refined woodwork, photorealistic V-Ray render, 35mm lens, depth of field, award-winning interior architecture showcase.`;
+    const prompt = `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceLabel} (${spaceType}), designed in masterclass ${styleLabel} aesthetic by D2 Luxury Design. Color theme: ${colorLabel}. Custom design elements: ${visualDetails ? visualDetails + ', ' : ''}bespoke high-end furnishings, cinematic ambient warm architectural lighting, photorealistic V-Ray render, 35mm lens, depth of field, award-winning interior architecture showcase.`;
 
     const apiKey = process.env.NINEROUTER_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
     

@@ -2,18 +2,22 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button, Input, message } from 'antd';
+import { Button, Input, message, Tooltip } from 'antd';
 import {
   ThunderboltFilled,
   HomeOutlined,
   AppstoreOutlined,
   BgColorsOutlined,
   ArrowRightOutlined,
-  DownloadOutlined,
   ReloadOutlined,
   CheckCircleFilled,
   LoadingOutlined,
+  BulbOutlined,
+  ClearOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
+
+const { TextArea } = Input;
 
 interface AiDesignStudioProps {
   onOpenConsultation: (serviceOrPrompt?: string) => void;
@@ -42,17 +46,52 @@ const COLOR_OPTIONS = [
   { id: 'xanh-ngoc', label: 'Xanh Ngọc & Ánh Kim', color: 'bg-[#2E5B5B]' },
 ];
 
+const QUICK_IDEA_TAGS = [
+  'Đèn chùm pha lê thông tầng',
+  'Vách đá cẩm thạch vân mây',
+  'Sofa da bò Ý màu nâu camel',
+  'Tủ rượu cánh kính đèn LED',
+  'Gỗ óc chó tự nhiên',
+  'Cửa kính lớn view sân vườn',
+  'Bàn đảo bếp mặt đá Quartz',
+  'Trần giật cấp đèn hắt ấm',
+];
+
+const SAMPLE_IDEAS = [
+  'Phòng khách thông tầng có sofa da bò Ý màu nâu, đèn chùm pha lê hoành tráng, vách tivi ốp đá cẩm thạch tự nhiên và view cửa kính lớn nhìn ra sân vườn.',
+  'Phòng ngủ Master phong cách Indochine hoài niệm với giường gỗ óc chó cao cấp, vách ốp lụa họa tiết chim hoa, quạt trần cổ điển và ban công nhiều cây xanh.',
+  'Không gian bếp hiện đại liên thông phòng ăn, bàn đảo bếp ốp đá quartz trắng vân mây sang trọng, hệ tủ rượu cánh kính kịch trần đèn LED ấm áp.',
+  'Biệt thự Tân cổ điển vương giả với các đường phào chỉ dát ánh kim tinh xảo, lò sưởi decor phong cách châu Âu, sàn lát gạch thảm đá hoa cương.',
+];
+
 export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultation }) => {
   const [spaceType, setSpaceType] = useState('phong-khach');
   const [style, setStyle] = useState('hien-dai');
   const [colorPalette, setColorPalette] = useState('vang-dong');
-  const [specialRequirements, setSpecialRequirements] = useState('');
+  const [userIdea, setUserIdea] = useState(
+    'Phòng khách thông tầng sang trọng có sofa da nâu bò, đèn chùm pha lê lớn, vách đá cẩm thạch và cửa kính panorama view hồ bơi.'
+  );
   
   const [loading, setLoading] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85'
   );
-  const [hasGenerated, setHasGenerated] = useState(false);
+  const [appliedPrompt, setAppliedPrompt] = useState<string>(
+    'Phòng khách thông tầng sang trọng có sofa da nâu bò, đèn chùm pha lê lớn, vách đá cẩm thạch và cửa kính panorama view hồ bơi.'
+  );
+
+  const handleAddTag = (tag: string) => {
+    if (!userIdea.trim()) {
+      setUserIdea(tag);
+    } else if (!userIdea.includes(tag)) {
+      setUserIdea(`${userIdea.trim()}, ${tag.toLowerCase()}`);
+    }
+  };
+
+  const handleRandomIdea = () => {
+    const randomIdx = Math.floor(Math.random() * SAMPLE_IDEAS.length);
+    setUserIdea(SAMPLE_IDEAS[randomIdx]);
+  };
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -71,15 +110,15 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
           styleLabel: selectedStyle?.label,
           colorPalette,
           colorLabel: selectedColor?.label,
-          specialRequirements,
+          userIdea: userIdea.trim(),
         }),
       });
 
       const data = await response.json();
       if (data.success && data.imageUrl) {
         setGeneratedImage(data.imageUrl);
-        setHasGenerated(true);
-        message.success('Đã tạo bản phác thảo thiết kế 3D thành công!');
+        setAppliedPrompt(userIdea.trim() || `${selectedSpace?.label} phong cách ${selectedStyle?.label}`);
+        message.success('Đã hiện thực hóa ý tưởng của bạn thành bản vẽ 3D!');
       } else {
         message.error('Không thể tạo ảnh, vui lòng thử lại!');
       }
@@ -93,7 +132,8 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
   const handleConsultWithDesign = () => {
     const space = SPACE_OPTIONS.find((s) => s.id === spaceType)?.label;
     const styleLabel = STYLE_OPTIONS.find((s) => s.id === style)?.label;
-    onOpenConsultation(`Tư vấn thi công mẫu AI: ${space} - ${styleLabel}`);
+    const details = userIdea ? ` (Ý tưởng: ${userIdea.slice(0, 120)}...)` : '';
+    onOpenConsultation(`Tư vấn thi công mẫu AI: ${space} - ${styleLabel}${details}`);
   };
 
   return (
@@ -108,10 +148,10 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
             TRẢI NGHIỆM CÔNG NGHỆ 9ROUTER AI
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1613] tracking-tight">
-            AI Studio – Phác Họa Không Gian Mơ Ước
+            AI Studio – Hiện Thực Hóa Ý Tưởng Của Bạn
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-[#5C554E] leading-relaxed max-w-3xl mx-auto">
-            Chỉ với vài thao tác lựa chọn, trí tuệ nhân tạo sẽ hiện thực hóa ý tưởng thiết kế nội thất 3D độc bản dành riêng cho căn nhà của bạn chỉ sau 5 giây.
+            Nhập trực tiếp bất kỳ ý tưởng, vật liệu, màu sắc hoặc không gian mong muốn. Trí tuệ nhân tạo sẽ biến mô tả của bạn thành bản vẽ phối cảnh nội thất 3D chuẩn xác trong 5 giây.
           </p>
         </div>
 
@@ -119,10 +159,68 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Controls Form */}
           <div className="lg:col-span-5 bg-white p-6 sm:p-8 border border-[#EFE8DF] shadow-xl space-y-6">
-            {/* Step 1: Loại không gian */}
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <HomeOutlined className="text-[#8A4F2C]" /> 1. Chọn loại không gian
+            {/* Step 1: Primary User Text Idea (TRỌNG TÂM Ý TƯỞNG) */}
+            <div className="space-y-3 p-4 bg-[#FAF8F5] border border-[#8A4F2C]/30 rounded-sm">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-bold text-[#8A4F2C] uppercase tracking-wider flex items-center gap-2">
+                  <EditOutlined className="text-base" /> 1. Nhập ý tưởng thiết kế của bạn
+                </label>
+                <div className="flex items-center gap-2">
+                  <Tooltip title="Tự động điền ý tưởng ngẫu nhiên">
+                    <button
+                      type="button"
+                      onClick={handleRandomIdea}
+                      className="text-xs font-semibold text-[#8A4F2C] hover:text-[#9C623C] flex items-center gap-1 cursor-pointer"
+                    >
+                      <BulbOutlined /> Gợi ý mẫu
+                    </button>
+                  </Tooltip>
+                  {userIdea && (
+                    <Tooltip title="Xóa nội dung">
+                      <button
+                        type="button"
+                        onClick={() => setUserIdea('')}
+                        className="text-xs text-stone-400 hover:text-stone-700 cursor-pointer"
+                      >
+                        <ClearOutlined />
+                      </button>
+                    </Tooltip>
+                  )}
+                </div>
+              </div>
+
+              <TextArea
+                rows={4}
+                value={userIdea}
+                onChange={(e) => setUserIdea(e.target.value)}
+                placeholder="Ví dụ: Phòng khách có sofa da bò Ý màu nâu camel, đèn chùm pha lê thông tầng, vách đá cẩm thạch vân mây, cửa kính lớn nhìn ra sân vườn..."
+                className="!text-sm !text-[#1A1613] !bg-white !border-[#EFE8DF] focus:!border-[#8A4F2C] focus:!shadow-none"
+              />
+
+              {/* Quick Idea Inspiration Chips */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider">
+                  + Thêm nhanh chi tiết vào ý tưởng:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {QUICK_IDEA_TAGS.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => handleAddTag(tag)}
+                      className="text-[11px] px-2.5 py-1 bg-white hover:bg-[#8A4F2C] hover:text-white text-[#5C554E] border border-[#E8DFC0] transition-colors rounded-sm cursor-pointer"
+                    >
+                      + {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2: Loại không gian */}
+            <div className="space-y-2.5">
+              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
+                <HomeOutlined className="text-[#8A4F2C]" /> 2. Loại không gian bổ trợ
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {SPACE_OPTIONS.map((item) => (
@@ -130,9 +228,9 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                     key={item.id}
                     type="button"
                     onClick={() => setSpaceType(item.id)}
-                    className={`p-3 text-xs sm:text-sm font-semibold border transition-all text-left flex items-center gap-2 ${
+                    className={`p-2.5 text-xs font-semibold border transition-all text-left flex items-center gap-2 cursor-pointer ${
                       spaceType === item.id
-                        ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-md'
+                        ? 'bg-[#8A4F2C] text-white border-[#8A4F2C] shadow-sm'
                         : 'bg-[#FAF8F5] text-[#3D3835] hover:border-[#8A4F2C]/50 border-[#EFE8DF]'
                     }`}
                   >
@@ -143,18 +241,18 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
               </div>
             </div>
 
-            {/* Step 2: Phong cách thiết kế */}
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <AppstoreOutlined className="text-[#8A4F2C]" /> 2. Chọn phong cách thiết kế
+            {/* Step 3: Phong cách thiết kế */}
+            <div className="space-y-2.5">
+              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
+                <AppstoreOutlined className="text-[#8A4F2C]" /> 3. Phong cách thiết kế
               </label>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {STYLE_OPTIONS.map((item) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => setStyle(item.id)}
-                    className={`w-full p-3 text-xs sm:text-sm border transition-all text-left flex items-center justify-between ${
+                    className={`w-full p-2.5 text-xs border transition-all text-left flex items-center justify-between cursor-pointer ${
                       style === item.id
                         ? 'bg-[#FAF8F5] border-[#8A4F2C] border-l-4 shadow-sm'
                         : 'bg-white hover:bg-[#FAF8F5] border-[#EFE8DF]'
@@ -164,18 +262,18 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                       <div className={`font-bold ${style === item.id ? 'text-[#8A4F2C]' : 'text-[#1A1613]'}`}>
                         {item.label}
                       </div>
-                      <div className="text-[12px] text-[#78716C]">{item.desc}</div>
+                      <div className="text-[11px] text-[#78716C]">{item.desc}</div>
                     </div>
-                    {style === item.id && <CheckCircleFilled className="text-[#8A4F2C] text-base" />}
+                    {style === item.id && <CheckCircleFilled className="text-[#8A4F2C] text-sm" />}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Step 3: Tông màu chủ đạo */}
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
-                <BgColorsOutlined className="text-[#8A4F2C]" /> 3. Tông màu yêu thích
+            {/* Step 4: Tông màu chủ đạo */}
+            <div className="space-y-2.5">
+              <label className="text-xs font-bold text-[#1A1613] uppercase tracking-wider flex items-center gap-2">
+                <BgColorsOutlined className="text-[#8A4F2C]" /> 4. Tông màu chủ đạo
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {COLOR_OPTIONS.map((item) => (
@@ -183,30 +281,17 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                     key={item.id}
                     type="button"
                     onClick={() => setColorPalette(item.id)}
-                    className={`p-2.5 text-xs font-semibold border transition-all flex items-center gap-2.5 ${
+                    className={`p-2 text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer ${
                       colorPalette === item.id
                         ? 'bg-[#FAF8F5] border-[#8A4F2C] ring-1 ring-[#8A4F2C]'
                         : 'bg-white border-[#EFE8DF] hover:border-stone-300'
                     }`}
                   >
-                    <span className={`w-4 h-4 rounded-full ${item.color} border border-black/10 shrink-0`} />
+                    <span className={`w-3.5 h-3.5 rounded-full ${item.color} border border-black/10 shrink-0`} />
                     <span className="truncate">{item.label}</span>
                   </button>
                 ))}
               </div>
-            </div>
-
-            {/* Step 4: Ghi chú thêm mong muốn */}
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-[#5C554E]">
-                Ghi chú chi tiết thêm (Tùy chọn):
-              </label>
-              <Input
-                placeholder="VD: Cần nhiều ánh sáng tự nhiên, tủ rượu cánh kính..."
-                value={specialRequirements}
-                onChange={(e) => setSpecialRequirements(e.target.value)}
-                className="!py-2 text-sm"
-              />
             </div>
 
             {/* Submit Action Button */}
@@ -217,20 +302,20 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
               loading={loading}
               onClick={handleGenerate}
               icon={<ThunderboltFilled className="text-amber-300" />}
-              className="!h-14 !text-base sm:!text-[17px] !font-bold !bg-[#8A4F2C] hover:!bg-[#9C623C] !text-white shadow-xl hover:shadow-2xl transition-all"
+              className="!h-14 !text-base sm:!text-[17px] !font-bold !bg-[#8A4F2C] hover:!bg-[#9C623C] !text-white shadow-xl hover:shadow-2xl transition-all cursor-pointer"
             >
-              {loading ? 'AI Đang Phác Họa Bản Vẽ...' : 'Tạo Bản Thiết Kế AI (Miễn Phí)'}
+              {loading ? 'AI Đang Vẽ Theo Ý Tưởng Của Bạn...' : 'Vẽ Không Gian Theo Ý Tưởng (Render 3D)'}
             </Button>
           </div>
 
           {/* Right Display Canvas */}
-          <div className="lg:col-span-7 bg-white p-4 sm:p-6 border border-[#EFE8DF] shadow-xl flex flex-col justify-between h-full min-h-[520px]">
+          <div className="lg:col-span-7 bg-white p-4 sm:p-6 border border-[#EFE8DF] shadow-xl flex flex-col justify-between h-full min-h-[560px]">
             {/* Canvas Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#EFE8DF] mb-4">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-xs sm:text-sm font-bold text-[#1A1613] tracking-wide uppercase">
-                  Bản Vẽ 3D Phối Cảnh AI
+                  Bản Vẽ 3D Render Theo Ý Tưởng
                 </span>
               </div>
               <div className="text-xs text-[#8A4F2C] font-semibold bg-[#FAF8F5] px-3 py-1 border border-[#E8DFC0]">
@@ -244,8 +329,8 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                 <div className="flex flex-col items-center justify-center text-white space-y-4 p-8 text-center">
                   <LoadingOutlined className="text-5xl text-[#C5A880] animate-spin" />
                   <div className="space-y-1">
-                    <p className="text-lg font-bold text-[#E8DCCF]">Đang xử lý render 3D kiến trúc...</p>
-                    <p className="text-xs text-stone-400">Áp dụng vật liệu, ánh sáng và bố cục không gian</p>
+                    <p className="text-lg font-bold text-[#E8DCCF]">Đang phân tích ý tưởng & render 3D...</p>
+                    <p className="text-xs text-stone-400">Áp dụng vật liệu, ánh sáng, chi tiết theo đúng mô tả của bạn</p>
                   </div>
                 </div>
               ) : generatedImage ? (
@@ -276,10 +361,21 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
               ) : null}
             </div>
 
+            {/* Concept Prompt Summary Card */}
+            {appliedPrompt && !loading && (
+              <div className="mt-3 p-3 bg-[#FAF8F5] border border-[#EFE8DF] text-xs text-[#5C554E] flex items-start gap-2">
+                <span className="text-base leading-none">💬</span>
+                <div>
+                  <span className="font-bold text-[#1A1613]">Ý tưởng thiết kế đã áp dụng:</span>{' '}
+                  <span className="italic">{appliedPrompt}</span>
+                </div>
+              </div>
+            )}
+
             {/* Canvas Actions */}
-            <div className="pt-5 border-t border-[#EFE8DF] mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div className="pt-4 border-t border-[#EFE8DF] mt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <div className="text-xs text-[#78716C]">
-                💡 <span className="font-semibold text-[#1A1613]">Mẹo:</span> Bạn có thể đổi các lựa chọn bên trái và bấm tạo lại để xem thêm nhiều phương án khác.
+                💡 <span className="font-semibold text-[#1A1613]">Mẹo:</span> Bạn có thể gõ thêm các chi tiết cụ thể vào ô ý tưởng bên trái để AI biến đổi phối cảnh 3D.
               </div>
 
               <div className="flex items-center gap-2.5">
@@ -287,7 +383,7 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                   icon={<ReloadOutlined />}
                   onClick={handleGenerate}
                   disabled={loading}
-                  className="!border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C]"
+                  className="!border-[#D5BEA8] hover:!border-[#8A4F2C] !text-[#5C311C] cursor-pointer"
                 >
                   Tạo lại
                 </Button>
@@ -296,7 +392,7 @@ export const AiDesignStudio: React.FC<AiDesignStudioProps> = ({ onOpenConsultati
                   type="primary"
                   icon={<ArrowRightOutlined />}
                   onClick={handleConsultWithDesign}
-                  className="!bg-[#8A4F2C] !text-white !font-bold shadow-md hover:!bg-[#9C623C]"
+                  className="!bg-[#8A4F2C] !text-white !font-bold shadow-md hover:!bg-[#9C623C] cursor-pointer"
                 >
                   Nhận báo giá mẫu này
                 </Button>
