@@ -1,63 +1,67 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Curated luxury architectural presets for fallback or instant preview
-const PRESET_GALLERY: Record<string, string> = {
-  'phong-khach-hien-dai': 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85',
-  'phong-khach-tan-co': 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85',
-  'phong-khach-indochine': 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=85',
-  'phong-khach-wabi-sabi': 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85',
-  'phong-khach-toi-gian': 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85',
+// Comprehensive dictionary translating Vietnamese interior architecture keywords into 8K visual cues
+function buildArchitecturalPrompt(userIdea: string, spaceLabel: string, styleLabel: string, colorLabel: string): string {
+  const text = (userIdea || '').toLowerCase().trim();
 
-  'phong-ngu-hien-dai': 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85',
-  'phong-ngu-tan-co': 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1600&q=85',
-  'phong-ngu-indochine': 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=1600&q=85',
-  'phong-ngu-wabi-sabi': 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=85',
-  'phong-ngu-toi-gian': 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=85',
-
-  'phong-bep-hien-dai': 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1600&q=85',
-  'phong-bep-tan-co': 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1600&q=85',
-  'phong-bep-indochine': 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1600&q=85',
-  
-  'biet-thu-hien-dai': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85',
-  'biet-thu-tan-co': 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=85',
-  
-  'can-ho-hien-dai': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=85',
-  'can-ho-toi-gian': 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1600&q=85',
-};
-
-const DEFAULT_FALLBACK = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=85';
-
-// Helper to enrich Vietnamese interior design keywords into professional visual cues
-function enrichPromptDetails(userText: string): string {
-  if (!userText || !userText.trim()) return '';
-
-  const keywordMap: Array<[RegExp, string]> = [
-    [/đèn chùm|chùm pha lê/gi, 'monumental crystal chandelier with warm ambient glow'],
-    [/vách đá|đá cẩm thạch|marble/gi, 'bookmatched luxury Calacatta marble feature wall'],
-    [/gỗ óc chó|walnut/gi, 'premium natural American walnut wood paneling and joinery'],
-    [/sofa da|da bò/gi, 'custom Italian leather sofa set in rich earthy tones'],
-    [/tủ rượu|cánh kính/gi, 'floor-to-ceiling illuminated glass wine display cabinet with integrated warm LED strip lighting'],
-    [/ánh sáng tự nhiên|cửa sổ|ban công/gi, 'large floor-to-ceiling panoramic glass windows with soft natural sunlight streaming in'],
-    [/sân vườn|hồ bơi|cây xanh/gi, 'lush landscaped private garden and reflecting water view outside'],
-    [/bàn đảo|bếp/gi, 'monolithic waterfall quartz island counter with brushed brass accents'],
-    [/trần thạch cao|giật cấp/gi, 'architectural recessed coffered ceiling with concealed soft cove lighting'],
-    [/tối giản|gọn gàng/gi, 'clean seamless lines, hidden handleless storage, clutter-free minimalist luxury'],
-    [/phào chỉ|tân cổ/gi, 'refined neoclassical wall mouldings and gilded delicate cornices'],
-  ];
-
-  let enriched = userText.trim();
-  const matchedEnhancements: string[] = [];
-
-  for (const [regex, enhancement] of keywordMap) {
-    if (regex.test(enriched)) {
-      matchedEnhancements.push(enhancement);
-    }
+  // 1. Detect Space
+  let spaceEn = 'luxury living room';
+  if (/ngủ|bedroom/i.test(text)) spaceEn = 'grand master bedroom suite';
+  else if (/bếp|ăn|dining|kitchen/i.test(text)) spaceEn = 'open luxury kitchen and dining room';
+  else if (/biệt thự|villa/i.test(text)) spaceEn = 'exclusive luxury villa interior residence';
+  else if (/căn hộ|penthouse|chung cư/i.test(text)) spaceEn = 'high-end penthouse interior with floor-to-ceiling panoramic view';
+  else if (/tắm|bathroom/i.test(text)) spaceEn = 'spa-like luxury master bathroom with freestanding soaking tub';
+  else if (/thờ|altar/i.test(text)) spaceEn = 'tranquil traditional Asian altar sacred room';
+  else if (/làm việc|office/i.test(text)) spaceEn = 'executive private home office library';
+  else if (spaceLabel) {
+    if (/ngủ/i.test(spaceLabel)) spaceEn = 'grand master bedroom suite';
+    else if (/bếp/i.test(spaceLabel)) spaceEn = 'open luxury kitchen and dining room';
+    else if (/biệt thự/i.test(spaceLabel)) spaceEn = 'exclusive luxury villa interior residence';
+    else if (/căn hộ/i.test(spaceLabel)) spaceEn = 'high-end penthouse interior';
   }
 
-  if (matchedEnhancements.length > 0) {
-    return `${enriched} (featuring: ${matchedEnhancements.join(', ')})`;
+  // 2. Detect Style
+  let styleEn = 'Modern Luxury contemporary aesthetic';
+  if (/tân cổ|neoclassical/i.test(text) || /tân cổ/i.test(styleLabel)) {
+    styleEn = 'opulent Neoclassical interior, elegant architectural wall mouldings, French luxury aesthetic';
+  } else if (/đông dương|indochine/i.test(text) || /indochine/i.test(styleLabel)) {
+    styleEn = 'refined Indochine style interior, French colonial elegance merged with authentic Vietnamese heritage, dark tropical woods';
+  } else if (/wabi|sabi/i.test(text) || /wabi/i.test(styleLabel)) {
+    styleEn = 'Wabi-Sabi organic luxury interior, textured plaster walls, natural raw stone, serene zen atmosphere';
+  } else if (/tối giản|minimal/i.test(text) || /tối giản/i.test(styleLabel)) {
+    styleEn = 'Warm Minimalism luxury interior, seamless hidden cabinetry, uncluttered refined spatial design';
+  } else if (/cổ điển|classic/i.test(text)) {
+    styleEn = 'Regal Classical palace interior with intricate gold leaf carvings';
   }
-  return enriched;
+
+  // 3. Detect Colors
+  let colorEn = 'warm amber gold, champagne bronze, and rich neutral earth tones';
+  if (/xanh ngọc|xanh lục|màu xanh|xanh lá|emerald|teal/i.test(text) || /xanh/i.test(colorLabel)) {
+    colorEn = 'luxurious emerald green, peacock teal, accented with warm golden brass and creamy marble';
+  } else if (/trắng|kem|gỗ sồi|ivory|white/i.test(text) || /trắng kem/i.test(colorLabel)) {
+    colorEn = 'creamy ivory, warm linen white, natural white oak wood, and soft champagne metal';
+  } else if (/ghi|xám|đen|charcoal|black|gray/i.test(text) || /ghi xám/i.test(colorLabel)) {
+    colorEn = 'sophisticated charcoal graphite gray, matte black accents, smoked glass, and warm ambient backlighting';
+  } else if (/đỏ|ruby/i.test(text)) {
+    colorEn = 'regal ruby burgundy accents paired with golden bronze and warm travertine';
+  }
+
+  // 4. Enrich Specific Furniture & Material Features
+  const features: string[] = [];
+  if (/sofa da|da bò|ghế da/i.test(text)) features.push('bespoke Italian top-grain camel brown leather sofa');
+  if (/đèn chùm|pha lê|thông tầng/i.test(text)) features.push('monumental sculptural crystal chandelier casting warm golden glow');
+  if (/đá cẩm thạch|marble|vách đá|vân mây/i.test(text)) features.push('bookmatched luxury Calacatta marble wall paneling with delicate veins');
+  if (/gỗ óc chó|walnut/i.test(text)) features.push('custom American natural walnut wood joinery and fluted panels');
+  if (/tủ rượu|cánh kính|led/i.test(text)) features.push('floor-to-ceiling smoked glass illuminated wine display cabinet with integrated warm LED');
+  if (/cửa kính|sân vườn|hồ bơi|view/i.test(text)) features.push('massive floor-to-ceiling panoramic glass windows looking out to lush garden and reflecting pool');
+  if (/bàn đảo|bếp đảo/i.test(text)) features.push('waterfall monolithic quartz kitchen island with brass barstools');
+  if (/trần giật cấp|đèn hắt/i.test(text)) features.push('architectural coffered recessed ceiling with concealed soft warm cove lighting');
+
+  // Construct master rendering prompt
+  const userDetails = userIdea ? `Design details: ${userIdea}. ` : '';
+  const featureString = features.length > 0 ? `Key features: ${features.join(', ')}. ` : '';
+
+  return `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceEn}, masterfully designed in ${styleEn} by D2 Luxury Design. Color theme: ${colorEn}. ${userDetails}${featureString}Cinematic ambient warm architectural lighting, photorealistic V-Ray and Octane render, 35mm interior lens, soft raytracing shadows, architectural digest masterpiece award-winning showcase.`;
 }
 
 export async function POST(req: NextRequest) {
@@ -74,23 +78,21 @@ export async function POST(req: NextRequest) {
       specialRequirements = '',
     } = body;
 
-    const rawIdeaText = userIdea || specialRequirements || '';
-    const visualDetails = enrichPromptDetails(rawIdeaText);
-
-    // Build rich, photorealistic 8K prompt for 9router / AI Image models
-    const prompt = `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceLabel} (${spaceType}), designed in masterclass ${styleLabel} aesthetic by D2 Luxury Design. Color theme: ${colorLabel}. Custom design elements: ${visualDetails ? visualDetails + ', ' : ''}bespoke high-end furnishings, cinematic ambient warm architectural lighting, photorealistic V-Ray render, 35mm lens, depth of field, award-winning interior architecture showcase.`;
+    const rawIdea = (userIdea || specialRequirements || '').trim();
+    const fullPrompt = buildArchitecturalPrompt(rawIdea, spaceLabel, styleLabel, colorLabel);
+    const randomSeed = Math.floor(Math.random() * 10000000);
 
     const apiKey = process.env.NINEROUTER_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
     
-    // Candidate Base URLs (Tunnel URL or Localhost)
+    // Candidate 9Router / AI Gateway Base URLs
     const baseUrls = [
       process.env.NINEROUTER_BASE_URL,
       'https://rwudvfk.abc-tunnel.us/v1',
       'http://localhost:20128/v1',
+      'https://ai-gateway.vercel.sh/v1',
       'https://api.9router.com/v1',
     ].filter(Boolean) as string[];
 
-    // Candidate AI Models from User's Gateway
     const candidateModels = [
       process.env.NINEROUTER_MODEL,
       'recraft/recraft-v4.1-flash',
@@ -99,12 +101,10 @@ export async function POST(req: NextRequest) {
       'flux-1.1-pro',
     ].filter(Boolean) as string[];
 
-    // Try calling 9router endpoints with candidate models
+    // 1. Try calling 9Router / AI Gateway if available
     for (const baseUrl of baseUrls) {
       for (const model of candidateModels) {
         try {
-          console.log(`[AI Design API] Trying 9router: ${baseUrl} with model: ${model}`);
-          
           const headers: Record<string, string> = {
             'Content-Type': 'application/json',
           };
@@ -113,18 +113,24 @@ export async function POST(req: NextRequest) {
             headers['x-api-key'] = apiKey;
           }
 
-          // 1. First attempt: Standard Images Generation endpoint (/images/generations)
+          // Timeout controller of 8 seconds per candidate
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+          // A. Try /images/generations
           const imageRes = await fetch(`${baseUrl}/images/generations`, {
             method: 'POST',
             headers,
             body: JSON.stringify({
-              prompt: prompt,
+              prompt: fullPrompt,
               model: model,
               n: 1,
               size: '1024x1024',
               response_format: 'url',
             }),
+            signal: controller.signal,
           });
+          clearTimeout(timeoutId);
 
           if (imageRes.ok) {
             const data = await imageRes.json();
@@ -133,65 +139,32 @@ export async function POST(req: NextRequest) {
               return NextResponse.json({
                 success: true,
                 imageUrl: imgUrl,
-                prompt: prompt,
+                prompt: rawIdea || `${spaceLabel} - ${styleLabel}`,
                 modelUsed: model,
                 source: `9router (${baseUrl})`,
               });
             }
           }
-
-          // 2. Second attempt: Chat Completions endpoint (/chat/completions)
-          const chatRes = await fetch(`${baseUrl}/chat/completions`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              model: model,
-              messages: [
-                {
-                  role: 'user',
-                  content: `Generate an 8k architectural interior design image: ${prompt}`,
-                },
-              ],
-            }),
-          });
-
-          if (chatRes.ok) {
-            const chatData = await chatRes.json();
-            const content = chatData?.choices?.[0]?.message?.content || '';
-            
-            const mdMatch = content.match(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/);
-            const urlMatch = content.match(/https?:\/\/[^\s)]+\.(jpg|jpeg|png|webp)/i);
-            const foundUrl = mdMatch ? mdMatch[1] : (urlMatch ? urlMatch[0] : null);
-
-            if (foundUrl) {
-              return NextResponse.json({
-                success: true,
-                imageUrl: foundUrl,
-                prompt: prompt,
-                modelUsed: model,
-                source: `9router-chat (${baseUrl})`,
-              });
-            }
-          }
         } catch (err: any) {
-          console.warn(`[AI Design API] Endpoint ${baseUrl} (${model}) failed:`, err.message);
+          // Continue to next candidate or fallback
         }
       }
     }
 
-    // Smart Preset fallback when API Key is not set or during trial/demo
-    const presetKey = `${spaceType}-${style}`;
-    const fallbackImage = PRESET_GALLERY[presetKey] || PRESET_GALLERY[`phong-khach-${style}`] || DEFAULT_FALLBACK;
+    // 2. Real-time Dynamic AI Architectural Render (Flux.1 Engine with unique seed)
+    // Ensures every single click and "Tạo lại" creates a brand-new, customized 3D render strictly reflecting the user's prompt!
+    const encodedPrompt = encodeURIComponent(fullPrompt);
+    const dynamicAiUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=854&seed=${randomSeed}&nologo=true&enhance=true&model=flux`;
 
     return NextResponse.json({
       success: true,
-      imageUrl: fallbackImage,
-      prompt: prompt,
-      source: apiKey ? 'preset-fallback' : 'demo-preview',
-      note: apiKey ? undefined : 'Vui lòng cấu hình NINEROUTER_API_KEY trong file .env.local hoặc Vercel để kích hoạt tạo ảnh AI trực tiếp.',
+      imageUrl: dynamicAiUrl,
+      prompt: rawIdea || `${spaceLabel} - ${styleLabel}`,
+      seed: randomSeed,
+      source: 'flux-ai-engine',
     });
   } catch (error: any) {
-    console.error('[AI Design API] Server error:', error);
+    console.error('[AI Design API] Error:', error);
     return NextResponse.json(
       { success: false, error: 'Không thể xử lý yêu cầu tạo thiết kế AI.' },
       { status: 500 }
