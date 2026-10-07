@@ -8,13 +8,44 @@
   --color-luxury-bg: #FAF8F5;
 }
 
+*,
+*::before,
+*::after,
+html,
+body,
+button,
+input,
+optgroup,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+div,
+.ant-btn,
+.ant-input,
+.ant-modal,
+.ant-form,
+.ant-select,
+.ant-tabs,
+.ant-rate,
+.ant-pagination {
+  font-family: var(--font-bevietnam), 'Be Vietnam Pro', sans-serif !important;
+}
+
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-bevietnam), sans-serif;
+  font-family: var(--font-bevietnam), 'Be Vietnam Pro', sans-serif;
 }
 
 body {
-  font-family: var(--font-bevietnam), sans-serif;
+  font-family: var(--font-bevietnam), 'Be Vietnam Pro', sans-serif;
   background-color: #FAF8F5;
   color: #2D2824;
   overflow-x: hidden;

@@ -29,6 +29,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-bevietnam)', 'Be Vietnam Pro', 'system-ui', '-apple-system', 'sans-serif'],
         serif: ['var(--font-bevietnam)', 'Be Vietnam Pro', 'sans-serif'],
+        mono: ['var(--font-bevietnam)', 'Be Vietnam Pro', 'sans-serif'],
         handwritten: ['var(--font-bevietnam)', 'Be Vietnam Pro', 'sans-serif'],
       },
       boxShadow: {
