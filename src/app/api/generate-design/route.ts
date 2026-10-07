@@ -53,81 +53,92 @@ export async function POST(req: NextRequest) {
       'https://api.9router.com/v1',
     ].filter(Boolean) as string[];
 
-    const model = process.env.NINEROUTER_MODEL || 'flux-1.1-pro';
+    // Candidate AI Models from User's Gateway
+    const candidateModels = [
+      process.env.NINEROUTER_MODEL,
+      'recraft/recraft-v4.1-flash',
+      'bfl/flux-3-image',
+      'openai/gpt-image-2.5-sunburst',
+      'flux-1.1-pro',
+    ].filter(Boolean) as string[];
 
-    // Try calling 9router endpoints
+    // Try calling 9router endpoints with candidate models
     for (const baseUrl of baseUrls) {
-      try {
-        console.log(`[AI Design API] Trying 9router endpoint: ${baseUrl} with model: ${model}`);
-        
-        const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-        };
-        if (apiKey) {
-          headers['Authorization'] = `Bearer ${apiKey}`;
-        }
-
-        // 1. First attempt: Standard Images Generation endpoint (/images/generations)
-        const imageRes = await fetch(`${baseUrl}/images/generations`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            prompt: prompt,
-            model: model,
-            n: 1,
-            size: '1024x1024',
-            response_format: 'url',
-          }),
-        });
-
-        if (imageRes.ok) {
-          const data = await imageRes.json();
-          const imgUrl = data?.data?.[0]?.url || (data?.data?.[0]?.b64_json ? `data:image/png;base64,${data.data[0].b64_json}` : null);
-          if (imgUrl) {
-            return NextResponse.json({
-              success: true,
-              imageUrl: imgUrl,
-              prompt: prompt,
-              source: `9router (${baseUrl})`,
-            });
-          }
-        }
-
-        // 2. Second attempt: Chat Completions endpoint (/chat/completions)
-        const chatRes = await fetch(`${baseUrl}/chat/completions`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            model: model,
-            messages: [
-              {
-                role: 'user',
-                content: `Generate an 8k architectural interior design image: ${prompt}`,
-              },
-            ],
-          }),
-        });
-
-        if (chatRes.ok) {
-          const chatData = await chatRes.json();
-          const content = chatData?.choices?.[0]?.message?.content || '';
+      for (const model of candidateModels) {
+        try {
+          console.log(`[AI Design API] Trying 9router: ${baseUrl} with model: ${model}`);
           
-          // Check if markdown image link exists: ![...](url) or http...
-          const mdMatch = content.match(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/);
-          const urlMatch = content.match(/https?:\/\/[^\s)]+\.(jpg|jpeg|png|webp)/i);
-          const foundUrl = mdMatch ? mdMatch[1] : (urlMatch ? urlMatch[0] : null);
-
-          if (foundUrl) {
-            return NextResponse.json({
-              success: true,
-              imageUrl: foundUrl,
-              prompt: prompt,
-              source: `9router-chat (${baseUrl})`,
-            });
+          const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+          };
+          if (apiKey) {
+            headers['Authorization'] = `Bearer ${apiKey}`;
+            headers['x-api-key'] = apiKey;
           }
+
+          // 1. First attempt: Standard Images Generation endpoint (/images/generations)
+          const imageRes = await fetch(`${baseUrl}/images/generations`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              prompt: prompt,
+              model: model,
+              n: 1,
+              size: '1024x1024',
+              response_format: 'url',
+            }),
+          });
+
+          if (imageRes.ok) {
+            const data = await imageRes.json();
+            const imgUrl = data?.data?.[0]?.url || (data?.data?.[0]?.b64_json ? `data:image/png;base64,${data.data[0].b64_json}` : null);
+            if (imgUrl) {
+              return NextResponse.json({
+                success: true,
+                imageUrl: imgUrl,
+                prompt: prompt,
+                modelUsed: model,
+                source: `9router (${baseUrl})`,
+              });
+            }
+          }
+
+          // 2. Second attempt: Chat Completions endpoint (/chat/completions)
+          const chatRes = await fetch(`${baseUrl}/chat/completions`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              model: model,
+              messages: [
+                {
+                  role: 'user',
+                  content: `Generate an 8k architectural interior design image: ${prompt}`,
+                },
+              ],
+            }),
+          });
+
+          if (chatRes.ok) {
+            const chatData = await chatRes.json();
+            const content = chatData?.choices?.[0]?.message?.content || '';
+            
+            const mdMatch = content.match(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/);
+            const urlMatch = content.match(/https?:\/\/[^\s)]+\.(jpg|jpeg|png|webp)/i);
+            const foundUrl = mdMatch ? mdMatch[1] : (urlMatch ? urlMatch[0] : null);
+
+            if (foundUrl) {
+              return NextResponse.json({
+                success: true,
+                imageUrl: foundUrl,
+                prompt: prompt,
+                modelUsed: model,
+                source: `9router-chat (${baseUrl})`,
+              });
+            }
+          }
+        } catch (err: any) {
+          console.warn(`[AI Design API] Endpoint ${baseUrl} (${model}) failed:`, err.message);
         }
-      } catch (err: any) {
-        console.warn(`[AI Design API] Endpoint ${baseUrl} failed:`, err.message);
       }
     }
 
