@@ -44,21 +44,33 @@ export async function POST(req: NextRequest) {
     const prompt = `Ultra-luxurious 8k photorealistic architectural interior photograph of a ${spaceLabel} (${spaceType}), designed in masterclass ${styleLabel} aesthetic by D2 Luxury Design. Color theme: ${colorLabel}. Details: ${specialRequirements ? specialRequirements + ', ' : ''}bespoke high-end furnishings, cinematic ambient warm architectural lighting, rich Italian marble, refined woodwork, photorealistic V-Ray render, 35mm lens, depth of field, award-winning interior architecture showcase.`;
 
     const apiKey = process.env.NINEROUTER_API_KEY || process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
-    const baseUrl = process.env.NINEROUTER_BASE_URL || 'https://api.9router.com/v1';
+    
+    // Candidate Base URLs (Tunnel URL or Localhost)
+    const baseUrls = [
+      process.env.NINEROUTER_BASE_URL,
+      'https://rwudvfk.abc-tunnel.us/v1',
+      'http://localhost:20128/v1',
+      'https://api.9router.com/v1',
+    ].filter(Boolean) as string[];
+
     const model = process.env.NINEROUTER_MODEL || 'flux-1.1-pro';
 
-    // If API Key is configured in environment, call the AI Generation API
-    if (apiKey) {
+    // Try calling 9router endpoints
+    for (const baseUrl of baseUrls) {
       try {
-        console.log(`[AI Design API] Calling 9router with model: ${model}`);
+        console.log(`[AI Design API] Trying 9router endpoint: ${baseUrl} with model: ${model}`);
         
-        // Attempt image generation endpoint
-        const response = await fetch(`${baseUrl}/images/generations`, {
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        };
+        if (apiKey) {
+          headers['Authorization'] = `Bearer ${apiKey}`;
+        }
+
+        // 1. First attempt: Standard Images Generation endpoint (/images/generations)
+        const imageRes = await fetch(`${baseUrl}/images/generations`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-          },
+          headers,
           body: JSON.stringify({
             prompt: prompt,
             model: model,
@@ -68,21 +80,54 @@ export async function POST(req: NextRequest) {
           }),
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data?.data?.[0]?.url) {
+        if (imageRes.ok) {
+          const data = await imageRes.json();
+          const imgUrl = data?.data?.[0]?.url || (data?.data?.[0]?.b64_json ? `data:image/png;base64,${data.data[0].b64_json}` : null);
+          if (imgUrl) {
             return NextResponse.json({
               success: true,
-              imageUrl: data.data[0].url,
+              imageUrl: imgUrl,
               prompt: prompt,
-              source: '9router-ai',
+              source: `9router (${baseUrl})`,
             });
           }
-        } else {
-          console.warn('[AI Design API] 9router returned non-200:', response.status, await response.text());
         }
-      } catch (apiErr: any) {
-        console.error('[AI Design API] Error calling external API:', apiErr.message);
+
+        // 2. Second attempt: Chat Completions endpoint (/chat/completions)
+        const chatRes = await fetch(`${baseUrl}/chat/completions`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              {
+                role: 'user',
+                content: `Generate an 8k architectural interior design image: ${prompt}`,
+              },
+            ],
+          }),
+        });
+
+        if (chatRes.ok) {
+          const chatData = await chatRes.json();
+          const content = chatData?.choices?.[0]?.message?.content || '';
+          
+          // Check if markdown image link exists: ![...](url) or http...
+          const mdMatch = content.match(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/);
+          const urlMatch = content.match(/https?:\/\/[^\s)]+\.(jpg|jpeg|png|webp)/i);
+          const foundUrl = mdMatch ? mdMatch[1] : (urlMatch ? urlMatch[0] : null);
+
+          if (foundUrl) {
+            return NextResponse.json({
+              success: true,
+              imageUrl: foundUrl,
+              prompt: prompt,
+              source: `9router-chat (${baseUrl})`,
+            });
+          }
+        }
+      } catch (err: any) {
+        console.warn(`[AI Design API] Endpoint ${baseUrl} failed:`, err.message);
       }
     }
 
