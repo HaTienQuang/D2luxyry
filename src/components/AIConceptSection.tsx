@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteData";
 import { Sparkles, Maximize2, Download, ArrowRight, CheckCircle2, RefreshCw } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface AIConceptSectionProps {
   onOpenZalo?: () => void;
@@ -168,10 +169,12 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
               />
             </div>
 
-            {/* Action Button */}
-            <button
+            {/* Action Button with Framer Motion */}
+            <motion.button
               type="submit"
               disabled={isLoading}
+              whileHover={!isLoading ? { scale: 1.015, y: -1 } : {}}
+              whileTap={!isLoading ? { scale: 0.985 } : {}}
               className={`w-full py-4 px-6 text-center text-xs sm:text-[13px] font-serif uppercase tracking-[0.25em] font-semibold transition-all duration-300 flex items-center justify-center gap-3 ${
                 isLoading
                   ? "bg-neutral-800 text-neutral-300 cursor-wait"
@@ -190,7 +193,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
-            </button>
+            </motion.button>
           </form>
 
           {/* Right Column: 3D Visualization Preview - Expanded to 7 columns with widescreen aspect */}
@@ -298,14 +301,16 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                     <p className="text-xs text-neutral-600 font-serif italic">
                       Ưng ý với ý tưởng này? Hãy để D2 Luxury hiện thực hóa thành bản vẽ thi công thực tế.
                     </p>
-                    <a
+                    <motion.a
                       href={siteConfig.zaloUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="whitespace-nowrap px-4 py-2.5 bg-[#ede9e3] hover:bg-black text-black hover:text-white border border-[#ded8ce] hover:border-black text-[11px] font-serif uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-sm"
+                      whileHover={{ scale: 1.03, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="whitespace-nowrap px-4 py-2.5 bg-[#ede9e3] hover:bg-black text-black hover:text-white border border-[#ded8ce] hover:border-black text-[11px] font-serif uppercase tracking-[0.2em] font-semibold transition-colors duration-300 shadow-sm"
                     >
                       NHẬN BÁO GIÁ THEO MẪU
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ServiceItem {
   id: string;
@@ -140,12 +141,24 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading */}
+        {/* Section Heading with Framer Motion Entrance */}
         <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
-          <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold uppercase tracking-wider text-black">
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold uppercase tracking-wider text-black"
+          >
             DỊCH VỤ CỦA CHÚNG TÔI
-          </h2>
-          <div className="w-24 sm:w-32 h-[2px] bg-black mx-auto mt-4 transition-all duration-500" />
+          </motion.h2>
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: 96, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="h-[2px] bg-black mx-auto mt-4"
+          />
         </div>
 
         {/* 3-Card Continuous Horizontal Sliding Carousel */}
@@ -235,70 +248,76 @@ export default function ServicesSection() {
                     </div>
 
                     {/* Text Details below the Card */}
-                    <div
-                      className={`transition-all duration-500 pt-3 space-y-2.5 ${
-                        isTargetCenter ? "opacity-100 max-w-lg mx-auto" : "opacity-60 max-w-xs mx-auto"
-                      }`}
-                    >
-                      <h3
-                        className={`font-serif font-bold text-black uppercase transition-all duration-500 ${
-                          isTargetCenter
-                            ? "text-lg sm:text-xl lg:text-2xl tracking-wide pt-1"
-                            : "text-xs sm:text-sm tracking-normal"
-                        }`}
-                      >
-                        {item.title}
-                      </h3>
+                    {isCenter ? (
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeIndex}
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.35, ease: "easeOut" }}
+                          className="pt-3 space-y-2.5 opacity-100 max-w-lg mx-auto"
+                        >
+                          <h3 className="font-serif font-bold text-black uppercase text-lg sm:text-xl lg:text-2xl tracking-wide pt-1">
+                            {item.title}
+                          </h3>
 
-                      {isTargetCenter && (
-                        <div className="w-16 h-[1.5px] bg-gray-400 mx-auto my-2" />
-                      )}
+                          <div className="w-16 h-[1.5px] bg-gray-400 mx-auto my-2" />
 
-                      <p
-                        className={`font-serif font-light text-neutral-800 leading-relaxed transition-all duration-500 ${
-                          isTargetCenter
-                            ? "text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2"
-                            : "text-xs text-gray-600 line-clamp-2 px-1"
-                        }`}
-                      >
-                        {item.description}
-                      </p>
+                          <p className="font-serif font-light text-neutral-800 text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2">
+                            {item.description}
+                          </p>
 
-                      {isTargetCenter && (
-                        <div className="pt-2">
-                          <Link
-                            href={item.href}
-                            className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
-                          >
-                            TÌM HIỂU THÊM
-                          </Link>
-                        </div>
-                      )}
-                    </div>
+                          <div className="pt-2">
+                            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+                              <Link
+                                href={item.href}
+                                className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
+                              >
+                                TÌM HIỂU THÊM
+                              </Link>
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
+                    ) : (
+                      <div className="transition-all duration-500 pt-3 space-y-2 opacity-60 max-w-xs mx-auto">
+                        <h3 className="font-serif font-bold text-black uppercase text-xs sm:text-sm tracking-normal">
+                          {item.title}
+                        </h3>
+                        <p className="font-serif font-light text-gray-600 text-xs line-clamp-2 px-1">
+                          {item.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </div>
 
-            {/* Left Stationary Navigation Arrow */}
-            <button
+            {/* Left Stationary Navigation Arrow with Motion */}
+            <motion.button
               onClick={prevSlide}
               disabled={isSliding}
-              className="absolute left-[24%] lg:left-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/70 hover:bg-white text-black shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-50 cursor-pointer"
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.92 }}
+              className="absolute left-[24%] lg:left-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/75 hover:bg-white text-black shadow-md hover:shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
               aria-label="Dịch vụ trước"
             >
               <ChevronLeft className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
-            </button>
+            </motion.button>
 
-            {/* Right Stationary Navigation Arrow */}
-            <button
+            {/* Right Stationary Navigation Arrow with Motion */}
+            <motion.button
               onClick={nextSlide}
               disabled={isSliding}
-              className="absolute right-[24%] lg:right-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/70 hover:bg-white text-black shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-50 cursor-pointer"
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.92 }}
+              className="absolute right-[24%] lg:right-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/75 hover:bg-white text-black shadow-md hover:shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
               aria-label="Dịch vụ tiếp theo"
             >
               <ChevronRight className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Sliding View */}

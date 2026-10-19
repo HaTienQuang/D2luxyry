@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteData";
+import { motion } from "framer-motion";
 
 export default function AboutSection() {
   return (
@@ -24,7 +25,13 @@ export default function AboutSection() {
       <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Heading, Divider, Paragraphs & Button matching Image 2 */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-6"
+          >
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.8rem] font-serif font-bold uppercase tracking-wider text-black leading-[1.2]">
                 D2 LUXURY
@@ -46,17 +53,25 @@ export default function AboutSection() {
             </div>
 
             <div className="pt-2 sm:pt-4">
-              <a
+              <motion.a
                 href="/gioi-thieu"
-                className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 hover:shadow-lg active:translate-y-0"
               >
                 TÌM HIỂU THÊM
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Featured Image with Architectural Outline Frame behind (Image 2) */}
-          <div className="lg:col-span-7 flex justify-center lg:justify-end pt-4 lg:pt-0">
+          {/* Right Column: Featured Image with Architectural Outline Frame behind */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 flex justify-center lg:justify-end pt-4 lg:pt-0"
+          >
             <div className="relative w-full max-w-[680px] group">
               {/* Architectural wireframe outline frame box behind image */}
               <div
@@ -76,7 +91,7 @@ export default function AboutSection() {
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

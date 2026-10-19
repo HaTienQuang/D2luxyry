@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface ProjectItem {
   id: string;
@@ -219,46 +220,61 @@ export default function ProjectsSection() {
               </div>
 
               <div className="pt-2 sm:pt-4">
-                <a
+                <motion.a
                   href="/du-an"
-                  className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 shadow hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 shadow hover:shadow-lg active:translate-y-0"
                 >
                   XEM TOÀN BỘ DỰ ÁN
-                </a>
+                </motion.a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: 2-column image grid using authentic user photos from public/projects/ */}
+          {/* Right Column: 2-column image grid with Framer Motion Stagger & Hover Elevation */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-              {projectItems.map((item) => (
-                <Link
+              {projectItems.map((item, idx) => (
+                <motion.div
                   key={item.id}
-                  href={`/du-an/${item.id}`}
-                  className="group relative aspect-[3/2] w-full overflow-hidden cursor-pointer bg-black/5 shadow-sm hover:shadow-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{
+                    duration: 0.7,
+                    delay: (idx % 2) * 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{ y: -6 }}
+                  className="overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500 bg-black/5"
                 >
-                  {/* Real D2 Luxury Photo from public/projects/ */}
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-106"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                  />
+                  <Link
+                    href={`/du-an/${item.id}`}
+                    className="group relative aspect-[3/2] w-full block overflow-hidden cursor-pointer"
+                  >
+                    {/* Real D2 Luxury Photo from public/projects/ */}
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-108"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    />
 
-                  {/* Elegant hover title scrim */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex items-end p-5 sm:p-6">
-                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      <span className="text-[11px] sm:text-xs tracking-widest uppercase text-luxury-gold font-sans font-medium block">
-                        {item.categoryLabel}
-                      </span>
-                      <h3 className="text-white font-serif text-base sm:text-lg tracking-wider font-semibold uppercase drop-shadow-md">
-                        {item.title}
-                      </h3>
+                    {/* Elegant hover title scrim with slide-up reveal */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex items-end p-5 sm:p-6">
+                      <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <span className="text-[11px] sm:text-xs tracking-widest uppercase text-luxury-gold font-sans font-medium block mb-1">
+                          {item.categoryLabel}
+                        </span>
+                        <h3 className="text-white font-serif text-base sm:text-lg tracking-wider font-semibold uppercase drop-shadow-md">
+                          {item.title}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>

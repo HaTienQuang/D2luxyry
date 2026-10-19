@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteData";
 import { Phone } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface HeroSliderProps {
   onOpenConsultation?: () => void;
@@ -88,15 +89,17 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
             {slides[currentSlide].text}
           </p>
 
-          {/* 2 Buttons Side-by-Side matching Image 5 */}
+          {/* 2 Buttons Side-by-Side matching Image 5 with Framer Motion */}
           <div className="flex flex-row items-center gap-3 sm:gap-4 flex-nowrap pt-2">
             {/* Button 1: HOTLINE (Hiện số điện thoại 0967 323 335 khi hover/click) */}
-            <a
+            <motion.a
               href={`tel:${siteConfig.hotline}`}
               onMouseEnter={() => setIsHotlineHover(true)}
               onMouseLeave={() => setIsHotlineHover(false)}
               onClick={() => setIsHotlineRevealed(true)}
-              className="group relative inline-flex items-center justify-center min-w-[140px] sm:min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-4 bg-black hover:bg-[#181818] text-white text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-black/60 border border-white/25 hover:border-luxury-gold hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 cursor-pointer"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative inline-flex items-center justify-center min-w-[140px] sm:min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-4 bg-black hover:bg-[#181818] text-white text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-black/60 border border-white/25 hover:border-luxury-gold whitespace-nowrap shrink-0 cursor-pointer"
               aria-label={`Hotline ${siteConfig.phone1}`}
             >
               <div className="flex items-center justify-center gap-2 transition-all duration-300">
@@ -114,16 +117,18 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
               <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/90 text-luxury-gold text-[11px] font-sans rounded shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
                 Gọi ngay: {siteConfig.phone1}
               </span>
-            </a>
+            </motion.a>
 
             {/* Button 2: NHẬN TƯ VẤN (Mở Modal Đăng Ký Tư Vấn) */}
-            <button
+            <motion.button
               type="button"
               onClick={onOpenConsultation}
-              className="inline-flex items-center justify-center px-7 sm:px-9 py-3.5 sm:py-4 bg-luxury-gold hover:bg-luxury-goldLight text-black text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-luxury-gold/40 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 cursor-pointer"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center justify-center px-7 sm:px-9 py-3.5 sm:py-4 bg-luxury-gold hover:bg-luxury-goldLight text-black text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-luxury-gold/40 whitespace-nowrap shrink-0 cursor-pointer"
             >
               NHẬN TƯ VẤN
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
