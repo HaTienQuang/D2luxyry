@@ -1,217 +1,238 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import {
-  FacebookFilled,
-  InstagramOutlined,
-  YoutubeFilled,
-  TikTokOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
-import { FOOTER_DATA } from '@/data/landingData';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { siteConfig } from "@/data/siteData";
+import { Phone, Mail, MapPin, Facebook, Youtube, Instagram } from "lucide-react";
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenZalo?: () => void;
+}
+
+export default function Footer({ onOpenZalo }: FooterProps = {}) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer id="contact" className="bg-[#1A1613] text-stone-300 pt-14 sm:pt-20 pb-8 sm:pb-10 border-t border-[#2C241E]">
-      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-12 pb-10 sm:pb-16 border-b border-[#2C241E]">
-          {/* Brand Info */}
-          <div className="lg:col-span-4 space-y-5">
-            <Link href="#hero" className="inline-flex items-center group">
-              <div className="bg-white px-4 py-2 shadow-lg group-hover:scale-105 transition-transform duration-300">
+    <footer className="bg-[#f4f0ec] text-black pt-16 pb-10 border-t border-[#ded8ce] relative">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 4-Column Layout matching Image 1 without solid black background */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Column 1: Logo, Slogan, Socials */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="/" className="inline-block">
+              <div className="relative h-16 sm:h-20 w-48 sm:w-56 flex items-center">
                 <Image
-                  src="/images/logo.png"
-                  alt="D2 Luxury Design Logo"
-                  width={220}
-                  height={160}
-                  className="h-14 sm:h-16 w-auto object-contain"
+                  src="/logo.png"
+                  alt="D2 Luxury Design - Kiến Trúc & Nội Thất"
+                  fill
+                  className="object-contain object-left"
                 />
               </div>
             </Link>
 
-            <p className="text-sm sm:text-[15px] text-[#B8AEA3] leading-relaxed max-w-sm">
-              {FOOTER_DATA.slogan} Đồng hành cùng bạn kiến tạo những không gian sống đẳng cấp, tiện nghi và trường tồn cùng thời gian.
+            <p className="text-xs sm:text-[13px] font-serif text-neutral-700 leading-relaxed max-w-sm font-light">
+              Khơi nguồn cảm hứng cho không gian sống hoàn mỹ. Đồng hành cùng bạn kiến tạo những không gian sống đẳng cấp, tiện nghi và trường tồn cùng thời gian.
             </p>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-3.5 pt-2">
+            {/* Social Icons row */}
+            <div className="flex items-center gap-2.5 pt-1">
               <a
-                href="https://facebook.com"
+                href={siteConfig.facebookUrl}
                 target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#8a522a] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Facebook"
               >
-                <FacebookFilled className="text-lg" />
+                <Facebook className="w-4 h-4" />
               </a>
               <a
-                href="https://instagram.com"
+                href={siteConfig.facebookUrl}
                 target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#8a522a] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Instagram"
               >
-                <InstagramOutlined className="text-lg" />
+                <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="https://youtube.com"
+                href={siteConfig.youtubeUrl}
                 target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#8a522a] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="YouTube"
               >
-                <YoutubeFilled className="text-lg" />
+                <Youtube className="w-4 h-4" />
               </a>
               <a
-                href="https://tiktok.com"
+                href="https://www.tiktok.com/@d2luxury"
                 target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[#28221D] flex items-center justify-center text-stone-300 hover:bg-[#8A4F2C] hover:text-white transition-all"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#8a522a] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="TikTok"
               >
-                <TikTokOutlined className="text-lg" />
+                {/* TikTok SVG Icon */}
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.87-4.48V8.69a8.19 8.19 0 0 0 4.9 1.6V6.84a4.87 4.87 0 0 1-1-.15z" />
+                </svg>
               </a>
             </div>
           </div>
 
-          {/* Quick Links: Về D2 Luxury Design */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-base font-bold text-white uppercase tracking-wider">Về D2 Luxury</h4>
-            <ul className="space-y-3 text-[15px]">
-              <li>
-                <a href="#about" className="hover:text-[#D5BEA8] transition-colors">
-                  Giới thiệu
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-[#D5BEA8] transition-colors">
-                  Đội ngũ kiến trúc sư
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="hover:text-[#D5BEA8] transition-colors">
-                  Dự án thực tế
-                </a>
-              </li>
-              <li>
-                <a href="#process" className="hover:text-[#D5BEA8] transition-colors">
-                  Quy trình làm việc
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className="hover:text-[#D5BEA8] transition-colors">
-                  Khách hàng đánh giá
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Dịch vụ */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-white uppercase tracking-wider">Dịch vụ</h4>
-            <ul className="space-y-3 text-[15px]">
-              <li>
-                <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
-                  Thiết kế nội thất cao cấp
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
-                  Thi công nội thất trọn gói
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
-                  Sản xuất nội thất theo yêu cầu
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
-                  Cải tạo và nâng cấp không gian
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#D5BEA8] transition-colors">
-                  Tư vấn phong thủy nhà ở
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Liên hệ & QR Code */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-base font-bold text-white uppercase tracking-wider">
-              Thông tin liên hệ
+          {/* Column 2: VỀ D2 LUXURY */}
+          <div className="lg:col-span-2 space-y-3.5">
+            <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
+              VỀ D2 LUXURY
             </h4>
-            <ul className="space-y-3.5 text-[15px]">
-              <li className="flex items-start gap-3">
-                <EnvironmentOutlined className="text-[#8A4F2C] mt-1 shrink-0 text-lg" />
-                <span className="text-stone-300">{FOOTER_DATA.address}</span>
+            <ul className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-700 font-light">
+              <li>
+                <Link href="/gioi-thieu" className="hover:text-black hover:font-normal transition-colors">
+                  Giới thiệu
+                </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <PhoneOutlined className="text-[#8A4F2C] shrink-0 text-lg" />
-                <a
-                  href={`tel:${FOOTER_DATA.hotline.replace(/\s+/g, '')}`}
-                  className="text-stone-300 hover:text-white font-bold text-base"
-                >
-                  {FOOTER_DATA.hotline}
-                </a>
+              <li>
+                <Link href="/gioi-thieu#sec-doi-ngu" className="hover:text-black hover:font-normal transition-colors">
+                  Đội ngũ kiến trúc sư
+                </Link>
               </li>
-              <li className="flex items-center gap-3">
-                <MailOutlined className="text-[#8A4F2C] shrink-0 text-lg" />
-                <a
-                  href={`mailto:${FOOTER_DATA.email}`}
-                  className="text-stone-300 hover:text-white"
-                >
-                  {FOOTER_DATA.email}
-                </a>
+              <li>
+                <Link href="/du-an" className="hover:text-black hover:font-normal transition-colors">
+                  Dự án thực tế
+                </Link>
+              </li>
+              <li>
+                <Link href="/gioi-thieu#sec-quy-trinh" className="hover:text-black hover:font-normal transition-colors">
+                  Quy trình làm việc
+                </Link>
+              </li>
+              <li>
+                <Link href="/gioi-thieu#sec-danh-gia" className="hover:text-black hover:font-normal transition-colors">
+                  Khách hàng đánh giá
+                </Link>
               </li>
             </ul>
+          </div>
 
-            {/* QR Code section */}
+          {/* Column 3: DỊCH VỤ */}
+          <div className="lg:col-span-3 space-y-3.5">
+            <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
+              DỊCH VỤ
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-700 font-light">
+              <li>
+                <Link href="/thiet-ke-noi-that" className="hover:text-black hover:font-normal transition-colors">
+                  Thiết kế nội thất cao cấp
+                </Link>
+              </li>
+              <li>
+                <Link href="/thi-cong-xay-dung" className="hover:text-black hover:font-normal transition-colors">
+                  Thi công nội thất trọn gói
+                </Link>
+              </li>
+              <li>
+                <Link href="/thiet-ke-noi-that" className="hover:text-black hover:font-normal transition-colors">
+                  Sản xuất nội thất theo yêu cầu
+                </Link>
+              </li>
+              <li>
+                <Link href="/thi-cong-xay-dung" className="hover:text-black hover:font-normal transition-colors">
+                  Cải tạo và nâng cấp không gian
+                </Link>
+              </li>
+              <li>
+                <Link href="/lien-he" className="hover:text-black hover:font-normal transition-colors">
+                  Tư vấn phong thủy nhà ở
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: THÔNG TIN LIÊN HỆ & Zalo QR Card */}
+          <div className="lg:col-span-3 space-y-3.5">
+            <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
+              THÔNG TIN LIÊN HỆ
+            </h4>
+
+            <div className="space-y-2.5 text-xs sm:text-[13px] font-serif text-neutral-800 font-light leading-relaxed">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-neutral-900 shrink-0 mt-0.5" />
+                <span>Tầng 5, Tòa nhà D2 Luxury, Hà Nội & TP. HCM</span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-neutral-900 shrink-0" />
+                <a href={`tel:${siteConfig.hotline}`} className="hover:text-black font-semibold text-neutral-900">
+                  {siteConfig.phone1}
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-neutral-900 shrink-0" />
+                <a href={`mailto:${siteConfig.email}`} className="hover:text-black transition-colors font-medium">
+                  {siteConfig.email}
+                </a>
+              </div>
+            </div>
+
+            {/* Zalo QR Card Container matching Image 1 - Mở trực tiếp trang Zalo trong tab mới */}
             <a
-              href="https://zalo.me/0967323335"
+              href={siteConfig.zaloUrl}
               target="_blank"
-              rel="noreferrer"
-              className="pt-2 flex items-center gap-3 bg-[#241E1A] hover:bg-[#2C241E] p-3 rounded-xl border border-white/5 hover:border-[#8A4F2C]/40 transition-all duration-300 group cursor-pointer block"
+              rel="noopener noreferrer"
+              className="mt-3.5 p-3 rounded-2xl bg-[#1c1917] text-white flex items-center gap-3.5 shadow-lg border border-neutral-700/60 hover:border-[#8a522a] transition-all duration-300 cursor-pointer group block"
             >
-              <div className="w-16 h-16 bg-white p-1 rounded-lg flex items-center justify-center shrink-0 overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
+              {/* White QR Box */}
+              <div className="relative w-12 h-12 bg-white rounded-lg p-1 shrink-0 overflow-hidden shadow-inner flex items-center justify-center">
                 <Image
-                  src="/images/zalo-qr.png"
-                  alt="Mã QR Zalo D'Luxury Design"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-contain"
+                  src="/zalo-qr.png"
+                  alt="Mã Zalo D2 Luxury"
+                  fill
+                  className="object-contain p-0.5 group-hover:scale-105 transition-transform"
                 />
               </div>
-              <div className="text-xs text-[#A89F95]">
-                <span className="font-semibold text-white group-hover:text-[#D5BEA8] transition-colors block text-sm">
+
+              <div className="text-left font-sans">
+                <span className="block font-bold text-xs sm:text-[13px] text-white tracking-wide group-hover:text-[#38bdf8] transition-colors">
                   Quét mã Zalo
                 </span>
-                <span className="text-[12px] text-stone-400">Kết nối tư vấn 24/7 (0967.323.335)</span>
+                <span className="block text-[10.5px] sm:text-[11px] text-neutral-300 font-light leading-tight mt-0.5">
+                  Kết nối tư vấn 24/7 ({siteConfig.phone1})
+                </span>
               </div>
             </a>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#78716C] gap-4">
-          <p>{FOOTER_DATA.copyright}</p>
-          <div className="flex items-center space-x-6">
-            <a href="#" className="hover:text-stone-300 transition-colors">
-              Chính sách bảo mật
-            </a>
-            <span className="text-[#3D352E]">&bull;</span>
-            <a href="#" className="hover:text-stone-300 transition-colors">
-              Điều khoản sử dụng
-            </a>
+        {/* Divider line */}
+        <div className="w-full h-[1px] bg-black/15 mt-10 mb-6" />
+
+        {/* Sub-footer: Centered service links & copyright */}
+        <div className="text-center space-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] sm:text-xs font-serif uppercase tracking-[0.2em] font-medium text-neutral-700">
+            <Link href="/thi-cong-xay-dung" className="hover:text-black transition-colors">
+              THI CÔNG XÂY DỰNG
+            </Link>
+            <Link href="/thiet-ke-kien-truc" className="hover:text-black transition-colors">
+              THIẾT KẾ KIẾN TRÚC
+            </Link>
+            <Link href="/thiet-ke-noi-that" className="hover:text-black transition-colors">
+              THIẾT KẾ NỘI THẤT
+            </Link>
+            <button
+              onClick={scrollToTop}
+              className="hover:text-black underline underline-offset-4 cursor-pointer"
+            >
+              LÊN TRÊN CÙNG
+            </button>
           </div>
+
+          <p className="text-[11px] sm:text-xs font-serif text-neutral-500 font-light pt-1">
+            Copyright by D2 Luxury © {new Date().getFullYear()}. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   );
-};
+}

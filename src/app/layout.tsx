@@ -1,29 +1,35 @@
-import type { Metadata } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { ConfigProvider, App as AntdApp } from 'antd';
-import { Be_Vietnam_Pro } from 'next/font/google';
-import theme from '@/theme/themeConfig';
-import './globals.css';
+import type { Metadata } from "next";
+import { Lora, Playfair_Display } from "next/font/google";
+import "./globals.css";
 
-const beVietnamPro = Be_Vietnam_Pro({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
-  variable: '--font-bevietnam',
-  display: 'swap',
+const lora = Lora({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-lora",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-playfair",
+  weight: ["400", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "D2 Luxury Design – Thiết Kế & Thi Công Kiến Trúc - Nội Thất Cao Cấp",
-  description:
-    "D2 Luxury Design mang đến giải pháp thiết kế và thi công kiến trúc & nội thất trọn gói toàn diện, kiến tạo không gian sống tiện nghi, thẩm mỹ và đẳng cấp hàng đầu.",
-  keywords:
-    "D2 Luxury Design, thiết kế nội thất, thi công nội thất trọn gói, nội thất biệt thự, thiết kế kiến trúc, nội thất chung cư cao cấp, luxury interior",
+  metadataBase: new URL("https://d2luxury.vn"),
+  title: "D2 Luxury - Đơn Vị Thiết Kế Và Thi Công Kiến Trúc & Nội Thất Trọn Gói",
+  description: "Từ năm 2012, D2 Luxury là đơn vị thiết kế kiến trúc, nội thất & thi công trọn gói phân khúc cao cấp, sở hữu xưởng quy mô lớn và hàng trăm nhân sự lành nghề.",
+  keywords: "thiết kế nội thất, thi công nội thất biệt thự, kiến trúc tân cổ điển, d2 luxury, villa ecopark, vinhomes, penthouse",
   icons: {
-    icon: '/images/logo.png',
-    shortcut: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: "/logo-tight.png",
+    apple: "/logo-tight.png",
   },
+  openGraph: {
+    title: "D2 Luxury - Thiết Kế & Thi Công Nội Thất Biệt Thự Cao Cấp",
+    description: "Đơn vị thiết kế và thi công nội ngoại thất phân khúc cao cấp với đa dạng phong cách thiết kế.",
+    images: ["/hero/main.jpg"],
+  }
 };
 
 export default function RootLayout({
@@ -32,26 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="vi"
-      className={beVietnamPro.variable}
-    >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="font-sans antialiased bg-[#FAF8F5] text-[#2D2824]">
-        <AntdRegistry>
-          <ConfigProvider theme={theme}>
-            <AntdApp>{children}</AntdApp>
-          </ConfigProvider>
-        </AntdRegistry>
+    <html lang="vi" className={`${lora.variable} ${playfair.variable} scroll-smooth`}>
+      <body className="bg-white text-luxury-dark selection:bg-luxury-gold selection:text-white">
+        {children}
       </body>
     </html>
   );
 }
-

@@ -1,57 +1,62 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Header } from '@/components/Header';
-import { Hero } from '@/components/Hero';
-import { Services } from '@/components/Services';
-import { WhyChooseUs } from '@/components/WhyChooseUs';
-import { AiDesignStudio } from '@/components/AiDesignStudio';
-import { Process } from '@/components/Process';
-import { FeaturedProjects } from '@/components/FeaturedProjects';
-import { Testimonials } from '@/components/Testimonials';
-import { CtaBanner } from '@/components/CtaBanner';
-import { Footer } from '@/components/Footer';
-import { ConsultationModal } from '@/components/ConsultationModal';
-import { FloatingContactWidget } from '@/components/FloatingContactWidget';
+import React, { useState } from "react";
+import Header from "@/components/Header";
+import HeroSlider from "@/components/HeroSlider";
+import ProjectsSection from "@/components/ProjectsSection";
+import AboutSection from "@/components/AboutSection";
+import ServicesSection from "@/components/ServicesSection";
+import BrandsSection from "@/components/BrandsSection";
+import AIConceptSection from "@/components/AIConceptSection";
+import ConsultationSection from "@/components/ConsultationSection";
+import Footer from "@/components/Footer";
+import FloatingWidgets from "@/components/FloatingWidgets";
+import ConsultationModal from "@/components/ConsultationModal";
 
 export default function HomePage() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeService, setActiveService] = useState<string | undefined>(undefined);
-
-  const handleOpenConsultation = (serviceName?: string) => {
-    setActiveService(serviceName);
-    setModalOpen(true);
-  };
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#2D2824] selection:bg-[#8A4F2C] selection:text-white flex flex-col font-sans pb-16 sm:pb-0">
-      {/* Top Fixed Header */}
-      <Header onOpenConsultation={() => handleOpenConsultation()} />
+    <main className="min-h-screen flex flex-col bg-[#f4f0ec] text-black">
+      {/* Fixed Header */}
+      <Header />
 
-      {/* Main Sections */}
-      <main className="flex-1">
-        <Hero onOpenConsultation={() => handleOpenConsultation()} />
-        <Services onOpenConsultation={(svc) => handleOpenConsultation(svc)} />
-        <WhyChooseUs onOpenConsultation={() => handleOpenConsultation()} />
-        <AiDesignStudio onOpenConsultation={(prompt) => handleOpenConsultation(prompt)} />
-        <Process />
-        <FeaturedProjects onOpenConsultation={(proj) => handleOpenConsultation(proj)} />
-        <Testimonials />
-        <CtaBanner onOpenConsultation={() => handleOpenConsultation()} />
-      </main>
+      {/* 00. HERO SECTION (Hotline number reveal + Nhận tư vấn modal) */}
+      <HeroSlider onOpenConsultation={() => setIsConsultationModalOpen(true)} />
 
-      {/* Footer */}
-      <Footer />
+      {/* 01. DỰ ÁN CỦA D2 LUXURY */}
+      <ProjectsSection />
 
-      {/* Interactive Consultation Form Modal */}
-      <ConsultationModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        defaultService={activeService}
+      {/* 02. VỀ D2 LUXURY */}
+      <AboutSection />
+
+      {/* 03. DỊCH VỤ CỦA CHÚNG TÔI */}
+      <ServicesSection />
+
+      {/* 04. 2 THƯƠNG HIỆU ĐỊNH DẠNG */}
+      <BrandsSection />
+
+      {/* 05. THIẾT KẾ Ý TƯỞNG 3D */}
+      <AIConceptSection />
+
+      {/* 06. NHẬN TƯ VẤN THIẾT KẾ THI CÔNG NỘI THẤT */}
+      <ConsultationSection
+        onOpenConsultation={() => setIsConsultationModalOpen(true)}
       />
 
-      {/* Floating Action Buttons (Zalo, Hotline, Consultation, BackTop) */}
-      <FloatingContactWidget onOpenConsultation={() => handleOpenConsultation()} />
-    </div>
+      {/* FOOTER (Layout 4 cột theo ảnh 1, không lấy nền đen, click Zalo mở trực tiếp tab mới) */}
+      <Footer />
+
+      {/* Floating Action Buttons (Zalo mở trực tiếp tab mới, Hotline, Đăng ký tư vấn Modal, Scroll-top) */}
+      <FloatingWidgets
+        onOpenConsultation={() => setIsConsultationModalOpen(true)}
+      />
+
+      {/* Consultation Modal matching Image 3 (Gửi trực tiếp đến d2luxurydesign@gmail.com) */}
+      <ConsultationModal
+        isOpen={isConsultationModalOpen}
+        onClose={() => setIsConsultationModalOpen(false)}
+      />
+    </main>
   );
 }

@@ -2,7 +2,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
+.yarn/cache
 
 # testing
 /coverage
@@ -32,3 +32,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# root duplicates (real assets are in /public)
+/about/
+/hero/
+/projects/
+/services/
+/logo-tight.png
+/logo.jpg
+/logo.png
+/zalo-qr.png
+
+
