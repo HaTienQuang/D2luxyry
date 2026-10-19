@@ -99,12 +99,16 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-0.5 shrink-0">
-              <div className="relative h-10 sm:h-12 w-32 sm:w-44 flex items-center transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-11 sm:h-13 lg:h-14 w-40 sm:w-52 lg:w-56 flex items-center transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src={isScrolled || activeMenu !== null ? "/logo.png" : "/logo-white.png"}
                   alt="D2 Luxury Design"
                   fill
-                  className="object-contain object-left drop-shadow"
+                  className={`object-contain object-left transition-all duration-300 ${
+                    isScrolled || activeMenu !== null
+                      ? "drop-shadow-sm"
+                      : "drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] drop-shadow-[0_0_18px_rgba(255,255,255,0.45)] brightness-110"
+                  }`}
                   priority
                 />
               </div>
@@ -329,16 +333,16 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 </AnimatePresence>
               </div>
 
-              {/* THIẾT KẾ 3D (Đổi từ "Ý tưởng AI") */}
+              {/* AI STUDIO */}
               <Link
                 href="/#sec-thietke3d"
                 onClick={closeMenu}
-                onMouseEnter={() => handleMouseEnter("Thiết kế 3D")}
+                onMouseEnter={() => handleMouseEnter("AI Studio")}
                 className={`transition-colors py-2 hover:text-luxury-gold ${
                   isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
                 }`}
               >
-                Thiết kế 3D
+                AI Studio
               </Link>
 
               {/* LIÊN HỆ */}
@@ -380,7 +384,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               { label: "Giới thiệu", href: "/gioi-thieu" },
               { label: "Dịch vụ", href: "/#sec-dichvu" },
               { label: "Thương hiệu", href: "/#sec-thuonghieu" },
-              { label: "Thiết kế 3D", href: "/#sec-thietke3d" },
+              { label: "AI Studio", href: "/#sec-thietke3d" },
               { label: "Liên hệ", href: "/lien-he" },
             ].map((item) => (
               <Link

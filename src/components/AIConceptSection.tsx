@@ -109,10 +109,10 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
         <div className="mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-[11px] font-sans tracking-[0.25em] uppercase font-medium mb-3">
             <Sparkles className="w-3.5 h-3.5 text-luxury-gold" />
-            3D DESIGN STUDIO
+            AI STUDIO
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-serif font-bold uppercase tracking-wider text-black leading-[1.25]">
-            THIẾT KẾ Ý TƯỞNG 3D
+            LÊN Ý TƯỞNG THIẾT KẾ 3D
           </h2>
           <div className="w-20 sm:w-24 h-[1.5px] bg-black mt-3 sm:mt-4 mb-4" />
           <p className="text-sm sm:text-[15px] text-neutral-600 font-serif italic max-w-2xl leading-relaxed">

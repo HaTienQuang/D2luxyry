@@ -36,7 +36,7 @@ export default function HomePage() {
       {/* 04. 2 THƯƠNG HIỆU ĐỊNH DẠNG */}
       <BrandsSection />
 
-      {/* 05. THIẾT KẾ Ý TƯỞNG 3D */}
+      {/* 05. LÊN Ý TƯỞNG THIẾT KẾ 3D (AI Studio) */}
       <AIConceptSection />
 
       {/* 06. NHẬN TƯ VẤN THIẾT KẾ THI CÔNG NỘI THẤT */}
