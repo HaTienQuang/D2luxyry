@@ -101,10 +101,10 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
             <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-0.5 shrink-0">
               <div className="relative h-10 sm:h-12 w-32 sm:w-44 flex items-center transition-transform duration-300 group-hover:scale-105">
                 <Image
-                  src="/logo-tight.png"
+                  src={isScrolled || activeMenu !== null ? "/logo.png" : "/logo-white.png"}
                   alt="D2 Luxury Design"
                   fill
-                  className="object-contain drop-shadow"
+                  className="object-contain object-left drop-shadow"
                   priority
                 />
               </div>

@@ -22,8 +22,11 @@ export const metadata: Metadata = {
   description: "Từ năm 2012, D2 Luxury là đơn vị thiết kế kiến trúc, nội thất & thi công trọn gói phân khúc cao cấp, sở hữu xưởng quy mô lớn và hàng trăm nhân sự lành nghề.",
   keywords: "thiết kế nội thất, thi công nội thất biệt thự, kiến trúc tân cổ điển, d2 luxury, villa ecopark, vinhomes, penthouse",
   icons: {
-    icon: "/logo-tight.png",
-    apple: "/logo-tight.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "D2 Luxury - Thiết Kế & Thi Công Nội Thất Biệt Thự Cao Cấp",
