@@ -9,76 +9,147 @@ const fallbackConcepts: string[] = [
   "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.gif",
 ];
 
+function extractColors(text: string): { interior: string; exterior: string } {
+  const lower = (text || "").toLowerCase();
+
+  const colorMap: { [key: string]: string } = {
+    "hồng": "luxury blush pink and soft rose velvet tones",
+    "pink": "luxury blush pink, soft rose and warm pastel velvet tones",
+    "xanh dương": "luxurious deep navy blue and sapphire velvet accents",
+    "xanh lam": "rich sapphire blue and deep blue tones",
+    "xanh ngọc": "elegant teal and turquoise accents",
+    "xanh lá": "refined emerald green and sage accents",
+    "rêu": "deep olive and moss green tones",
+    "xám": "sophisticated warm gray and charcoal stone textures",
+    "ghi": "modern sleek gray tones",
+    "trắng": "pristine white and ivory finishes",
+    "kem": "warm cream and beige luxury tones",
+    "be": "warm beige and sand palette",
+    "gỗ": "warm natural walnut woodwork and timber accents",
+    "óc chó": "premium dark walnut wood finishes",
+    "vàng": "warm champagne gold and brass details",
+    "gold": "luxury gold accents",
+    "đồng": "brushed bronze and warm metallic details",
+    "đen": "bold modern matte black accents",
+    "cam": "terracotta and warm amber accents",
+  };
+
+  const findColorsInText = (str: string): string[] => {
+    const matched: string[] = [];
+    for (const [key, desc] of Object.entries(colorMap)) {
+      if (str.includes(key)) {
+        matched.push(desc);
+      }
+    }
+    return matched;
+  };
+
+  // Strictly separate "nội thất" vs "ngoại thất"
+  let interiorPart = "";
+  let exteriorPart = "";
+
+  if (lower.includes("nội thất") && lower.includes("ngoại thất")) {
+    const noiIdx = lower.indexOf("nội thất");
+    const ngoaiIdx = lower.indexOf("ngoại thất");
+    if (noiIdx < ngoaiIdx) {
+      interiorPart = lower.slice(noiIdx, ngoaiIdx);
+      exteriorPart = lower.slice(ngoaiIdx);
+    } else {
+      exteriorPart = lower.slice(ngoaiIdx, noiIdx);
+      interiorPart = lower.slice(noiIdx);
+    }
+  } else if (lower.includes("nội thất")) {
+    interiorPart = lower;
+  } else if (lower.includes("ngoại thất")) {
+    exteriorPart = lower;
+  }
+
+  const intColors = findColorsInText(interiorPart);
+  const extColors = findColorsInText(exteriorPart);
+  const generalColors = findColorsInText(lower);
+
+  const defaultInterior = "warm luxury neutral tones with high-end fabric and wood accents";
+  const defaultExterior = "modern architectural gray and white facade";
+
+  return {
+    interior: intColors.length > 0 ? intColors.join(", ") : (generalColors.length > 0 ? generalColors[0] : defaultInterior),
+    exterior: extColors.length > 0 ? extColors.join(", ") : (generalColors.length > 0 ? generalColors[0] : defaultExterior),
+  };
+}
+
 function buildArchitecturalPrompt(area: string, color: string, wishes: string): string {
   const allText = `${area || ""} ${color || ""} ${wishes || ""}`.toLowerCase();
+  const colorSpec = extractColors(color);
 
   // 1. Architecture & Typology
   let typology = "luxury modern architectural residence";
+  let is3Gian = false;
   if (allText.includes("3 gian") || allText.includes("ba gian")) {
-    typology = "modern luxury 3-compartment villa (nhà 3 gian hiện đại với 3 nếp nhà đối xứng)";
+    typology = "modern luxury 3-bay residence (nội thất nhà 3 gian hiện đại)";
+    is3Gian = true;
   } else if (allText.includes("biệt thự") || allText.includes("villa") || allText.includes("dinh thự")) {
-    typology = "luxury contemporary architectural villa";
+    typology = "luxury contemporary villa";
   } else if (allText.includes("penthouse") || allText.includes("duplex")) {
-    typology = "exclusive luxury duplex penthouse";
+    typology = "luxury high-ceiling penthouse";
   } else if (allText.includes("căn hộ") || allText.includes("chung cư")) {
-    typology = "high-end luxury modern apartment";
+    typology = "luxury modern apartment";
   } else if (allText.includes("nhà phố") || allText.includes("liền kề") || allText.includes("shophouse")) {
-    typology = "modern multi-story luxury townhouse";
+    typology = "modern multi-story townhouse";
   } else if (allText.includes("nhà vườn") || allText.includes("cấp 4")) {
-    typology = "luxury single-story modern garden residence";
+    typology = "luxury modern garden residence";
   }
 
-  // Extract area metric if present (e.g., 150m2)
+  // Extract area metric (e.g. 150m2)
   const areaMatch = area?.match(/(\d+[\s]*(m2|m²|mét vuông))/i);
   const areaStr = areaMatch ? `${areaMatch[1]} ` : (area ? `${area.trim()} ` : "");
 
-  // 2. Interior and Exterior Colors & Textures
-  let interiorColor = "warm luxury neutral tones, wood and stone accents";
-  let exteriorColor = "sleek sophisticated gray and white architectural facade";
-
-  const hasBlue = allText.includes("xanh dương") || allText.includes("xanh lam") || allText.includes("navy") || allText.includes("sapphire");
-  const hasGray = allText.includes("xám") || allText.includes("ghi") || allText.includes("gray") || allText.includes("grey");
-  const hasWood = allText.includes("gỗ") || allText.includes("óc chó") || allText.includes("walnut");
-  const hasWhite = allText.includes("trắng") || allText.includes("white");
-
-  if (hasBlue) {
-    interiorColor = "prominent luxury navy blue velvet sofa and blue accents";
-  } else if (hasWood) {
-    interiorColor = "warm natural walnut woodwork and luxury neutral tones";
-  } else if (hasWhite) {
-    interiorColor = "refined cream and pristine white luxury furnishings";
-  }
-
-  if (hasGray) {
-    exteriorColor = "sleek sophisticated gray exterior facade and stone textures";
-  } else if (hasWhite) {
-    exteriorColor = "modern pristine white and glass facade";
-  }
-
-  // 3. Detect Interior & Exterior Elements
-  const hasSofa = allText.includes("sofa") || allText.includes("sopha") || allText.includes("bàn ghế");
-  const hasLights = allText.includes("đèn") || allText.includes("ánh sáng") || allText.includes("chiếu sáng");
+  // 2. Identify Requested Key Features (NO HARDCODING - STRICTLY BASED ON REQUEST)
   const hasPool = allText.includes("bể bơi") || allText.includes("hồ bơi") || allText.includes("pool");
   const hasGarden = allText.includes("vườn") || allText.includes("sân vườn") || allText.includes("cây xanh") || allText.includes("landscape");
+  const hasHighCeiling = allText.includes("trần cao") || allText.includes("thông tầng") || allText.includes("cao thoáng");
   const hasGlass = allText.includes("kính") || allText.includes("tràn view") || allText.includes("cửa sổ") || allText.includes("panorama");
+  const hasLights = allText.includes("đèn") || allText.includes("ánh sáng");
 
-  // Perspective Decision:
-  // When both interior features (sofa/lights/interior) and exterior features (pool/garden/facade/3 gian) exist:
-  const isHybrid =
-    (hasSofa || hasLights || allText.includes("nội thất")) &&
-    (hasPool || hasGarden || hasGlass || allText.includes("ngoại thất") || allText.includes("3 gian"));
+  // Pure exterior perspective only when explicitly asked and no interior elements
+  const isPureExterior =
+    (allText.includes("ngoại thất") || allText.includes("mặt tiền") || allText.includes("toàn cảnh ngoài")) &&
+    !allText.includes("nội thất") &&
+    !allText.includes("phòng khách") &&
+    !allText.includes("trần cao") &&
+    !allText.includes("sofa");
 
-  if (isHybrid) {
-    return `Architectural digest interior-exterior photograph of a ${areaStr}${typology}. Camera inside the spacious open-concept living room looking out through wide open sliding panoramic glass walls: in the foreground inside the room is a prominent ${interiorColor}, coffee table, warm architectural ambient ceiling lighting and modern chandeliers. Directly outside through the glass is the landscaped green garden and crystal clear swimming pool, surrounded by the ${exteriorColor} of the villa. Sofa and living room furniture strictly located inside, swimming pool strictly outdoors. Photorealistic 8k, Octane render, Ray tracing, dusk warm interior lighting meeting twilight sky.`;
+  if (isPureExterior) {
+    let outdoorFeatures = "";
+    if (hasPool) outdoorFeatures += ", outdoor swimming pool with crystal clear water";
+    if (hasGarden) outdoorFeatures += ", lush landscaped garden courtyard";
+
+    return `Architectural digest exterior photograph of a modern luxury ${areaStr}${typology} with ${colorSpec.exterior}. Front elevation view of the residence, clean geometric architectural lines, elegant outdoor illumination, floor-to-ceiling glass windows${outdoorFeatures}. Photorealistic 8k, Octane render, Ray tracing, cinematic dusk golden hour.`;
   }
 
-  // If mostly exterior
-  if (hasPool || hasGarden || allText.includes("ngoại thất")) {
-    return `Architectural digest exterior photograph of a modern luxury ${areaStr}${typology} with ${exteriorColor}. Manicured landscape garden, crystal clear outdoor swimming pool, warm exterior illumination, expansive floor-to-ceiling glass windows revealing glimpses of warm interior lighting. Photorealistic 8k, Octane render, Ray tracing, cinematic dusk golden hour.`;
+  // DEFAULT & INTERIOR PERSPECTIVE:
+  // THE CAMERA IS INSIDE THIS VERY RESIDENCE! Showing the living room looking toward the private garden view.
+  let ceilingDesc = hasHighCeiling
+    ? "with soaring double-height high ceilings, exposed architectural timber trusses and modern chandeliers"
+    : "with elegant recessed coffered ceiling and warm architectural ambient lighting";
+
+  if (hasLights) {
+    ceilingDesc += ", abundant warm ambient recessed lighting and designer luminaires";
   }
 
-  // Default / Interior
-  return `Architectural digest interior photograph of a spacious luxury ${areaStr}living room in a ${typology}. Featuring ${interiorColor}, floor-to-ceiling panoramic glass windows with open vista, warm layered architectural lighting, recessed cove lights and designer chandeliers. Photorealistic 8k, Octane render, Ray tracing, immaculate interior detailing.`;
+  const furnitureDesc = `Featuring a prominent luxury ${colorSpec.interior} designer sofa set, stylish coffee table on a designer rug`;
+
+  let windowAndOutdoorView = "";
+  if (hasPool && hasGarden) {
+    windowAndOutdoorView = `Expansive floor-to-ceiling glass walls offering panoramic view of the private garden courtyard and crystal swimming pool, with subtle ${colorSpec.exterior} accents on the patio.`;
+  } else if (hasPool) {
+    windowAndOutdoorView = `Expansive floor-to-ceiling glass walls overlooking a private swimming pool terrace, with subtle ${colorSpec.exterior} accents.`;
+  } else if (hasGarden || hasGlass || is3Gian) {
+    windowAndOutdoorView = `Expansive floor-to-ceiling glass wall offering panoramic view of a lush green garden courtyard, with subtle ${colorSpec.exterior} architectural accents visible outside under natural daylight.`;
+  } else {
+    windowAndOutdoorView = `Large architectural panoramic windows flooding the space with gentle natural daylight, subtle ${colorSpec.exterior} accents visible outside.`;
+  }
+
+  return `Architectural digest interior photograph of a modern luxury ${areaStr}${typology}. Spacious open-concept living room ${ceilingDesc}. ${furnitureDesc}. ${windowAndOutdoorView} Airy atmosphere, photorealistic 8k, Octane render, Ray tracing.`;
 }
 
 export async function POST(req: NextRequest) {

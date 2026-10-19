@@ -49,15 +49,48 @@ body {
   }
 }
 
-@keyframes slowPan {
+@keyframes kenBurnsZoom {
   0% {
-    transform: scale(1.02) translateY(0);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.06) translateY(-4px);
+    transform: scale(1.06) translate(-4px, -2px);
   }
   100% {
-    transform: scale(1.02) translateY(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes smoothCrossFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.03);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luxuryScanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
   }
 }
 
@@ -76,12 +109,31 @@ body {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-slow-pan {
-  animation: slowPan 16s ease-in-out infinite;
+.animate-smooth-crossfade {
+  animation: smoothCrossFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up-fade {
+  animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-ken-burns {
+  animation: kenBurnsZoom 18s ease-in-out infinite alternate;
 }
 
 .animate-bounce-arch {
   animation: bounceArch 2s ease-in-out infinite;
+}
+
+.luxury-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c5a880, #fff, #c5a880, transparent);
+  animation: luxuryScanline 2.5s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(197, 168, 128, 0.8);
 }
 
 /* Luxury card and image effects */

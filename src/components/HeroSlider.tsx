@@ -53,32 +53,38 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
 
   return (
     <section className="relative w-full h-[100svh] min-h-[640px] overflow-hidden bg-black select-none">
-      {/* Background Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-        >
-          <Image
-            src={slide.image}
-            alt={slide.text}
-            fill
-            priority={index === 0}
-            className={`object-cover object-center transition-transform duration-10000 ease-out ${
-              index === currentSlide ? "scale-105" : "scale-100"
+      {/* Background Slides with Cinema Crossfade and Ken Burns Motion */}
+      {slides.map((slide, index) => {
+        const isActive = index === currentSlide;
+        return (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
             }`}
-          />
-          {/* Subtle natural lighting gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/40" />
-        </div>
-      ))}
+          >
+            <div className={`relative w-full h-full ${isActive ? "animate-ken-burns" : ""}`}>
+              <Image
+                src={slide.image}
+                alt={slide.text}
+                fill
+                priority={index === 0}
+                className="object-cover object-center"
+              />
+            </div>
+            {/* Subtle natural lighting gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/40" />
+          </div>
+        );
+      })}
 
       {/* Hero Content Overlay */}
       <div className="relative z-20 h-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-20 sm:pb-24">
-        <div className="max-w-xl space-y-5 animate-fade-in">
-          <p className="text-white uppercase font-serif text-xl sm:text-3xl lg:text-[2.1rem] tracking-wider leading-[1.25] drop-shadow-xl font-medium">
+        <div className="max-w-xl space-y-5">
+          <p
+            key={currentSlide}
+            className="text-white uppercase font-serif text-xl sm:text-3xl lg:text-[2.1rem] tracking-wider leading-[1.25] drop-shadow-xl font-medium animate-slide-up-fade"
+          >
             {slides[currentSlide].text}
           </p>
 

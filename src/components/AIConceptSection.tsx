@@ -206,26 +206,34 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
               <div className="relative z-10 bg-white border border-[#ded8ce] shadow-xl overflow-hidden group w-full">
                 {/* Image Display: Generous Aspect Ratio showing full spacious architecture */}
                 <div className="relative aspect-[16/10] w-full min-h-[360px] sm:min-h-[460px] lg:min-h-[500px] bg-neutral-900 overflow-hidden">
-                  <Image
-                    src={conceptImage}
-                    alt="Phối cảnh 3D không gian theo yêu cầu"
-                    fill
-                    unoptimized
-                    className={`object-cover transition-all duration-700 ${
-                      isLoading ? "scale-105 blur-sm opacity-60" : "scale-100 opacity-100"
-                    }`}
-                    sizes="(max-width: 1024px) 100vw, 750px"
-                    priority
-                  />
+                  <div key={conceptImage} className="relative w-full h-full animate-smooth-crossfade">
+                    <Image
+                      src={conceptImage}
+                      alt="Phối cảnh 3D không gian theo yêu cầu"
+                      fill
+                      unoptimized
+                      className={`object-cover transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isLoading ? "scale-105 blur-sm opacity-50" : "scale-100 opacity-100"
+                      }`}
+                      sizes="(max-width: 1024px) 100vw, 750px"
+                      priority
+                    />
+                  </div>
+
+                  {/* High-Tech Luxury Scanline when generating */}
+                  {isLoading && <div className="luxury-scanline z-30" />}
 
                   {/* Loading Overlay */}
                   {isLoading && (
-                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm p-6 text-center text-white">
-                      <div className="w-12 h-12 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin mb-4" />
-                      <p className="text-xs font-serif tracking-[0.2em] uppercase font-semibold text-luxury-gold mb-1">
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/65 backdrop-blur-md p-6 text-center text-white animate-fade-in">
+                      <div className="relative w-14 h-14 mb-4">
+                        <div className="absolute inset-0 border-2 border-luxury-gold/30 rounded-full animate-ping" />
+                        <div className="w-14 h-14 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin" />
+                      </div>
+                      <p className="text-xs font-serif tracking-[0.25em] uppercase font-semibold text-luxury-gold mb-1.5 drop-shadow">
                         ĐANG KHỞI TẠO BẢN VẼ 3D...
                       </p>
-                      <p className="text-xs text-neutral-300 font-light">
+                      <p className="text-xs text-neutral-300 font-light max-w-sm">
                         {loadingStepsText[loadingStep]}
                       </p>
                     </div>

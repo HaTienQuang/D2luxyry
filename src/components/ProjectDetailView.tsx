@@ -233,8 +233,8 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
             <ChevronLeft className="w-7 h-7" />
           </button>
 
-          {/* Main Large Image */}
-          <div className="relative max-w-6xl max-h-[85vh] w-full h-[80vh] flex items-center justify-center">
+          {/* Main Large Image with Smooth Animated Transition */}
+          <div key={lightboxIndex} className="relative max-w-6xl max-h-[85vh] w-full h-[80vh] flex items-center justify-center animate-smooth-crossfade">
             <Image
               src={gallery[lightboxIndex]}
               alt={`${project.title} - Ảnh ${lightboxIndex + 1}`}
