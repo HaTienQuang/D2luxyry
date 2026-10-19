@@ -49,29 +49,46 @@ export default function ServicesSection() {
     },
   ];
 
+  const total = services.length;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<"next" | "prev" | null>(null);
+  const [isSliding, setIsSliding] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  const prevSlide = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev === 0 ? services.length - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 650);
-  };
+  // Entrance animation: smoothly push in the side images on reload/load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasEntered(true);
+    }, 120);
+    return () => clearTimeout(timer);
+  }, []);
 
   const nextSlide = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev === services.length - 1 ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 650);
+    if (isSliding) return;
+    setIsSliding(true);
+    setSlideDirection("next");
+
+    setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % total);
+      setIsSliding(false);
+      setSlideDirection(null);
+    }, 620);
   };
 
-  const total = services.length;
-  const leftIndex = (activeIndex - 1 + total) % total;
-  const rightIndex = (activeIndex + 1) % total;
+  const prevSlide = () => {
+    if (isSliding) return;
+    setIsSliding(true);
+    setSlideDirection("prev");
 
-  // Touch Swipe for mobile/trackpad
+    setTimeout(() => {
+      setActiveIndex((prev) => (prev - 1 + total) % total);
+      setIsSliding(false);
+      setSlideDirection(null);
+    }, 620);
+  };
+
+  // Touch swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -84,12 +101,35 @@ export default function ServicesSection() {
     touchStartX.current = null;
   };
 
+  // 5 slots centered on activeIndex: [-2, -1, 0, 1, 2]
+  const slotIndices = [
+    (activeIndex - 2 + total * 2) % total,
+    (activeIndex - 1 + total * 2) % total,
+    activeIndex,
+    (activeIndex + 1) % total,
+    (activeIndex + 2) % total,
+  ];
+
+  // Calculate track transform percentage
+  // Slot 2 (center) is resting at index 2 (offset = -33.333333% in desktop 3-card view)
+  const getDesktopTrackTransform = () => {
+    if (slideDirection === "next") return "translateX(-40%)";
+    if (slideDirection === "prev") return "translateX(0%)";
+    return "translateX(-20%)";
+  };
+
+  const getMobileTrackTransform = () => {
+    if (slideDirection === "next") return "translateX(-60%)";
+    if (slideDirection === "prev") return "translateX(-20%)";
+    return "translateX(-40%)";
+  };
+
   return (
     <section
       id="sec-dichvu"
       className="relative w-full py-16 sm:py-24 bg-[#f4f0ec] text-black overflow-hidden border-t border-[#eae3d9]"
     >
-      {/* Background Watermark 03 (So2.svg) with unified sizing & positioning */}
+      {/* Background Watermark 03 (So2.svg) */}
       <div className="absolute top-2 left-0 sm:left-4 w-[420px] sm:w-[520px] lg:w-[560px] h-[400px] sm:h-[500px] lg:h-[540px] opacity-85 pointer-events-none select-none z-0">
         <Image
           src="/decor/So2.svg"
@@ -100,7 +140,7 @@ export default function ServicesSection() {
       </div>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Centered Heading with subtle entrance */}
+        {/* Section Heading */}
         <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
           <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold uppercase tracking-wider text-black">
             DỊCH VỤ CỦA CHÚNG TÔI
@@ -108,160 +148,230 @@ export default function ServicesSection() {
           <div className="w-24 sm:w-32 h-[2px] bg-black mx-auto mt-4 transition-all duration-500" />
         </div>
 
-        {/* 3-Item Focus Carousel with Smooth Transitions */}
+        {/* 3-Card Continuous Horizontal Sliding Carousel */}
         <div
-          className="relative w-full overflow-hidden select-none"
+          className="relative w-full overflow-hidden select-none py-2"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Desktop & Tablet Smooth 3-Item Layout */}
-          <div className="hidden md:flex items-start justify-center gap-6 lg:gap-8 px-4">
-            {/* Left Preview Slide */}
+          {/* Desktop & Tablet Sliding Track View */}
+          <div className="hidden md:block relative w-full overflow-hidden">
+            {/* Sliding Track containing 5 continuous slots */}
             <div
-              onClick={prevSlide}
-              className="w-[28%] lg:w-[27%] shrink-0 opacity-55 hover:opacity-80 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform hover:scale-[0.98] cursor-pointer text-center space-y-4"
+              className={`flex items-start ${
+                isSliding
+                  ? "transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  : "transition-none"
+              }`}
+              style={{
+                width: "166.666667%",
+                transform: getDesktopTrackTransform(),
+              }}
             >
-              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm transform transition-transform duration-700">
-                <Image
-                  src={services[leftIndex].image}
-                  alt={services[leftIndex].title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="350px"
-                />
-              </div>
-              <div className="space-y-2 transition-all duration-500">
-                <h3 className="text-sm sm:text-base font-serif font-bold text-black uppercase">
-                  {services[leftIndex].title}
-                </h3>
-                <p className="text-xs text-gray-600 font-serif font-light leading-relaxed line-clamp-2 px-2">
-                  {services[leftIndex].description}
-                </p>
-              </div>
-            </div>
+              {slotIndices.map((serviceIdx, slotPos) => {
+                const item = services[serviceIdx];
+                const isCenter = slotPos === 2;
+                const isLeft = slotPos === 1;
+                const isRight = slotPos === 3;
 
-            {/* Left Navigation Arrow */}
-            <div className="self-center -mt-16 z-20">
-              <button
-                onClick={prevSlide}
-                className="p-2.5 rounded-full hover:bg-black/5 text-black hover:scale-110 active:scale-95 transition-all duration-300"
-                aria-label="Previous Service"
-              >
-                <ChevronLeft className="w-8 h-8 stroke-[1.4]" />
-              </button>
-            </div>
+                // Dynamic scale & opacity calculation during active slide
+                let isTargetCenter = isCenter;
+                let isTargetSide = isLeft || isRight;
 
-            {/* Center Active Slide with Smooth Scaling & Shadow */}
-            <div className="w-[44%] lg:w-[42%] shrink-0 text-center space-y-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-lg group">
-                <Image
-                  key={services[activeIndex].image}
-                  src={services[activeIndex].image}
-                  alt={services[activeIndex].title}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                  sizes="650px"
-                />
-              </div>
-              <div className="space-y-3 pt-1 transition-all duration-500">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-serif font-bold text-black uppercase tracking-wide">
-                  {services[activeIndex].title}
-                </h3>
-                <div className="w-16 h-[1.5px] bg-gray-400 mx-auto" />
-                <p className="text-sm sm:text-[15.5px] text-neutral-800 font-serif font-light leading-[1.85] max-w-xl mx-auto transition-opacity duration-500">
-                  {services[activeIndex].description}
-                </p>
-                <div className="pt-2">
-                  <Link
-                    href={services[activeIndex].href}
-                    className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
+                if (slideDirection === "next") {
+                  isTargetCenter = slotPos === 3;
+                  isTargetSide = slotPos === 2 || slotPos === 4;
+                } else if (slideDirection === "prev") {
+                  isTargetCenter = slotPos === 1;
+                  isTargetSide = slotPos === 0 || slotPos === 2;
+                }
+
+                // Initial reload push-in from 2 sides
+                let pushInTransform = "";
+                let pushInOpacity = "";
+                if (!hasEntered) {
+                  if (slotPos === 1) {
+                    pushInTransform = "translateX(-65px)";
+                    pushInOpacity = "opacity-0";
+                  } else if (slotPos === 3) {
+                    pushInTransform = "translateX(65px)";
+                    pushInOpacity = "opacity-0";
+                  } else if (slotPos === 2) {
+                    pushInTransform = "scale(0.96)";
+                    pushInOpacity = "opacity-75";
+                  }
+                }
+
+                return (
+                  <div
+                    key={`${slotPos}-${serviceIdx}`}
+                    onClick={() => {
+                      if (isLeft) prevSlide();
+                      if (isRight) nextSlide();
+                    }}
+                    className={`w-[20%] shrink-0 px-3 lg:px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      !isCenter ? "cursor-pointer" : ""
+                    } ${pushInOpacity}`}
+                    style={{
+                      transform: pushInTransform,
+                    }}
                   >
-                    TÌM HIỂU THÊM
-                  </Link>
-                </div>
-              </div>
+                    {/* Card Image Container with Smooth Scaling */}
+                    <div
+                      className={`relative aspect-[3/2] w-full overflow-hidden bg-black/5 transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] group ${
+                        isTargetCenter
+                          ? "shadow-2xl scale-100 opacity-100 z-20"
+                          : "shadow-sm scale-[0.84] opacity-55 hover:opacity-85 z-10"
+                      }`}
+                    >
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 33vw, 480px"
+                        priority={isCenter}
+                      />
+                    </div>
+
+                    {/* Text Details below the Card */}
+                    <div
+                      className={`transition-all duration-500 pt-3 space-y-2.5 ${
+                        isTargetCenter ? "opacity-100 max-w-lg mx-auto" : "opacity-60 max-w-xs mx-auto"
+                      }`}
+                    >
+                      <h3
+                        className={`font-serif font-bold text-black uppercase transition-all duration-500 ${
+                          isTargetCenter
+                            ? "text-lg sm:text-xl lg:text-2xl tracking-wide pt-1"
+                            : "text-xs sm:text-sm tracking-normal"
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
+
+                      {isTargetCenter && (
+                        <div className="w-16 h-[1.5px] bg-gray-400 mx-auto my-2" />
+                      )}
+
+                      <p
+                        className={`font-serif font-light text-neutral-800 leading-relaxed transition-all duration-500 ${
+                          isTargetCenter
+                            ? "text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2"
+                            : "text-xs text-gray-600 line-clamp-2 px-1"
+                        }`}
+                      >
+                        {item.description}
+                      </p>
+
+                      {isTargetCenter && (
+                        <div className="pt-2">
+                          <Link
+                            href={item.href}
+                            className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                          >
+                            TÌM HIỂU THÊM
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Right Navigation Arrow */}
-            <div className="self-center -mt-16 z-20">
-              <button
-                onClick={nextSlide}
-                className="p-2.5 rounded-full hover:bg-black/5 text-black hover:scale-110 active:scale-95 transition-all duration-300"
-                aria-label="Next Service"
-              >
-                <ChevronRight className="w-8 h-8 stroke-[1.4]" />
-              </button>
-            </div>
-
-            {/* Right Preview Slide */}
-            <div
-              onClick={nextSlide}
-              className="w-[28%] lg:w-[27%] shrink-0 opacity-55 hover:opacity-80 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform hover:scale-[0.98] cursor-pointer text-center space-y-4"
+            {/* Left Stationary Navigation Arrow */}
+            <button
+              onClick={prevSlide}
+              disabled={isSliding}
+              className="absolute left-[24%] lg:left-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/70 hover:bg-white text-black shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-50 cursor-pointer"
+              aria-label="Dịch vụ trước"
             >
-              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm transform transition-transform duration-700">
-                <Image
-                  src={services[rightIndex].image}
-                  alt={services[rightIndex].title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="350px"
-                />
-              </div>
-              <div className="space-y-2 transition-all duration-500">
-                <h3 className="text-sm sm:text-base font-serif font-bold text-black uppercase">
-                  {services[rightIndex].title}
-                </h3>
-                <p className="text-xs text-gray-600 font-serif font-light leading-relaxed line-clamp-2 px-2">
-                  {services[rightIndex].description}
-                </p>
-              </div>
-            </div>
+              <ChevronLeft className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
+            </button>
+
+            {/* Right Stationary Navigation Arrow */}
+            <button
+              onClick={nextSlide}
+              disabled={isSliding}
+              className="absolute right-[24%] lg:right-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/70 hover:bg-white text-black shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-50 cursor-pointer"
+              aria-label="Dịch vụ tiếp theo"
+            >
+              <ChevronRight className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
+            </button>
           </div>
 
-          {/* Mobile Single Slide with Smooth Swipe */}
-          <div className="md:hidden space-y-4 px-2">
-            <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm">
-              <Image
-                key={services[activeIndex].image}
-                src={services[activeIndex].image}
-                alt={services[activeIndex].title}
-                fill
-                className="object-cover transition-transform duration-500"
-                sizes="100vw"
-              />
-              {/* Arrows inside image on mobile */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white transition-colors"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white transition-colors"
-                aria-label="Next"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+          {/* Mobile Sliding View */}
+          <div className="md:hidden relative w-full overflow-hidden">
+            <div
+              className={`flex items-start ${
+                isSliding
+                  ? "transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  : "transition-none"
+              }`}
+              style={{
+                width: "500%",
+                transform: getMobileTrackTransform(),
+              }}
+            >
+              {slotIndices.map((serviceIdx, slotPos) => {
+                const item = services[serviceIdx];
+                const isCenter = slotPos === 2;
+                return (
+                  <div
+                    key={`mobile-${slotPos}-${serviceIdx}`}
+                    className="w-[20%] shrink-0 px-2 text-center space-y-3"
+                  >
+                    <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-md">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                        priority={isCenter}
+                      />
+                    </div>
+                    <div className="space-y-2 px-2">
+                      <h3 className="text-lg font-serif font-bold text-black uppercase">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-neutral-800 font-serif font-light leading-[1.8] line-clamp-3">
+                        {item.description}
+                      </p>
+                      {isCenter && (
+                        <div className="pt-2">
+                          <Link
+                            href={item.href}
+                            className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
+                          >
+                            TÌM HIỂU THÊM
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="text-center space-y-2">
-              <h3 className="text-lg font-serif font-bold text-black uppercase">
-                {services[activeIndex].title}
-              </h3>
-              <p className="text-sm text-neutral-800 font-serif font-light leading-[1.8] px-2">
-                {services[activeIndex].description}
-              </p>
-              <div className="pt-2">
-                <Link
-                  href={services[activeIndex].href}
-                  className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
-                >
-                  TÌM HIỂU THÊM
-                </Link>
-              </div>
-            </div>
+
+            {/* Mobile Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              disabled={isSliding}
+              className="absolute left-1 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
+              aria-label="Previous"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              disabled={isSliding}
+              className="absolute right-1 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
+              aria-label="Next"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
