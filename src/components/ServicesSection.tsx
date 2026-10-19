@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -53,28 +53,22 @@ export default function ServicesSection() {
   const total = services.length;
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
-  const [hasEntered, setHasEntered] = useState(false);
   const touchStartX = useRef<number | null>(null);
-
-  // Entrance animation: smoothly push in the side images on initial load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setHasEntered(true);
-    }, 120);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const nextSlide = () => {
-    setDirection("next");
-    setActiveIndex((prev) => (prev + 1) % total);
-  };
 
   const prevSlide = () => {
     setDirection("prev");
-    setActiveIndex((prev) => (prev - 1 + total) % total);
+    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
   };
 
-  // Touch swipe support
+  const nextSlide = () => {
+    setDirection("next");
+    setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
+  };
+
+  const leftIndex = (activeIndex - 1 + total) % total;
+  const rightIndex = (activeIndex + 1) % total;
+
+  // Touch Swipe for mobile/trackpad
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -82,17 +76,9 @@ export default function ServicesSection() {
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 45) nextSlide();
-    if (diff < -45) prevSlide();
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
     touchStartX.current = null;
-  };
-
-  // Calculate normalized relative offset from activeIndex for each item
-  const getOffset = (idx: number) => {
-    let diff = idx - activeIndex;
-    while (diff > total / 2) diff -= total;
-    while (diff < -total / 2) diff += total;
-    return diff;
   };
 
   return (
@@ -131,283 +117,282 @@ export default function ServicesSection() {
           />
         </div>
 
-        {/* 3D Flip & Coverflow Stage Carousel */}
+        {/* 3-Column Clean Side-by-Side Layout matching Original Layout + Smooth Motion Glide */}
         <div
-          className="relative w-full select-none py-2"
+          className="relative w-full overflow-hidden select-none"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Desktop & Tablet 3D Perspective Stage */}
-          <div
-            className="hidden md:block relative w-full h-[520px] sm:h-[560px] lg:h-[600px] overflow-hidden"
-            style={{
-              perspective: "1200px",
-              perspectiveOrigin: "center 42%",
-              transformStyle: "preserve-3d",
-            }}
-          >
-            {services.map((item, idx) => {
-              const offset = getOffset(idx);
-              const isCenter = offset === 0;
-              const isLeft = offset === -1;
-              const isRight = offset === 1;
-              const isHidden = Math.abs(offset) >= 2;
-
-              // Compute 3D Flip and Glide coordinates
-              let targetX = "0%";
-              let targetRotateY = 0;
-              let targetScale = 1;
-              let targetZ = 100;
-              let targetOpacity = 1;
-              let targetBrightness = "brightness(1)";
-
-              if (isLeft) {
-                targetX = "-72%";
-                targetRotateY = 24; // Flipped in 3D facing inward
-                targetScale = 0.83;
-                targetZ = 20;
-                targetOpacity = 0.62;
-                targetBrightness = "brightness(0.88)";
-              } else if (isRight) {
-                targetX = "72%";
-                targetRotateY = -24; // Flipped in 3D facing inward
-                targetScale = 0.83;
-                targetZ = 20;
-                targetOpacity = 0.62;
-                targetBrightness = "brightness(0.88)";
-              } else if (isHidden) {
-                targetX = offset > 0 ? "130%" : "-130%";
-                targetRotateY = offset > 0 ? -40 : 40;
-                targetScale = 0.6;
-                targetZ = 0;
-                targetOpacity = 0;
-                targetBrightness = "brightness(0.7)";
-              }
-
-              // Initial push-in coordinates before enter
-              let initialX = targetX;
-              let initialOpacity = targetOpacity;
-              if (!hasEntered) {
-                if (isLeft) {
-                  initialX = "-105%";
-                  initialOpacity = 0;
-                } else if (isRight) {
-                  initialX = "105%";
-                  initialOpacity = 0;
-                } else if (isCenter) {
-                  initialOpacity = 0.6;
-                }
-              }
-
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{
-                    x: initialX,
-                    rotateY: targetRotateY,
-                    scale: targetScale,
-                    opacity: initialOpacity,
-                  }}
-                  animate={{
-                    x: targetX,
-                    rotateY: targetRotateY,
-                    scale: targetScale,
-                    opacity: targetOpacity,
-                    zIndex: targetZ,
-                    filter: targetBrightness,
-                  }}
-                  transition={{
-                    duration: 0.72,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  whileHover={
-                    !isCenter && !isHidden
-                      ? {
-                          scale: 0.86,
-                          opacity: 0.88,
-                          rotateY: isLeft ? 16 : -16,
-                          filter: "brightness(0.96)",
-                          transition: { duration: 0.3 },
-                        }
-                      : {}
-                  }
-                  onClick={() => {
-                    if (isLeft) prevSlide();
-                    if (isRight) nextSlide();
-                  }}
-                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-[42%] lg:w-[40%] text-center ${
-                    !isCenter && !isHidden ? "cursor-pointer" : ""
-                  }`}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    willChange: "transform, opacity",
-                  }}
-                >
-                  {/* Card Image Container with 3D Depth Shadow */}
-                  <div
-                    className={`relative aspect-[3/2] w-full overflow-hidden bg-black/5 rounded-sm transition-shadow duration-700 ${
-                      isCenter
-                        ? "shadow-[0_20px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/5"
-                        : "shadow-md hover:shadow-xl"
-                    }`}
+          {/* Desktop & Tablet 3-Item Layout: Left 27%, Center 42%, Right 27% (No Overlap) */}
+          <div className="hidden md:flex items-start justify-center gap-6 lg:gap-8 px-4">
+            {/* Left Preview Slide with Push-in Entrance & Directional Slide */}
+            <motion.div
+              initial={{ opacity: 0, x: -75 }}
+              whileInView={{ opacity: 0.55, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ opacity: 0.85, scale: 0.98 }}
+              onClick={prevSlide}
+              className="w-[28%] lg:w-[27%] shrink-0 cursor-pointer text-center space-y-4"
+            >
+              {/* Card Image Container with Directional Glide */}
+              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm">
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                  <motion.div
+                    key={services[leftIndex].id}
+                    custom={direction}
+                    initial={{ x: direction === "next" ? 75 : -75, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: direction === "next" ? -75 : 75, opacity: 0 }}
+                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-full h-full"
                   >
                     <Image
-                      src={item.image}
-                      alt={item.title}
+                      src={services[leftIndex].image}
+                      alt={services[leftIndex].title}
                       fill
-                      className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
-                      sizes="(max-width: 1024px) 45vw, 600px"
-                      priority={isCenter}
+                      className="object-cover"
+                      sizes="380px"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Left Slide Description */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={services[leftIndex].id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-2"
+                >
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-black uppercase">
+                    {services[leftIndex].title}
+                  </h3>
+                  <p className="text-xs text-gray-600 font-serif font-light leading-relaxed line-clamp-2 px-2">
+                    {services[leftIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Left Navigation Arrow */}
+            <div className="self-center -mt-16 z-20">
+              <motion.button
+                onClick={prevSlide}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.92 }}
+                className="p-2.5 rounded-full hover:bg-black/5 text-black transition-colors cursor-pointer"
+                aria-label="Previous Service"
+              >
+                <ChevronLeft className="w-8 h-8 stroke-[1.5]" />
+              </motion.button>
+            </div>
+
+            {/* Center Active Slide with Scale & Full Focus */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 15 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[44%] lg:w-[42%] shrink-0 text-center space-y-4"
+            >
+              {/* Card Image Container with Directional Glide */}
+              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-lg group">
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                  <motion.div
+                    key={services[activeIndex].id}
+                    custom={direction}
+                    initial={{
+                      x: direction === "next" ? 100 : -100,
+                      opacity: 0,
+                      scale: 0.96,
+                    }}
+                    animate={{ x: 0, opacity: 1, scale: 1 }}
+                    exit={{
+                      x: direction === "next" ? -100 : 100,
+                      opacity: 0,
+                      scale: 0.96,
+                    }}
+                    transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={services[activeIndex].image}
+                      alt={services[activeIndex].title}
+                      fill
+                      priority
+                      className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                      sizes="650px"
                     />
 
                     {/* Subtle Luxury Corner Tag on Center */}
-                    {isCenter && (
-                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/75 backdrop-blur-sm text-luxury-gold text-[10px] font-sans tracking-[0.2em] uppercase font-semibold border border-white/10">
-                        D2 LUXURY
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Card Information & Typography */}
-                  {isCenter ? (
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 14 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="pt-4 space-y-2.5 max-w-lg mx-auto"
-                      >
-                        <h3 className="font-serif font-bold text-black uppercase text-lg sm:text-xl lg:text-2xl tracking-wide pt-1">
-                          {item.title}
-                        </h3>
-
-                        <div className="w-16 h-[1.5px] bg-neutral-400 mx-auto my-2" />
-
-                        <p className="font-serif font-light text-neutral-800 text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2">
-                          {item.description}
-                        </p>
-
-                        <div className="pt-2">
-                          <motion.div
-                            whileHover={{ scale: 1.04, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <Link
-                              href={item.href}
-                              className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
-                            >
-                              TÌM HIỂU THÊM
-                            </Link>
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    </AnimatePresence>
-                  ) : (
-                    <div className="pt-3 space-y-2 max-w-xs mx-auto transition-opacity duration-300">
-                      <h3 className="font-serif font-bold text-black uppercase text-xs sm:text-sm tracking-normal">
-                        {item.title}
-                      </h3>
-                      <p className="font-serif font-light text-neutral-600 text-xs line-clamp-2 px-1">
-                        {item.description}
-                      </p>
+                    <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/75 backdrop-blur-sm text-luxury-gold text-[10px] font-sans tracking-[0.2em] uppercase font-semibold border border-white/10">
+                      D2 LUXURY
                     </div>
-                  )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Center Active Slide Text Details with Smooth Crossfade */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={services[activeIndex].id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="space-y-3 pt-1"
+                >
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-serif font-bold text-black uppercase tracking-wide">
+                    {services[activeIndex].title}
+                  </h3>
+                  <div className="w-16 h-[1.5px] bg-gray-400 mx-auto" />
+                  <p className="text-sm sm:text-[15.5px] text-neutral-800 font-serif font-light leading-[1.85] max-w-xl mx-auto">
+                    {services[activeIndex].description}
+                  </p>
+                  <div className="pt-2">
+                    <motion.div
+                      whileHover={{ scale: 1.04, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Link
+                        href={services[activeIndex].href}
+                        className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
+                      >
+                        TÌM HIỂU THÊM
+                      </Link>
+                    </motion.div>
+                  </div>
                 </motion.div>
-              );
-            })}
+              </AnimatePresence>
+            </motion.div>
 
-            {/* Left Circular Navigation Arrow matching screenshot */}
-            <motion.button
-              onClick={prevSlide}
-              whileHover={{ scale: 1.15, x: -2 }}
-              whileTap={{ scale: 0.92 }}
-              className="absolute left-[26%] lg:left-[27%] top-[140px] sm:top-[160px] lg:top-[180px] -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white text-black shadow-[0_4px_16px_rgba(0,0,0,0.18)] hover:shadow-xl flex items-center justify-center border border-black/5 hover:border-black/20 transition-colors cursor-pointer"
-              aria-label="Dịch vụ trước"
-            >
-              <ChevronLeft className="w-6 h-6 stroke-[2]" />
-            </motion.button>
+            {/* Right Navigation Arrow */}
+            <div className="self-center -mt-16 z-20">
+              <motion.button
+                onClick={nextSlide}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.92 }}
+                className="p-2.5 rounded-full hover:bg-black/5 text-black transition-colors cursor-pointer"
+                aria-label="Next Service"
+              >
+                <ChevronRight className="w-8 h-8 stroke-[1.5]" />
+              </motion.button>
+            </div>
 
-            {/* Right Circular Navigation Arrow matching screenshot */}
-            <motion.button
+            {/* Right Preview Slide with Push-in Entrance & Directional Slide */}
+            <motion.div
+              initial={{ opacity: 0, x: 75 }}
+              whileInView={{ opacity: 0.55, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ opacity: 0.85, scale: 0.98 }}
               onClick={nextSlide}
-              whileHover={{ scale: 1.15, x: 2 }}
-              whileTap={{ scale: 0.92 }}
-              className="absolute right-[26%] lg:right-[27%] top-[140px] sm:top-[160px] lg:top-[180px] -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white text-black shadow-[0_4px_16px_rgba(0,0,0,0.18)] hover:shadow-xl flex items-center justify-center border border-black/5 hover:border-black/20 transition-colors cursor-pointer"
-              aria-label="Dịch vụ tiếp theo"
+              className="w-[28%] lg:w-[27%] shrink-0 cursor-pointer text-center space-y-4"
             >
-              <ChevronRight className="w-6 h-6 stroke-[2]" />
-            </motion.button>
+              {/* Card Image Container with Directional Glide */}
+              <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm">
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                  <motion.div
+                    key={services[rightIndex].id}
+                    custom={direction}
+                    initial={{ x: direction === "next" ? 75 : -75, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: direction === "next" ? -75 : 75, opacity: 0 }}
+                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={services[rightIndex].image}
+                      alt={services[rightIndex].title}
+                      fill
+                      className="object-cover"
+                      sizes="380px"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Right Slide Description */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={services[rightIndex].id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-2"
+                >
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-black uppercase">
+                    {services[rightIndex].title}
+                  </h3>
+                  <p className="text-xs text-gray-600 font-serif font-light leading-relaxed line-clamp-2 px-2">
+                    {services[rightIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
           </div>
 
-          {/* Mobile Fluid Slider */}
-          <div className="md:hidden relative w-full overflow-hidden">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={activeIndex}
-                initial={{
-                  opacity: 0,
-                  x: direction === "next" ? 80 : -80,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: direction === "next" ? -80 : 80,
-                }}
-                transition={{
-                  duration: 0.45,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="w-full text-center space-y-3 px-2"
-              >
-                <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-md rounded-sm">
+          {/* Mobile Single Slide with Smooth Swipe */}
+          <div className="md:hidden space-y-4 px-2">
+            <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-sm">
+              <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                <motion.div
+                  key={services[activeIndex].id}
+                  custom={direction}
+                  initial={{ x: direction === "next" ? 90 : -90, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: direction === "next" ? -90 : 90, opacity: 0 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-full h-full"
+                >
                   <Image
                     src={services[activeIndex].image}
                     alt={services[activeIndex].title}
                     fill
                     className="object-cover"
                     sizes="100vw"
-                    priority
                   />
-                </div>
-                <div className="space-y-2 px-2">
-                  <h3 className="text-lg font-serif font-bold text-black uppercase">
-                    {services[activeIndex].title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-800 font-serif font-light leading-[1.8] line-clamp-3">
-                    {services[activeIndex].description}
-                  </p>
-                  <div className="pt-2">
-                    <Link
-                      href={services[activeIndex].href}
-                      className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
-                    >
-                      TÌM HIỂU THÊM
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
 
-            {/* Mobile Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-2 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-2 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+              {/* Arrows inside image on mobile */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white transition-colors z-20"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white transition-colors z-20"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-serif font-bold text-black uppercase">
+                {services[activeIndex].title}
+              </h3>
+              <p className="text-sm text-neutral-800 font-serif font-light leading-[1.8] px-2">
+                {services[activeIndex].description}
+              </p>
+              <div className="pt-2">
+                <Link
+                  href={services[activeIndex].href}
+                  className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
+                >
+                  TÌM HIỂU THÊM
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
