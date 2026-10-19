@@ -17,7 +17,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
-  const [conceptImage, setConceptImage] = useState("/projects/lendecor/thumb-1.webp");
+  const [conceptImage, setConceptImage] = useState("/projects/d2-luxury-3d-sample.jpg");
   const [conceptMeta, setConceptMeta] = useState<{
     area: string;
     colorRequirements: string;

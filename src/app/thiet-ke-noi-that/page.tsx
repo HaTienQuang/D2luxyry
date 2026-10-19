@@ -28,7 +28,7 @@ export default function InteriorDesignServicePage() {
         {/* Luxury interior with natural illumination */}
         <div className="absolute inset-0">
           <Image
-            src="/projects/lendecor/thumb-12.jpg"
+            src="/hero/luxury-interior.jpg"
             alt="Thiết kế nội thất D2 Luxury"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
