@@ -9,6 +9,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { siteConfig } from "@/data/siteData";
 import { ArrowRight, CheckCircle2, Factory, HardHat, Heart, Phone, Sparkles, Users } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function AboutPage() {
   const [isZaloModalOpen, setIsZaloModalOpen] = useState(false);
@@ -29,12 +30,17 @@ export default function AboutPage() {
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
           />
-          {/* Refined translucent overlay: gentle dark tint keeping interior photo luminous and warm, while ensuring header and white typography are 100% crisp & legible */}
+          {/* Refined translucent overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/30" />
         </div>
 
         {/* Centered Content */}
-        <div className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
+        >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
             VỀ CHÚNG TÔI
           </h1>
@@ -44,10 +50,14 @@ export default function AboutPage() {
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg in Image 1 */}
-          <div className="mt-7 sm:mt-9">
+          <motion.div
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-7 sm:mt-9"
+          >
             <a
               href="#content"
-              className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+              className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
               aria-label="Cuộn xuống nội dung"
             >
               <Image
@@ -58,8 +68,8 @@ export default function AboutPage() {
                 className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
               />
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Section 1: Thông tin sơ bộ & Xuất phát điểm */}
@@ -67,7 +77,13 @@ export default function AboutPage() {
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-6 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-6 space-y-6"
+            >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
                   LỊCH SỬ HÌNH THÀNH & PHÁT TRIỂN
@@ -103,10 +119,16 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Photo Frame */}
-            <div className="lg:col-span-6 flex justify-center lg:justify-end">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="lg:col-span-6 flex justify-center lg:justify-end"
+            >
               <div className="relative w-full max-w-[560px]">
                 <div
                   className="absolute -bottom-6 -left-6 w-full h-full border border-black pointer-events-none z-0"
@@ -122,7 +144,7 @@ export default function AboutPage() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -132,7 +154,13 @@ export default function AboutPage() {
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Photo Frame */}
-            <div className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-6 order-2 lg:order-1 flex justify-center lg:justify-start"
+            >
               <div className="relative w-full max-w-[560px]">
                 <div
                   className="absolute -top-6 -right-6 w-full h-full border border-black pointer-events-none z-0"
@@ -147,10 +175,16 @@ export default function AboutPage() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Content */}
-            <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="lg:col-span-6 order-1 lg:order-2 space-y-6"
+            >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
                   TRIẾT LÝ SÁNG TẠO
@@ -184,7 +218,7 @@ export default function AboutPage() {
                   <span>Cam kết bản vẽ thi công thực tế đạt chuẩn 98% so với phối cảnh 3D</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -192,7 +226,13 @@ export default function AboutPage() {
       {/* Section 3: Hệ thống 2 Xưởng sản xuất 4200m2 & Đội ngũ nhân sự */}
       <section className="relative py-16 sm:py-24 bg-white text-black overflow-hidden border-b border-[#eae3d9]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-14"
+          >
             <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
               NĂNG LỰC SẢN XUẤT TRỰC TIẾP
             </span>
@@ -203,11 +243,18 @@ export default function AboutPage() {
             <p className="text-sm sm:text-base text-neutral-600 font-serif font-light leading-relaxed">
               Tự chủ 100% dây chuyền sản xuất đồ nội thất gỗ tự nhiên và đồ gỗ công nghiệp cao cấp, không qua trung gian.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1: 2 Xưởng 4200m2 */}
-            <div className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0 }}
+              whileHover={{ y: -6 }}
+              className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300"
+            >
               <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-none mb-4">
                 <Factory className="w-6 h-6 text-luxury-gold" />
               </div>
@@ -217,10 +264,17 @@ export default function AboutPage() {
               <p className="text-sm font-serif text-neutral-700 leading-relaxed font-light">
                 Sở hữu hai phân xưởng lớn tại TP. Hồ Chí Minh (Nguyễn Văn Cự, Quận Bình Tân) và Bình Thuận (Thị Trấn Tân Nghĩa, Hàm Tân). Trang bị đầy đủ máy móc CNC, máy dán cạnh tự động và phòng sơn sấy áp suất âm hiện đại.
               </p>
-            </div>
+            </motion.div>
 
             {/* Card 2: Đội ngũ 200+ Thợ tay nghề cao */}
-            <div className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              whileHover={{ y: -6 }}
+              className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300"
+            >
               <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-none mb-4">
                 <Users className="w-6 h-6 text-luxury-gold" />
               </div>
@@ -230,10 +284,17 @@ export default function AboutPage() {
               <p className="text-sm font-serif text-neutral-700 leading-relaxed font-light">
                 Quy tụ hơn 200 nghệ nhân thợ mộc lành nghề giàu tâm huyết, 30 kiến trúc sư tài năng và 20 kỹ sư giám sát chất lượng tại hiện trường. Đảm bảo từng chi tiết sắc nét và đúng tiến độ cam kết.
               </p>
-            </div>
+            </motion.div>
 
             {/* Card 3: Tiêu chuẩn thi công khắt khe */}
-            <div className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.24 }}
+              whileHover={{ y: -6 }}
+              className="bg-[#faf8f5] border border-[#ded8ce] p-8 space-y-4 hover:shadow-xl transition-all duration-300"
+            >
               <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-none mb-4">
                 <HardHat className="w-6 h-6 text-luxury-gold" />
               </div>
@@ -243,7 +304,7 @@ export default function AboutPage() {
               <p className="text-sm font-serif text-neutral-700 leading-relaxed font-light">
                 Tổng thầu trọn gói từ phá dỡ cải tạo, thi công xây dựng thô, lắp đặt cơ điện M&E đến hoàn thiện nội thất và bàn giao chìa khóa trao tay. Bảo hành kết cấu dài hạn và bảo trì định kỳ trọn đời công trình.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -251,7 +312,13 @@ export default function AboutPage() {
       {/* Section 4: Văn hóa "Tử Tế" & Lời chia sẻ từ Founder */}
       <section className="relative py-16 sm:py-24 bg-[#f4f0ec] text-black overflow-hidden border-b border-[#eae3d9]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white border border-[#ded8ce] p-8 sm:p-14 shadow-lg relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white border border-[#ded8ce] p-8 sm:p-14 shadow-lg relative"
+          >
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-xs font-serif uppercase tracking-widest">
                 <Heart className="w-3.5 h-3.5 text-luxury-gold" />
@@ -276,13 +343,19 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Section 5: Call to Action - Liên hệ nhận tư vấn (Light luxury tone) */}
       <section className="relative py-16 sm:py-24 bg-[#f4f0ec] text-black text-center border-t border-[#ded8ce]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        >
           <span className="text-luxury-gold text-xs sm:text-sm uppercase tracking-[0.25em] font-sans font-semibold block">
             BẮT ĐẦU HÀNH TRÌNH KIẾN TẠO TỔ ẤM
           </span>
@@ -295,23 +368,27 @@ export default function AboutPage() {
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/#sec-tuvan"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-serif font-semibold tracking-widest uppercase transition-all shadow-md hover:shadow-lg"
-            >
-              <span>NHẬN TƯ VẤN NGAY</span>
-              <ArrowRight className="w-4 h-4 text-luxury-gold" />
-            </Link>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <Link
+                href="/#sec-tuvan"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-serif font-semibold tracking-widest uppercase transition-all shadow-md hover:shadow-lg"
+              >
+                <span>NHẬN TƯ VẤN NGAY</span>
+                <ArrowRight className="w-4 h-4 text-luxury-gold" />
+              </Link>
+            </motion.div>
 
-            <a
-              href={`tel:${siteConfig.hotline}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border border-black hover:bg-black hover:text-white text-black text-xs sm:text-sm font-serif font-semibold tracking-widest uppercase transition-all"
-            >
-              <Phone className="w-4 h-4" />
-              <span>HOTLINE: {siteConfig.phone1}</span>
-            </a>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <a
+                href={`tel:${siteConfig.hotline}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border border-black hover:bg-black hover:text-white text-black text-xs sm:text-sm font-serif font-semibold tracking-widest uppercase transition-all"
+              >
+                <Phone className="w-4 h-4" />
+                <span>HOTLINE: {siteConfig.phone1}</span>
+              </a>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Footer */}

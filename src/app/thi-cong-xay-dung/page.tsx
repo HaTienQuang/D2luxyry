@@ -9,6 +9,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { siteConfig } from "@/data/siteData";
 import { ArrowRight, CheckCircle2, Hammer, HardHat, Phone, ShieldCheck, Warehouse } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ConstructionServicePage() {
   const [isZaloModalOpen, setIsZaloModalOpen] = useState(false);
@@ -37,12 +38,17 @@ export default function ConstructionServicePage() {
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
           />
-          {/* Refined translucent overlay: gentle dark tint keeping architecture luminous and clear */}
+          {/* Refined translucent overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/30" />
         </div>
 
         {/* Centered Content */}
-        <div className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
+        >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
             THI CÔNG XÂY DỰNG
           </h1>
@@ -52,10 +58,14 @@ export default function ConstructionServicePage() {
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg */}
-          <div className="mt-7 sm:mt-9">
+          <motion.div
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-7 sm:mt-9"
+          >
             <a
               href="#content"
-              className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+              className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
               aria-label="Cuộn xuống nội dung thi công"
             >
               <Image
@@ -66,15 +76,21 @@ export default function ConstructionServicePage() {
                 className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
               />
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Overview Section */}
       <section id="content" className="py-16 sm:py-24 bg-white text-black border-b border-[#eae3d9] scroll-mt-20">
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-6 space-y-6"
+            >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
                   CHUẨN MỰC CHẤT LƯỢNG
@@ -112,9 +128,15 @@ export default function ConstructionServicePage() {
                   <span>Cam kết đúng tiến độ 100%</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="lg:col-span-6"
+            >
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
                   src="/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-1.jpg"
@@ -123,7 +145,7 @@ export default function ConstructionServicePage() {
                   className="object-cover"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -131,7 +153,13 @@ export default function ConstructionServicePage() {
       {/* Process Section */}
       <section className="py-16 sm:py-24 bg-[#f4f0ec] text-black border-b border-[#eae3d9]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto mb-14"
+          >
             <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
               QUY TRÌNH CHUẨN MỰC
             </span>
@@ -139,11 +167,19 @@ export default function ConstructionServicePage() {
               QUY TRÌNH 6 BƯỚC THI CÔNG XÂY DỰNG
             </h2>
             <div className="w-24 h-[1.5px] bg-black mx-auto mt-3" />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {constructionSteps.map((item, idx) => (
-              <div key={idx} className="bg-white border border-[#ded8ce] p-8 space-y-4 shadow-sm hover:shadow-xl transition-all duration-300">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="bg-white border border-[#ded8ce] p-8 space-y-4 shadow-sm hover:shadow-xl transition-all duration-300"
+              >
                 <span className="text-3xl font-serif font-bold text-luxury-gold block">
                   {item.step}
                 </span>
@@ -153,7 +189,7 @@ export default function ConstructionServicePage() {
                 <p className="text-xs sm:text-sm font-serif text-neutral-600 leading-relaxed font-light">
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -161,7 +197,13 @@ export default function ConstructionServicePage() {
 
       {/* CTA Section */}
       <section className="py-16 sm:py-20 bg-[#f4f0ec] text-black text-center border-t border-[#ded8ce]">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto px-4 space-y-5"
+        >
           <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-wider text-black">
             BẮT ĐẦU DỰ ÁN CÙNG D2 LUXURY
           </h2>
@@ -169,22 +211,26 @@ export default function ConstructionServicePage() {
             Liên hệ để nhận dự toán chi tiết và phương án thi công tối ưu cho ngôi nhà của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/#sec-tuvan"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
-            >
-              <span>NHẬN BÁO GIÁ THI CÔNG</span>
-              <ArrowRight className="w-4 h-4 text-luxury-gold" />
-            </Link>
-            <a
-              href={`tel:${siteConfig.hotline}`}
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-black text-black text-xs font-serif font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-all"
-            >
-              <Phone className="w-4 h-4" />
-              <span>HOTLINE: {siteConfig.phone1}</span>
-            </a>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/#sec-tuvan"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
+              >
+                <span>NHẬN BÁO GIÁ THI CÔNG</span>
+                <ArrowRight className="w-4 h-4 text-luxury-gold" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <a
+                href={`tel:${siteConfig.hotline}`}
+                className="inline-flex items-center gap-2 px-8 py-3.5 border border-black text-black text-xs font-serif font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-all"
+              >
+                <Phone className="w-4 h-4" />
+                <span>HOTLINE: {siteConfig.phone1}</span>
+              </a>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <Footer />

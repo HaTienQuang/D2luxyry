@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteData";
+import { motion } from "framer-motion";
 
 interface ConsultationSectionProps {
   onOpenZalo?: () => void;
@@ -32,7 +33,13 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
       <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Heading, Subtitle & 4 Elegant Pill Buttons */}
-          <div className="lg:col-span-6 space-y-6 sm:space-y-7">
+          <motion.div
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-6 space-y-6 sm:space-y-7"
+          >
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-serif font-bold uppercase tracking-wider text-black leading-[1.25]">
                 NHẬN TƯ VẤN THIẾT KẾ THI<br />CÔNG NỘI THẤT
@@ -49,47 +56,61 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
             <div className="flex flex-col gap-3 pt-1 max-w-[340px]">
               {/* Button 0: Đăng ký tư vấn trực tuyến */}
               {onOpenConsultation && (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.03, x: 4 }}
+                  whileTap={{ scale: 0.97 }}
                   type="button"
                   onClick={onOpenConsultation}
-                  className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#8a522a] hover:bg-[#74421d] text-white border border-[#8a522a] rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-all duration-300 font-semibold shadow-md hover:shadow-lg cursor-pointer"
+                  className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#8a522a] hover:bg-[#74421d] text-white border border-[#8a522a] rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-colors font-semibold shadow-md hover:shadow-lg cursor-pointer"
                 >
                   ĐĂNG KÝ TƯ VẤN TRỰC TUYẾN
-                </button>
+                </motion.button>
               )}
 
-              {/* Button 1: Zalo - Mở trực tiếp trang Zalo cá nhân theo tab mới */}
-              <a
+              {/* Button 1: Zalo */}
+              <motion.a
+                whileHover={{ scale: 1.03, x: 4 }}
+                whileTap={{ scale: 0.97 }}
                 href={siteConfig.zaloUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-all duration-300 font-medium shadow-sm hover:shadow"
+                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-colors font-medium shadow-sm hover:shadow"
               >
                 LIÊN HỆ QUA ZALO
-              </a>
+              </motion.a>
 
               {/* Button 2: Messenger */}
-              <a
+              <motion.a
+                whileHover={{ scale: 1.03, x: 4 }}
+                whileTap={{ scale: 0.97 }}
                 href={siteConfig.messengerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-all duration-300 font-medium shadow-sm hover:shadow"
+                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-colors font-medium shadow-sm hover:shadow"
               >
                 LIÊN HỆ QUA MESSENGER
-              </a>
+              </motion.a>
 
               {/* Button 3: Hotline */}
-              <a
+              <motion.a
+                whileHover={{ scale: 1.03, x: 4 }}
+                whileTap={{ scale: 0.97 }}
                 href={`tel:${siteConfig.hotline}`}
-                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-all duration-300 font-medium shadow-sm hover:shadow"
+                className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-colors font-medium shadow-sm hover:shadow"
               >
                 HOTLINE: {siteConfig.phone1}
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Luxury Architectural Photo with Offset Wireframe Frame (100% matches Image 1) */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end">
+          {/* Right Column: Luxury Architectural Photo */}
+          <motion.div
+            initial={{ opacity: 0, x: 35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-6 flex justify-center lg:justify-end"
+          >
             <div className="relative w-full max-w-[420px] sm:max-w-[460px] lg:max-w-[480px]">
               {/* Offset Wireframe Outline Frame (shifted down and left, exactly like Image 1) */}
               <div
@@ -119,7 +140,7 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

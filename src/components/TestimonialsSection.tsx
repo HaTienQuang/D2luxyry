@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { reviewsData, siteConfig } from "@/data/siteData";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,7 +27,13 @@ export default function TestimonialsSection() {
       <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Heading, Divider, Description & YouTube Button */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 space-y-6"
+          >
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-serif font-bold uppercase tracking-wider text-black leading-[1.2]">
                 Khách hàng nói gì về D2 Luxury?
@@ -40,73 +47,102 @@ export default function TestimonialsSection() {
             </p>
 
             <div className="pt-2 sm:pt-4">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 href={siteConfig.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 sm:px-10 py-3.5 sm:py-4 bg-black hover:bg-[#222] text-white text-xs sm:text-[13.5px] font-serif font-semibold tracking-[0.2em] uppercase transition-colors"
               >
                 <span>XEM TRÊN YOUTUBE</span>
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Testimonial Quote Box matching lendecor.vn with smooth animation */}
-          <div className="lg:col-span-7">
-            <div className="relative bg-transparent p-6 sm:p-10 border border-[#ded8ce] space-y-6 transition-all duration-500">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-7"
+          >
+            <div className="relative bg-transparent p-6 sm:p-10 border border-[#ded8ce] space-y-6">
               {/* Quote text with smooth fade */}
-              <div key={currentReview.id} className="animate-fade-in">
-                <p className="text-base sm:text-lg lg:text-[1.125rem] font-serif italic text-[#111] leading-[2] min-h-[120px]">
-                  &ldquo;{currentReview.quote}&rdquo;
-                </p>
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentReview.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.28 }}
+                >
+                  <p className="text-base sm:text-lg lg:text-[1.125rem] font-serif italic text-[#111] leading-[2] min-h-[120px]">
+                    &ldquo;{currentReview.quote}&rdquo;
+                  </p>
+                </motion.div>
+              </AnimatePresence>
 
               {/* Author & Avatar */}
               <div className="pt-4 border-t border-[#ded8ce] flex items-center justify-between flex-wrap gap-4">
-                <div key={`author-${currentReview.id}`} className="flex items-center gap-4 animate-fade-in">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden border border-gray-300 bg-white shrink-0 shadow-sm">
-                    <Image
-                      src={currentReview.avatar}
-                      alt={currentReview.author}
-                      fill
-                      className="object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  </div>
-                  <div>
-                    <strong className="block text-base sm:text-lg font-serif font-bold text-black uppercase">
-                      {currentReview.author}
-                    </strong>
-                    {currentReview.project && (
-                      <span className="text-xs sm:text-sm text-gray-600 font-serif">
-                        {currentReview.project}
-                      </span>
-                    )}
-                  </div>
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`author-${currentReview.id}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.28 }}
+                    className="flex items-center gap-4"
+                  >
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden border border-gray-300 bg-white shrink-0 shadow-sm">
+                      <Image
+                        src={currentReview.avatar}
+                        alt={currentReview.author}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <strong className="block text-base sm:text-lg font-serif font-bold text-black uppercase">
+                        {currentReview.author}
+                      </strong>
+                      {currentReview.project && (
+                        <span className="text-xs sm:text-sm text-gray-600 font-serif">
+                          {currentReview.project}
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
 
                 {/* Slider Controls */}
                 <div className="flex items-center gap-2">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={prevReview}
-                    className="p-2 border border-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="p-2 border border-black hover:bg-black hover:text-white transition-colors"
                     aria-label="Previous Review"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                  </button>
+                  </motion.button>
                   <span className="text-xs font-mono px-1">
                     {currentIndex + 1} / {reviewsData.length}
                   </span>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={nextReview}
-                    className="p-2 border border-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="p-2 border border-black hover:bg-black hover:text-white transition-colors"
                     aria-label="Next Review"
                   >
                     <ChevronRight className="w-4 h-4" />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

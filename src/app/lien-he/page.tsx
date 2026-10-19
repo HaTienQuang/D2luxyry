@@ -9,6 +9,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import { siteConfig } from "@/data/siteData";
 import ConsultationModal from "@/components/ConsultationModal";
 import { CheckCircle2, Clock, Mail, MapPin, MessageCircle, Phone, Send, Warehouse } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
@@ -57,12 +58,17 @@ export default function ContactPage() {
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
           />
-          {/* Refined translucent overlay: gentle dark tint keeping architecture luminous and clear */}
+          {/* Refined translucent overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/30" />
         </div>
 
         {/* Centered Content */}
-        <div className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
+        >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
             LIÊN HỆ VỚI CHÚNG TÔI
           </h1>
@@ -72,10 +78,14 @@ export default function ContactPage() {
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg */}
-          <div className="mt-7 sm:mt-9">
+          <motion.div
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-7 sm:mt-9"
+          >
             <a
               href="#content"
-              className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+              className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
               aria-label="Cuộn xuống nội dung liên hệ"
             >
               <Image
@@ -86,8 +96,8 @@ export default function ContactPage() {
                 className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
               />
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Contact Grid Section */}
@@ -95,7 +105,13 @@ export default function ContactPage() {
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Left: Contact Info & Channels */}
-            <div className="lg:col-span-5 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 space-y-8"
+            >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
                   THÔNG TIN KẾT NỐI
@@ -181,10 +197,16 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right: Consultation Form Box */}
-            <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="lg:col-span-7"
+            >
               <div className="bg-[#faf8f5] border border-[#ded8ce] p-8 sm:p-12 shadow-lg">
                 {submitted ? (
                   <div className="py-12 text-center space-y-4">
@@ -195,12 +217,14 @@ export default function ContactPage() {
                     <p className="text-sm text-neutral-600 font-serif font-light leading-relaxed max-w-md mx-auto">
                       Cảm ơn quý khách <strong>{formData.name}</strong> đã tin tưởng D2 Luxury. Kiến trúc sư trưởng của chúng tôi sẽ liên hệ lại qua số <strong>{formData.phone}</strong> trong vòng 15 phút.
                     </p>
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setSubmitted(false)}
-                      className="px-8 py-3 bg-black text-white text-xs uppercase font-serif tracking-widest hover:bg-neutral-800 transition-colors"
+                      className="px-8 py-3 bg-black text-white text-xs uppercase font-serif tracking-widest hover:bg-neutral-800 transition-colors cursor-pointer"
                     >
                       Gửi yêu cầu khác
-                    </button>
+                    </motion.button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -290,16 +314,18 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       type="submit"
-                      className="w-full py-4 bg-black hover:bg-neutral-800 text-white text-xs sm:text-[13px] font-serif font-semibold tracking-widest uppercase transition-colors shadow-md hover:shadow-lg"
+                      className="w-full py-4 bg-black hover:bg-neutral-800 text-white text-xs sm:text-[13px] font-serif font-semibold tracking-widest uppercase transition-colors shadow-md hover:shadow-lg cursor-pointer"
                     >
                       GỬI YÊU CẦU TƯ VẤN NGAY
-                    </button>
+                    </motion.button>
                   </form>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

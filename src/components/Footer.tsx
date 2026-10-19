@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/data/siteData";
 import { Phone, Mail, MapPin, Facebook, Youtube, Instagram } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface FooterProps {
   onOpenZalo?: () => void;
@@ -16,8 +17,14 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
   };
 
   return (
-    <footer className="bg-[#f4f0ec] text-black pt-16 pb-10 border-t border-[#ded8ce] relative">
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#f4f0ec] text-black pt-16 pb-10 border-t border-[#ded8ce] relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8"
+      >
         {/* 4-Column Layout matching Image 1 without solid black background */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Column 1: Logo, Slogan, Socials */}
@@ -39,7 +46,9 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
 
             {/* Social Icons row */}
             <div className="flex items-center gap-2.5 pt-1">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
                 href={siteConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -47,8 +56,10 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
                 href={siteConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -56,8 +67,10 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
                 href={siteConfig.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -65,8 +78,10 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
                 href="https://www.tiktok.com/@d2luxury"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +92,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.87-4.48V8.69a8.19 8.19 0 0 0 4.9 1.6V6.84a4.87 4.87 0 0 1-1-.15z" />
                 </svg>
-              </a>
+              </motion.a>
             </div>
           </div>
 
@@ -232,7 +247,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             Copyright by D2 Luxury © {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

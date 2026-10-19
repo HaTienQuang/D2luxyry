@@ -21,6 +21,7 @@ import {
   MessageCircle,
   ArrowLeft
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectDetailViewProps {
   project: ArchiveProject;
@@ -72,7 +73,12 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
           </div>
 
           {/* Centered Brand & Project Title */}
-          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20 sm:pt-24 pb-8 flex flex-col items-center space-y-3">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20 sm:pt-24 pb-8 flex flex-col items-center space-y-3"
+          >
             <span className="text-luxury-gold text-xs sm:text-sm uppercase tracking-[0.3em] font-sans font-semibold block">
               D2 LUXURY DESIGN & BUILD
             </span>
@@ -82,10 +88,14 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
             <div className="w-20 sm:w-28 h-[2px] bg-luxury-gold mx-auto mt-4 mb-2" />
 
             {/* Circular Scroll Down Button matching Roll.svg */}
-            <div className="pt-4 sm:pt-6">
+            <motion.div
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.95 }}
+              className="pt-4 sm:pt-6"
+            >
               <a
                 href="#detail-gallery"
-                className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+                className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
                 aria-label="Cuộn xuống xem chi tiết bộ ảnh"
               >
                 <Image
@@ -96,8 +106,8 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
                   className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
                 />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* Content Section: Architectural Watermark 01 on Left & Gallery Grid in Center */}
@@ -105,7 +115,13 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
           {/* Main Content & Gallery */}
           <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Top Navigation & Info */}
-            <div className="mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
               <Link
                 href="/du-an"
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-neutral-500 hover:text-black transition-colors mb-6 group"
@@ -150,13 +166,18 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
                   {project.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Gallery Grid: 3 Columns matching Image 1 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-7 pt-4">
               {gallery.map((imgSrc, idx) => (
-                <div
+                <motion.div
                   key={idx}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: Math.min(idx * 0.05, 0.3) }}
+                  whileHover={{ y: -6 }}
                   onClick={() => openLightbox(idx)}
                   className="group relative aspect-[3/2] w-full overflow-hidden bg-neutral-100 cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500"
                 >
@@ -179,12 +200,18 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
                   <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-sm text-white text-[11px] font-sans px-2 py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     {idx + 1} / {gallery.length}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Bottom CTA Consultation Box */}
-            <div className="mt-16 sm:mt-20 p-8 sm:p-12 bg-[#f8f5f0] border border-[#e5dfd5] text-center max-w-3xl mx-auto space-y-5">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mt-16 sm:mt-20 p-8 sm:p-12 bg-[#f8f5f0] border border-[#e5dfd5] text-center max-w-3xl mx-auto space-y-5"
+            >
               <h3 className="text-xl sm:text-2xl font-serif font-bold uppercase tracking-wider text-black">
                 YÊU THÍCH THIẾT KẾ CỦA {project.title}?
               </h3>
@@ -192,76 +219,103 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
                 Liên hệ ngay với đội ngũ kiến trúc sư D2 Luxury để được tư vấn thiết kế và dự toán thi công hoàn toàn miễn phí cho ngôi nhà của bạn.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   href={`tel:${siteConfig.hotline}`}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all shadow hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-colors shadow hover:shadow-lg"
                 >
                   <Phone className="w-4 h-4 text-luxury-gold" />
                   <span>HOTLINE {siteConfig.phone1}</span>
-                </a>
-                <button
+                </motion.a>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setIsZaloOpen(true)}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-luxury-gold hover:bg-luxury-goldLight text-black text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all shadow hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-luxury-gold hover:bg-luxury-goldLight text-black text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-colors shadow hover:shadow-lg cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>TƯ VẤN QUA ZALO</span>
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
 
       {/* Lightbox Modal */}
-      {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 select-none animate-fade-in">
-          {/* Close button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-6 right-6 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-all z-50"
-            aria-label="Đóng"
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 select-none"
           >
-            <X className="w-6 h-6" />
-          </button>
+            {/* Close button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors z-50 cursor-pointer"
+              aria-label="Đóng"
+            >
+              <X className="w-6 h-6" />
+            </motion.button>
 
-          {/* Prev button */}
-          <button
-            onClick={prevLightboxImage}
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-all z-50"
-            aria-label="Ảnh trước"
-          >
-            <ChevronLeft className="w-7 h-7" />
-          </button>
+            {/* Prev button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={prevLightboxImage}
+              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors z-50 cursor-pointer"
+              aria-label="Ảnh trước"
+            >
+              <ChevronLeft className="w-7 h-7" />
+            </motion.button>
 
-          {/* Main Large Image with Smooth Animated Transition */}
-          <div key={lightboxIndex} className="relative max-w-6xl max-h-[85vh] w-full h-[80vh] flex items-center justify-center animate-smooth-crossfade">
-            <Image
-              src={gallery[lightboxIndex]}
-              alt={`${project.title} - Ảnh ${lightboxIndex + 1}`}
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+            {/* Main Large Image with Smooth Animated Transition */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={lightboxIndex}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.03 }}
+                transition={{ duration: 0.25 }}
+                className="relative max-w-6xl max-h-[85vh] w-full h-[80vh] flex items-center justify-center"
+              >
+                <Image
+                  src={gallery[lightboxIndex]}
+                  alt={`${project.title} - Ảnh ${lightboxIndex + 1}`}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
 
-          {/* Next button */}
-          <button
-            onClick={nextLightboxImage}
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-all z-50"
-            aria-label="Ảnh tiếp theo"
-          >
-            <ChevronRight className="w-7 h-7" />
-          </button>
+            {/* Next button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={nextLightboxImage}
+              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors z-50 cursor-pointer"
+              aria-label="Ảnh tiếp theo"
+            >
+              <ChevronRight className="w-7 h-7" />
+            </motion.button>
 
-          {/* Bottom Caption and counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center text-white/90 font-serif text-sm">
-            <span className="font-bold tracking-wider">{project.title}</span> —{" "}
-            <span>
-              Ảnh {lightboxIndex + 1} / {gallery.length}
-            </span>
-          </div>
-        </div>
-      )}
+            {/* Bottom Caption and counter */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center text-white/90 font-serif text-sm">
+              <span className="font-bold tracking-wider">{project.title}</span> —{" "}
+              <span>
+                Ảnh {lightboxIndex + 1} / {gallery.length}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer />

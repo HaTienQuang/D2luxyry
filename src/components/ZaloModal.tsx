@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/siteData";
 import { X, MessageSquare, ChevronDown, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ZaloModalProps {
   isOpen: boolean;
@@ -11,14 +12,26 @@ interface ZaloModalProps {
 }
 
 export default function ZaloModal({ isOpen, onClose }: ZaloModalProps) {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="fixed inset-0" onClick={onClose} />
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm"
+        >
+          <div className="fixed inset-0" onClick={onClose} />
 
-      {/* Main Container styled exactly like Zalo Page in Image 2 */}
-      <div className="relative z-10 w-full max-w-2xl bg-[#eef2f6] rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+          {/* Main Container styled exactly like Zalo Page in Image 2 */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.93, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.93, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 320 }}
+            className="relative z-10 w-full max-w-2xl bg-[#eef2f6] rounded-2xl shadow-2xl overflow-hidden border border-gray-200"
+          >
         {/* Top Zalo Nav Bar */}
         <div className="bg-white px-6 py-3.5 border-b border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -102,7 +115,9 @@ export default function ZaloModal({ isOpen, onClose }: ZaloModalProps) {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

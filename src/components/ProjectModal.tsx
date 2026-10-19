@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Project } from "@/data/siteData";
 import { X, ChevronLeft, ChevronRight, MapPin, Sparkles, Calendar, Maximize2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -32,17 +33,29 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [project, onClose]);
 
-  if (!project) return null;
-
-  const currentImage = project.gallery[selectedImgIndex] || project.mainImage;
+  const currentImage = project ? (project.gallery[selectedImgIndex] || project.mainImage) : "";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md animate-fade-in">
-      {/* Backdrop click to close */}
-      <div className="absolute inset-0" onClick={onClose} />
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md"
+        >
+          {/* Backdrop click to close */}
+          <div className="absolute inset-0" onClick={onClose} />
 
-      {/* Modal Container */}
-      <div className="relative z-10 w-full max-w-6xl max-h-[92vh] bg-[#121212] text-white border border-[#2b2b2b] shadow-2xl flex flex-col overflow-hidden">
+          {/* Modal Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 320 }}
+            className="relative z-10 w-full max-w-6xl max-h-[92vh] bg-[#121212] text-white border border-[#2b2b2b] shadow-2xl flex flex-col overflow-hidden"
+          >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#222222] bg-[#161616]">
           <div>
@@ -67,14 +80,25 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Main Visual Display (Large view + thumb reel) */}
           <div className="lg:col-span-8 bg-black flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222222]">
             {/* Active Image Container */}
-            <div className="relative w-full h-[380px] sm:h-[480px] md:h-[540px] bg-black flex items-center justify-center">
-              <Image
-                src={currentImage}
-                alt={`${project.title} - Ảnh ${selectedImgIndex + 1}`}
-                fill
-                className="object-contain"
-                sizes="(max-width: 1200px) 100vw, 800px"
-              />
+            <div className="relative w-full h-[380px] sm:h-[480px] md:h-[540px] bg-black flex items-center justify-center overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentImage}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.25 }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={currentImage}
+                    alt={`${project.title} - Ảnh ${selectedImgIndex + 1}`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 1200px) 100vw, 800px"
+                  />
+                </motion.div>
+              </AnimatePresence>
 
               {/* Navigation arrows for images */}
               {project.gallery.length > 1 && (
@@ -187,8 +211,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

@@ -9,6 +9,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { siteConfig } from "@/data/siteData";
 import { ArrowRight, Compass, Layers, Palette, Phone, Ruler, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ArchitectureServicePage() {
   const [isZaloModalOpen, setIsZaloModalOpen] = useState(false);
@@ -34,12 +35,17 @@ export default function ArchitectureServicePage() {
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
           />
-          {/* Refined translucent overlay: gentle dark tint keeping architecture luminous and clear */}
+          {/* Refined translucent overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-black/30" />
         </div>
 
         {/* Centered Content */}
-        <div className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
+        >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
             THIẾT KẾ KIẾN TRÚC
           </h1>
@@ -49,10 +55,14 @@ export default function ArchitectureServicePage() {
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg */}
-          <div className="mt-7 sm:mt-9">
+          <motion.div
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-7 sm:mt-9"
+          >
             <a
               href="#content"
-              className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+              className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
               aria-label="Cuộn xuống nội dung thiết kế kiến trúc"
             >
               <Image
@@ -63,15 +73,21 @@ export default function ArchitectureServicePage() {
                 className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
               />
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Philosophy Section */}
       <section id="content" className="py-16 sm:py-24 bg-white text-black border-b border-[#eae3d9] scroll-mt-20">
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-6 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-6 space-y-6"
+            >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
                   TRIẾT LÝ THIẾT KẾ
@@ -109,9 +125,15 @@ export default function ArchitectureServicePage() {
                   <span>Hồ sơ bản vẽ kỹ thuật chi tiết</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="lg:col-span-6"
+            >
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
                   src="/projects/vintage-villa-tam-dao/main.jpg"
@@ -120,7 +142,7 @@ export default function ArchitectureServicePage() {
                   className="object-cover"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -128,7 +150,13 @@ export default function ArchitectureServicePage() {
       {/* Architectural Styles Showcase */}
       <section className="py-16 sm:py-24 bg-[#f4f0ec] text-black border-b border-[#eae3d9]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto mb-14"
+          >
             <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
               ĐA DẠNG PHONG CÁCH
             </span>
@@ -136,11 +164,19 @@ export default function ArchitectureServicePage() {
               CÁC PHONG CÁCH THIẾT KẾ CHỦ ĐẠO
             </h2>
             <div className="w-24 h-[1.5px] bg-black mx-auto mt-3" />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {styles.map((style, idx) => (
-              <div key={idx} className="bg-white border border-[#ded8ce] overflow-hidden group hover:shadow-2xl transition-all duration-500">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                whileHover={{ y: -8 }}
+                className="bg-white border border-[#ded8ce] overflow-hidden group hover:shadow-2xl transition-all duration-500"
+              >
                 <div className="relative aspect-[16/11] w-full overflow-hidden bg-black/5">
                   <Image
                     src={style.img}
@@ -157,7 +193,7 @@ export default function ArchitectureServicePage() {
                     {style.desc}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -165,7 +201,13 @@ export default function ArchitectureServicePage() {
 
       {/* CTA */}
       <section className="py-16 sm:py-20 bg-[#f4f0ec] text-black text-center border-t border-[#ded8ce]">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto px-4 space-y-5"
+        >
           <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-wider text-black">
             BẮT ĐẦU PHÁC THẢO Ý TƯỞNG KIẾN TRÚC
           </h2>
@@ -173,21 +215,25 @@ export default function ArchitectureServicePage() {
             Nhận tư vấn trực tiếp từ KTS trưởng của D2 Luxury để hiện thực hóa ngôi nhà trong mơ của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/#sec-tuvan"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
-            >
-              <span>ĐĂNG KÝ TƯ VẤN KIẾN TRÚC</span>
-              <ArrowRight className="w-4 h-4 text-luxury-gold" />
-            </Link>
-            <Link
-              href="/du-an"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-black text-black text-xs font-serif font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-all"
-            >
-              <span>XEM BỘ SƯU TẬP DỰ ÁN</span>
-            </Link>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/#sec-tuvan"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
+              >
+                <span>ĐĂNG KÝ TƯ VẤN KIẾN TRÚC</span>
+                <ArrowRight className="w-4 h-4 text-luxury-gold" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/du-an"
+                className="inline-flex items-center gap-2 px-8 py-3.5 border border-black text-black text-xs font-serif font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-all"
+              >
+                <span>XEM BỘ SƯU TẬP DỰ ÁN</span>
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <Footer />

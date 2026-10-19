@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, X, ChevronDown, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface HeaderProps {
   onOpenZalo?: () => void;
@@ -139,48 +140,54 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 </Link>
 
                 {/* Dropdown: Các kiểu & mẫu dự án đúng link thực tế */}
-                {activeMenu === "Dự án" && (
-                  <div
-                    onMouseEnter={() => handleMouseEnter("Dự án")}
-                    onMouseLeave={handleMouseLeave}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[740px] bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl p-6 transition-all duration-200"
-                  >
-                    <div className="grid grid-cols-3 gap-6">
-                      {PROJECT_GROUPS.map((group, idx) => (
-                        <div key={idx} className="space-y-3">
-                          <div className="font-serif font-bold text-xs uppercase tracking-wider text-black pb-1.5 border-b border-[#eae3d9]">
-                            {group.type}
+                <AnimatePresence>
+                  {activeMenu === "Dự án" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onMouseEnter={() => handleMouseEnter("Dự án")}
+                      onMouseLeave={handleMouseLeave}
+                      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[740px] bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl p-6"
+                    >
+                      <div className="grid grid-cols-3 gap-6">
+                        {PROJECT_GROUPS.map((group, idx) => (
+                          <div key={idx} className="space-y-3">
+                            <div className="font-serif font-bold text-xs uppercase tracking-wider text-black pb-1.5 border-b border-[#eae3d9]">
+                              {group.type}
+                            </div>
+                            <ul className="space-y-2">
+                              {group.projects.map((p, pIdx) => (
+                                <li key={pIdx}>
+                                  <Link
+                                    href={`/du-an/${p.slug}`}
+                                    onClick={closeMenu}
+                                    className="text-[12px] font-serif text-neutral-700 hover:text-luxury-gold hover:translate-x-0.5 transition-all block line-clamp-1 py-0.5"
+                                  >
+                                    • {p.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                          <ul className="space-y-2">
-                            {group.projects.map((p, pIdx) => (
-                              <li key={pIdx}>
-                                <Link
-                                  href={`/du-an/${p.slug}`}
-                                  onClick={closeMenu}
-                                  className="text-[12px] font-serif text-neutral-700 hover:text-luxury-gold hover:translate-x-0.5 transition-all block line-clamp-1 py-0.5"
-                                >
-                                  • {p.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
 
-                    <div className="mt-5 pt-3 border-t border-[#eae3d9] flex items-center justify-between text-xs font-serif">
-                      <span className="text-neutral-500 italic">Hơn 1.000+ công trình thực tế và bản vẽ 3D</span>
-                      <Link
-                        href="/du-an"
-                        onClick={closeMenu}
-                        className="font-bold text-black hover:text-luxury-gold inline-flex items-center gap-1 uppercase tracking-wider"
-                      >
-                        <span>Xem tất cả dự án</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    </div>
-                  </div>
-                )}
+                      <div className="mt-5 pt-3 border-t border-[#eae3d9] flex items-center justify-between text-xs font-serif">
+                        <span className="text-neutral-500 italic">Hơn 1.000+ công trình thực tế và bản vẽ 3D</span>
+                        <Link
+                          href="/du-an"
+                          onClick={closeMenu}
+                          className="font-bold text-black hover:text-luxury-gold inline-flex items-center gap-1 uppercase tracking-wider"
+                        >
+                          <span>Xem tất cả dự án</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* GIỚI THIỆU */}
@@ -198,31 +205,37 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                   <ChevronDown className="w-3 h-3 opacity-60" />
                 </Link>
 
-                {activeMenu === "Giới thiệu" && (
-                  <div
-                    onMouseEnter={() => handleMouseEnter("Giới thiệu")}
-                    onMouseLeave={handleMouseLeave}
-                    className="absolute left-0 top-full mt-2 w-52 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4 transition-all duration-200"
-                  >
-                    <ul className="space-y-2 text-xs font-serif">
-                      <li>
-                        <Link href="/gioi-thieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Về D2 Luxury
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/gioi-thieu#sec-trietly" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Triết lý thiết kế
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/gioi-thieu#sec-nangluc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Năng lực 2 phân xưởng
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                )}
+                <AnimatePresence>
+                  {activeMenu === "Giới thiệu" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onMouseEnter={() => handleMouseEnter("Giới thiệu")}
+                      onMouseLeave={handleMouseLeave}
+                      className="absolute left-0 top-full mt-2 w-52 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4"
+                    >
+                      <ul className="space-y-2 text-xs font-serif">
+                        <li>
+                          <Link href="/gioi-thieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Về D2 Luxury
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/gioi-thieu#sec-trietly" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Triết lý thiết kế
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/gioi-thieu#sec-nangluc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Năng lực 2 phân xưởng
+                          </Link>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* DỊCH VỤ */}
@@ -240,31 +253,37 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                   <ChevronDown className="w-3 h-3 opacity-60" />
                 </Link>
 
-                {activeMenu === "Dịch vụ" && (
-                  <div
-                    onMouseEnter={() => handleMouseEnter("Dịch vụ")}
-                    onMouseLeave={handleMouseLeave}
-                    className="absolute left-0 top-full mt-2 w-56 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4 transition-all duration-200"
-                  >
-                    <ul className="space-y-2 text-xs font-serif">
-                      <li>
-                        <Link href="/thiet-ke-kien-truc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Thiết kế Kiến trúc
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/thiet-ke-noi-that" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Thiết kế Nội thất
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/thi-cong-xay-dung" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                          Thi công Xây dựng Trọn gói
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                )}
+                <AnimatePresence>
+                  {activeMenu === "Dịch vụ" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onMouseEnter={() => handleMouseEnter("Dịch vụ")}
+                      onMouseLeave={handleMouseLeave}
+                      className="absolute left-0 top-full mt-2 w-56 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4"
+                    >
+                      <ul className="space-y-2 text-xs font-serif">
+                        <li>
+                          <Link href="/thiet-ke-kien-truc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Thiết kế Kiến trúc
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/thiet-ke-noi-that" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Thiết kế Nội thất
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/thi-cong-xay-dung" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                            Thi công Xây dựng Trọn gói
+                          </Link>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* THƯƠNG HIỆU */}
@@ -282,26 +301,32 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                   <ChevronDown className="w-3 h-3 opacity-60" />
                 </Link>
 
-                {activeMenu === "Thương hiệu" && (
-                  <div
-                    onMouseEnter={() => handleMouseEnter("Thương hiệu")}
-                    onMouseLeave={handleMouseLeave}
-                    className="absolute left-0 top-full mt-2 w-64 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4 transition-all duration-200"
-                  >
-                    <ul className="space-y-2 text-xs font-serif">
-                      <li>
-                        <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
-                          D2 Luxury Design (Dự án)
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
-                          D2 Wood Craft (Bán đồ rời)
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                )}
+                <AnimatePresence>
+                  {activeMenu === "Thương hiệu" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onMouseEnter={() => handleMouseEnter("Thương hiệu")}
+                      onMouseLeave={handleMouseLeave}
+                      className="absolute left-0 top-full mt-2 w-64 bg-[#fbf9f6] text-black border border-[#ded8ce] shadow-xl py-3 px-4"
+                    >
+                      <ul className="space-y-2 text-xs font-serif">
+                        <li>
+                          <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
+                            D2 Luxury Design (Dự án)
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
+                            D2 Wood Craft (Bán đồ rời)
+                          </Link>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* THIẾT KẾ 3D (Đổi từ "Ý tưởng AI") */}
@@ -374,49 +399,63 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
       </header>
 
       {/* Search Modal */}
-      {searchOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-          <div className="absolute inset-0" onClick={() => setSearchOpen(false)} />
-          <div className="relative z-10 w-full max-w-xl bg-white text-black p-6 shadow-2xl border border-gray-200">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-200">
-              <span className="text-xs uppercase tracking-widest font-semibold text-gray-500">
-                Tìm kiếm dự án & phong cách
-              </span>
-              <button
-                onClick={() => setSearchOpen(false)}
-                className="p-1 text-gray-400 hover:text-black"
-                aria-label="Đóng tìm kiếm"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="mt-4 flex items-center gap-3">
-              <Search className="w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                autoFocus
-                placeholder="Nhập tên dự án (VD: Villa, Penthouse, Ecopark...)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-2 bg-transparent text-sm focus:outline-none"
-              />
-            </div>
-            <div className="mt-6 pt-4 border-t border-gray-100 flex flex-wrap gap-2 text-xs text-gray-600">
-              <span className="text-gray-400">Gợi ý:</span>
-              {["Villa Thảo Điền", "Grand Island Ecopark", "Vinhomes Ocean Park", "Tam Đảo", "Metropolis"].map((tag) => (
-                <a
-                  key={tag}
-                  href="#sec-duan"
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/75 backdrop-blur-sm"
+          >
+            <div className="absolute inset-0" onClick={() => setSearchOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: -25, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.98 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="relative z-10 w-full max-w-xl bg-white text-black p-6 shadow-2xl border border-gray-200"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-gray-200">
+                <span className="text-xs uppercase tracking-widest font-semibold text-gray-500">
+                  Tìm kiếm dự án & phong cách
+                </span>
+                <button
                   onClick={() => setSearchOpen(false)}
-                  className="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-black transition-colors"
+                  className="p-1 text-gray-400 hover:text-black"
+                  aria-label="Đóng tìm kiếm"
                 >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="mt-4 flex items-center gap-3">
+                <Search className="w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  autoFocus
+                  placeholder="Nhập tên dự án (VD: Villa, Penthouse, Ecopark...)"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full py-2 bg-transparent text-sm focus:outline-none"
+                />
+              </div>
+              <div className="mt-6 pt-4 border-t border-gray-100 flex flex-wrap gap-2 text-xs text-gray-600">
+                <span className="text-gray-400">Gợi ý:</span>
+                {["Villa Thảo Điền", "Grand Island Ecopark", "Vinhomes Ocean Park", "Tam Đảo", "Metropolis"].map((tag) => (
+                  <a
+                    key={tag}
+                    href="#sec-duan"
+                    onClick={() => setSearchOpen(false)}
+                    className="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-black transition-colors"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

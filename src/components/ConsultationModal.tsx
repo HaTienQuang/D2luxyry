@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, User, Phone, Mail, CircleDollarSign, LayoutGrid, Home, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { siteConfig } from "@/data/siteData";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -47,8 +48,6 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  if (!isOpen) return null;
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.phone.trim()) {
@@ -74,7 +73,6 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
       }
     } catch (err) {
       console.error(err);
-      // Even if network fails, we can fall back to success with mailto
       setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
@@ -96,19 +94,35 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      {/* Backdrop */}
-      <div className="fixed inset-0" onClick={handleReset} />
-
-      <div className="relative z-10 w-full max-w-[560px] bg-white rounded-2xl shadow-2xl p-6 sm:p-8 my-auto border border-[#eae3d9] text-left">
-        {/* Close Button */}
-        <button
-          onClick={handleReset}
-          className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors"
-          aria-label="Đóng"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
         >
-          <X className="w-5 h-5" />
-        </button>
+          {/* Backdrop */}
+          <div className="fixed inset-0" onClick={handleReset} />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.93, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.93, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 320 }}
+            className="relative z-10 w-full max-w-[560px] bg-white rounded-2xl shadow-2xl p-6 sm:p-8 my-auto border border-[#eae3d9] text-left"
+          >
+            {/* Close Button */}
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleReset}
+              className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors cursor-pointer"
+              aria-label="Đóng"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
 
         {isSuccess ? (
           <div className="py-8 px-2 text-center space-y-4">
@@ -317,8 +331,10 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
             </form>
           </div>
         )}
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

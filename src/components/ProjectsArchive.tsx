@@ -9,6 +9,7 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { allArchiveProjects } from "@/data/allProjects";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProjectsArchive() {
   const [activeTab, setActiveTab] = useState<"all" | "thuc-te" | "3d">("all");
@@ -66,7 +67,12 @@ export default function ProjectsArchive() {
           </div>
 
           {/* Banner Content */}
-          <div className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
+          >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
               DỰ ÁN
             </h1>
@@ -76,10 +82,14 @@ export default function ProjectsArchive() {
             </p>
 
             {/* Circular Scroll Down Button matching Roll.svg */}
-            <div className="mt-7 sm:mt-9">
+            <motion.div
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-7 sm:mt-9"
+            >
               <a
                 href="#content"
-                className="inline-flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-85 hover:opacity-100"
+                className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
                 aria-label="Cuộn xuống danh sách dự án"
               >
                 <Image
@@ -90,15 +100,21 @@ export default function ProjectsArchive() {
                   className="w-9 h-9 sm:w-10 sm:h-10 drop-shadow"
                 />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* Content Section: Title, Filter Tabs & 3-Column Project Grid */}
         <section id="content" className="py-14 sm:py-20 lg:py-24 scroll-mt-20">
           <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Heading and Tabs */}
-            <div className="text-center mb-10 sm:mb-14">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-10 sm:mb-14"
+            >
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black">
                 DỰ ÁN CỦA D2 LUXURY
               </h2>
@@ -106,84 +122,94 @@ export default function ProjectsArchive() {
 
               {/* Filter Tabs matching lendecor.vn: Tất cả dự án | Hình ảnh thực tế | Hình ảnh 3D */}
               <div className="flex items-center justify-center gap-6 sm:gap-14 border-b border-[#e5dfd5] pb-3.5 text-sm sm:text-base font-serif uppercase tracking-[0.16em]">
-                <button
-                  onClick={() => handleTabChange("all")}
-                  className={`pb-3.5 -mb-3.5 transition-all relative ${
-                    activeTab === "all"
-                      ? "text-black font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2.5px] after:bg-black"
-                      : "text-neutral-500 hover:text-black font-medium"
-                  }`}
-                >
-                  Tất cả dự án
-                </button>
-                <button
-                  onClick={() => handleTabChange("thuc-te")}
-                  className={`pb-3.5 -mb-3.5 transition-all relative ${
-                    activeTab === "thuc-te"
-                      ? "text-black font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2.5px] after:bg-black"
-                      : "text-neutral-500 hover:text-black font-medium"
-                  }`}
-                >
-                  Hình ảnh thực tế
-                </button>
-                <button
-                  onClick={() => handleTabChange("3d")}
-                  className={`pb-3.5 -mb-3.5 transition-all relative ${
-                    activeTab === "3d"
-                      ? "text-black font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2.5px] after:bg-black"
-                      : "text-neutral-500 hover:text-black font-medium"
-                  }`}
-                >
-                  Hình ảnh 3D
-                </button>
-              </div>
-            </div>
-
-            {/* 3-Column Grid matching Image 2 */}
-            {paginatedProjects.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-                {paginatedProjects.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/du-an/${item.slug}`}
-                    className="group cursor-pointer flex flex-col"
+                {[
+                  { id: "all", label: "Tất cả dự án" },
+                  { id: "thuc-te", label: "Hình ảnh thực tế" },
+                  { id: "3d", label: "Hình ảnh 3D" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(tab.id as "all" | "thuc-te" | "3d")}
+                    className={`pb-3.5 -mb-3.5 transition-colors relative cursor-pointer ${
+                      activeTab === tab.id
+                        ? "text-black font-bold"
+                        : "text-neutral-500 hover:text-black font-medium"
+                    }`}
                   >
-                    {/* Project Photo with Aspect Ratio ~3:2 */}
-                    <div className="relative aspect-[3/2] w-full overflow-hidden bg-neutral-200 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-1">
-                      <Image
-                        src={item.mainImage}
-                        alt={item.title}
-                        fill
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <motion.div
+                        layoutId="activeArchiveTab"
+                        className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-black"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
-
-                      {/* Subtle hover overlay */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-
-                      {/* Type Badge */}
-                      <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-sm text-white text-[11px] sm:text-xs uppercase font-serif tracking-widest px-2.5 py-1">
-                        {item.type === "thuc-te" ? "Thực tế" : "Bản vẽ 3D"}
-                      </div>
-                    </div>
-
-                    {/* Centered Title under photo matching Image 2 */}
-                    <div className="pt-3.5 pb-2 text-center">
-                      <h3 className="font-serif font-bold text-sm sm:text-[15.5px] lg:text-[16.5px] uppercase tracking-wider text-black group-hover:text-luxury-gold transition-colors leading-snug">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-[13px] text-neutral-600 font-serif mt-1 font-light">
-                        {item.categoryLabel} {item.location ? `· ${item.location}` : ""}
-                      </p>
-                    </div>
-                  </Link>
+                    )}
+                  </button>
                 ))}
               </div>
-            ) : (
-              <div className="py-20 text-center text-neutral-500 text-sm">
-                Không tìm thấy dự án phù hợp với bộ lọc đã chọn.
-              </div>
-            )}
+            </motion.div>
+
+            {/* 3-Column Grid matching Image 2 */}
+            <AnimatePresence mode="wait">
+              {paginatedProjects.length > 0 ? (
+                <motion.div
+                  key={`${activeTab}-${currentPage}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.35 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
+                >
+                  {paginatedProjects.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 25 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.4) }}
+                      whileHover={{ y: -6 }}
+                    >
+                      <Link
+                        href={`/du-an/${item.slug}`}
+                        className="group cursor-pointer flex flex-col h-full"
+                      >
+                        {/* Project Photo with Aspect Ratio ~3:2 */}
+                        <div className="relative aspect-[3/2] w-full overflow-hidden bg-neutral-200 shadow-sm transition-all duration-500 group-hover:shadow-xl">
+                          <Image
+                            src={item.mainImage}
+                            alt={item.title}
+                            fill
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+
+                          {/* Subtle hover overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+
+                          {/* Type Badge */}
+                          <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-sm text-white text-[11px] sm:text-xs uppercase font-serif tracking-widest px-2.5 py-1">
+                            {item.type === "thuc-te" ? "Thực tế" : "Bản vẽ 3D"}
+                          </div>
+                        </div>
+
+                        {/* Centered Title under photo matching Image 2 */}
+                        <div className="pt-3.5 pb-2 text-center">
+                          <h3 className="font-serif font-bold text-sm sm:text-[15.5px] lg:text-[16.5px] uppercase tracking-wider text-black group-hover:text-luxury-gold transition-colors leading-snug">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs sm:text-[13px] text-neutral-600 font-serif mt-1 font-light">
+                            {item.categoryLabel} {item.location ? `· ${item.location}` : ""}
+                          </p>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <div className="py-20 text-center text-neutral-500 text-sm">
+                  Không tìm thấy dự án phù hợp với bộ lọc đã chọn.
+                </div>
+              )}
+            </AnimatePresence>
 
             {/* Pagination matching lendecor archive */}
             {totalPages > 1 && (
