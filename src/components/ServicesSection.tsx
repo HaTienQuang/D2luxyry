@@ -52,12 +52,11 @@ export default function ServicesSection() {
 
   const total = services.length;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<"next" | "prev" | null>(null);
-  const [isSliding, setIsSliding] = useState(false);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [hasEntered, setHasEntered] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  // Entrance animation: smoothly push in the side images on reload/load
+  // Entrance animation: smoothly push in the side images on initial load
   useEffect(() => {
     const timer = setTimeout(() => {
       setHasEntered(true);
@@ -66,27 +65,13 @@ export default function ServicesSection() {
   }, []);
 
   const nextSlide = () => {
-    if (isSliding) return;
-    setIsSliding(true);
-    setSlideDirection("next");
-
-    setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % total);
-      setIsSliding(false);
-      setSlideDirection(null);
-    }, 620);
+    setDirection("next");
+    setActiveIndex((prev) => (prev + 1) % total);
   };
 
   const prevSlide = () => {
-    if (isSliding) return;
-    setIsSliding(true);
-    setSlideDirection("prev");
-
-    setTimeout(() => {
-      setActiveIndex((prev) => (prev - 1 + total) % total);
-      setIsSliding(false);
-      setSlideDirection(null);
-    }, 620);
+    setDirection("prev");
+    setActiveIndex((prev) => (prev - 1 + total) % total);
   };
 
   // Touch swipe support
@@ -97,32 +82,17 @@ export default function ServicesSection() {
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) nextSlide();
-    if (diff < -50) prevSlide();
+    if (diff > 45) nextSlide();
+    if (diff < -45) prevSlide();
     touchStartX.current = null;
   };
 
-  // 5 slots centered on activeIndex: [-2, -1, 0, 1, 2]
-  const slotIndices = [
-    (activeIndex - 2 + total * 2) % total,
-    (activeIndex - 1 + total * 2) % total,
-    activeIndex,
-    (activeIndex + 1) % total,
-    (activeIndex + 2) % total,
-  ];
-
-  // Calculate track transform percentage
-  // Slot 2 (center) is resting at index 2 (offset = -33.333333% in desktop 3-card view)
-  const getDesktopTrackTransform = () => {
-    if (slideDirection === "next") return "translateX(-40%)";
-    if (slideDirection === "prev") return "translateX(0%)";
-    return "translateX(-20%)";
-  };
-
-  const getMobileTrackTransform = () => {
-    if (slideDirection === "next") return "translateX(-60%)";
-    if (slideDirection === "prev") return "translateX(-20%)";
-    return "translateX(-40%)";
+  // Calculate normalized relative offset from activeIndex for each item
+  const getOffset = (idx: number) => {
+    let diff = idx - activeIndex;
+    while (diff > total / 2) diff -= total;
+    while (diff < -total / 2) diff += total;
+    return diff;
   };
 
   return (
@@ -161,232 +131,279 @@ export default function ServicesSection() {
           />
         </div>
 
-        {/* 3-Card Continuous Horizontal Sliding Carousel */}
+        {/* 3D Flip & Coverflow Stage Carousel */}
         <div
-          className="relative w-full overflow-hidden select-none py-2"
+          className="relative w-full select-none py-2"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Desktop & Tablet Sliding Track View */}
-          <div className="hidden md:block relative w-full overflow-hidden">
-            {/* Sliding Track containing 5 continuous slots */}
-            <div
-              className={`flex items-start ${
-                isSliding
-                  ? "transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  : "transition-none"
-              }`}
-              style={{
-                width: "166.666667%",
-                transform: getDesktopTrackTransform(),
-              }}
-            >
-              {slotIndices.map((serviceIdx, slotPos) => {
-                const item = services[serviceIdx];
-                const isCenter = slotPos === 2;
-                const isLeft = slotPos === 1;
-                const isRight = slotPos === 3;
+          {/* Desktop & Tablet 3D Perspective Stage */}
+          <div
+            className="hidden md:block relative w-full h-[520px] sm:h-[560px] lg:h-[600px] overflow-hidden"
+            style={{
+              perspective: "1200px",
+              perspectiveOrigin: "center 42%",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {services.map((item, idx) => {
+              const offset = getOffset(idx);
+              const isCenter = offset === 0;
+              const isLeft = offset === -1;
+              const isRight = offset === 1;
+              const isHidden = Math.abs(offset) >= 2;
 
-                // Dynamic scale & opacity calculation during active slide
-                let isTargetCenter = isCenter;
-                let isTargetSide = isLeft || isRight;
+              // Compute 3D Flip and Glide coordinates
+              let targetX = "0%";
+              let targetRotateY = 0;
+              let targetScale = 1;
+              let targetZ = 100;
+              let targetOpacity = 1;
+              let targetBrightness = "brightness(1)";
 
-                if (slideDirection === "next") {
-                  isTargetCenter = slotPos === 3;
-                  isTargetSide = slotPos === 2 || slotPos === 4;
-                } else if (slideDirection === "prev") {
-                  isTargetCenter = slotPos === 1;
-                  isTargetSide = slotPos === 0 || slotPos === 2;
+              if (isLeft) {
+                targetX = "-72%";
+                targetRotateY = 24; // Flipped in 3D facing inward
+                targetScale = 0.83;
+                targetZ = 20;
+                targetOpacity = 0.62;
+                targetBrightness = "brightness(0.88)";
+              } else if (isRight) {
+                targetX = "72%";
+                targetRotateY = -24; // Flipped in 3D facing inward
+                targetScale = 0.83;
+                targetZ = 20;
+                targetOpacity = 0.62;
+                targetBrightness = "brightness(0.88)";
+              } else if (isHidden) {
+                targetX = offset > 0 ? "130%" : "-130%";
+                targetRotateY = offset > 0 ? -40 : 40;
+                targetScale = 0.6;
+                targetZ = 0;
+                targetOpacity = 0;
+                targetBrightness = "brightness(0.7)";
+              }
+
+              // Initial push-in coordinates before enter
+              let initialX = targetX;
+              let initialOpacity = targetOpacity;
+              if (!hasEntered) {
+                if (isLeft) {
+                  initialX = "-105%";
+                  initialOpacity = 0;
+                } else if (isRight) {
+                  initialX = "105%";
+                  initialOpacity = 0;
+                } else if (isCenter) {
+                  initialOpacity = 0.6;
                 }
+              }
 
-                // Initial reload push-in from 2 sides
-                let pushInTransform = "";
-                let pushInOpacity = "";
-                if (!hasEntered) {
-                  if (slotPos === 1) {
-                    pushInTransform = "translateX(-65px)";
-                    pushInOpacity = "opacity-0";
-                  } else if (slotPos === 3) {
-                    pushInTransform = "translateX(65px)";
-                    pushInOpacity = "opacity-0";
-                  } else if (slotPos === 2) {
-                    pushInTransform = "scale(0.96)";
-                    pushInOpacity = "opacity-75";
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{
+                    x: initialX,
+                    rotateY: targetRotateY,
+                    scale: targetScale,
+                    opacity: initialOpacity,
+                  }}
+                  animate={{
+                    x: targetX,
+                    rotateY: targetRotateY,
+                    scale: targetScale,
+                    opacity: targetOpacity,
+                    zIndex: targetZ,
+                    filter: targetBrightness,
+                  }}
+                  transition={{
+                    duration: 0.72,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={
+                    !isCenter && !isHidden
+                      ? {
+                          scale: 0.86,
+                          opacity: 0.88,
+                          rotateY: isLeft ? 16 : -16,
+                          filter: "brightness(0.96)",
+                          transition: { duration: 0.3 },
+                        }
+                      : {}
                   }
-                }
-
-                return (
+                  onClick={() => {
+                    if (isLeft) prevSlide();
+                    if (isRight) nextSlide();
+                  }}
+                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-[42%] lg:w-[40%] text-center ${
+                    !isCenter && !isHidden ? "cursor-pointer" : ""
+                  }`}
+                  style={{
+                    transformStyle: "preserve-3d",
+                    willChange: "transform, opacity",
+                  }}
+                >
+                  {/* Card Image Container with 3D Depth Shadow */}
                   <div
-                    key={`${slotPos}-${serviceIdx}`}
-                    onClick={() => {
-                      if (isLeft) prevSlide();
-                      if (isRight) nextSlide();
-                    }}
-                    className={`w-[20%] shrink-0 px-3 lg:px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      !isCenter ? "cursor-pointer" : ""
-                    } ${pushInOpacity}`}
-                    style={{
-                      transform: pushInTransform,
-                    }}
+                    className={`relative aspect-[3/2] w-full overflow-hidden bg-black/5 rounded-sm transition-shadow duration-700 ${
+                      isCenter
+                        ? "shadow-[0_20px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/5"
+                        : "shadow-md hover:shadow-xl"
+                    }`}
                   >
-                    {/* Card Image Container with Smooth Scaling */}
-                    <div
-                      className={`relative aspect-[3/2] w-full overflow-hidden bg-black/5 transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] group ${
-                        isTargetCenter
-                          ? "shadow-2xl scale-100 opacity-100 z-20"
-                          : "shadow-sm scale-[0.84] opacity-55 hover:opacity-85 z-10"
-                      }`}
-                    >
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 1024px) 33vw, 480px"
-                        priority={isCenter}
-                      />
-                    </div>
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
+                      sizes="(max-width: 1024px) 45vw, 600px"
+                      priority={isCenter}
+                    />
 
-                    {/* Text Details below the Card */}
-                    {isCenter ? (
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={activeIndex}
-                          initial={{ opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          transition={{ duration: 0.35, ease: "easeOut" }}
-                          className="pt-3 space-y-2.5 opacity-100 max-w-lg mx-auto"
-                        >
-                          <h3 className="font-serif font-bold text-black uppercase text-lg sm:text-xl lg:text-2xl tracking-wide pt-1">
-                            {item.title}
-                          </h3>
-
-                          <div className="w-16 h-[1.5px] bg-gray-400 mx-auto my-2" />
-
-                          <p className="font-serif font-light text-neutral-800 text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2">
-                            {item.description}
-                          </p>
-
-                          <div className="pt-2">
-                            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
-                              <Link
-                                href={item.href}
-                                className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
-                              >
-                                TÌM HIỂU THÊM
-                              </Link>
-                            </motion.div>
-                          </div>
-                        </motion.div>
-                      </AnimatePresence>
-                    ) : (
-                      <div className="transition-all duration-500 pt-3 space-y-2 opacity-60 max-w-xs mx-auto">
-                        <h3 className="font-serif font-bold text-black uppercase text-xs sm:text-sm tracking-normal">
-                          {item.title}
-                        </h3>
-                        <p className="font-serif font-light text-gray-600 text-xs line-clamp-2 px-1">
-                          {item.description}
-                        </p>
+                    {/* Subtle Luxury Corner Tag on Center */}
+                    {isCenter && (
+                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/75 backdrop-blur-sm text-luxury-gold text-[10px] font-sans tracking-[0.2em] uppercase font-semibold border border-white/10">
+                        D2 LUXURY
                       </div>
                     )}
                   </div>
-                );
-              })}
-            </div>
 
-            {/* Left Stationary Navigation Arrow with Motion */}
+                  {/* Card Information & Typography */}
+                  {isCenter ? (
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="pt-4 space-y-2.5 max-w-lg mx-auto"
+                      >
+                        <h3 className="font-serif font-bold text-black uppercase text-lg sm:text-xl lg:text-2xl tracking-wide pt-1">
+                          {item.title}
+                        </h3>
+
+                        <div className="w-16 h-[1.5px] bg-neutral-400 mx-auto my-2" />
+
+                        <p className="font-serif font-light text-neutral-800 text-sm sm:text-[15.5px] leading-[1.85] line-clamp-3 px-2">
+                          {item.description}
+                        </p>
+
+                        <div className="pt-2">
+                          <motion.div
+                            whileHover={{ scale: 1.04, y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Link
+                              href={item.href}
+                              className="inline-block px-7 py-2.5 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.18em] transition-all duration-300 hover:shadow-md"
+                            >
+                              TÌM HIỂU THÊM
+                            </Link>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  ) : (
+                    <div className="pt-3 space-y-2 max-w-xs mx-auto transition-opacity duration-300">
+                      <h3 className="font-serif font-bold text-black uppercase text-xs sm:text-sm tracking-normal">
+                        {item.title}
+                      </h3>
+                      <p className="font-serif font-light text-neutral-600 text-xs line-clamp-2 px-1">
+                        {item.description}
+                      </p>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+
+            {/* Left Circular Navigation Arrow matching screenshot */}
             <motion.button
               onClick={prevSlide}
-              disabled={isSliding}
-              whileHover={{ scale: 1.15 }}
+              whileHover={{ scale: 1.15, x: -2 }}
               whileTap={{ scale: 0.92 }}
-              className="absolute left-[24%] lg:left-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/75 hover:bg-white text-black shadow-md hover:shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
+              className="absolute left-[26%] lg:left-[27%] top-[140px] sm:top-[160px] lg:top-[180px] -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white text-black shadow-[0_4px_16px_rgba(0,0,0,0.18)] hover:shadow-xl flex items-center justify-center border border-black/5 hover:border-black/20 transition-colors cursor-pointer"
               aria-label="Dịch vụ trước"
             >
-              <ChevronLeft className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
+              <ChevronLeft className="w-6 h-6 stroke-[2]" />
             </motion.button>
 
-            {/* Right Stationary Navigation Arrow with Motion */}
+            {/* Right Circular Navigation Arrow matching screenshot */}
             <motion.button
               onClick={nextSlide}
-              disabled={isSliding}
-              whileHover={{ scale: 1.15 }}
+              whileHover={{ scale: 1.15, x: 2 }}
               whileTap={{ scale: 0.92 }}
-              className="absolute right-[24%] lg:right-[25%] top-[120px] sm:top-[140px] lg:top-[160px] -translate-y-1/2 z-30 p-2.5 rounded-full bg-white/75 hover:bg-white text-black shadow-md hover:shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
+              className="absolute right-[26%] lg:right-[27%] top-[140px] sm:top-[160px] lg:top-[180px] -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white text-black shadow-[0_4px_16px_rgba(0,0,0,0.18)] hover:shadow-xl flex items-center justify-center border border-black/5 hover:border-black/20 transition-colors cursor-pointer"
               aria-label="Dịch vụ tiếp theo"
             >
-              <ChevronRight className="w-7 h-7 sm:w-8 sm:h-8 stroke-[1.6]" />
+              <ChevronRight className="w-6 h-6 stroke-[2]" />
             </motion.button>
           </div>
 
-          {/* Mobile Sliding View */}
+          {/* Mobile Fluid Slider */}
           <div className="md:hidden relative w-full overflow-hidden">
-            <div
-              className={`flex items-start ${
-                isSliding
-                  ? "transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  : "transition-none"
-              }`}
-              style={{
-                width: "500%",
-                transform: getMobileTrackTransform(),
-              }}
-            >
-              {slotIndices.map((serviceIdx, slotPos) => {
-                const item = services[serviceIdx];
-                const isCenter = slotPos === 2;
-                return (
-                  <div
-                    key={`mobile-${slotPos}-${serviceIdx}`}
-                    className="w-[20%] shrink-0 px-2 text-center space-y-3"
-                  >
-                    <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-md">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="object-cover"
-                        sizes="100vw"
-                        priority={isCenter}
-                      />
-                    </div>
-                    <div className="space-y-2 px-2">
-                      <h3 className="text-lg font-serif font-bold text-black uppercase">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-neutral-800 font-serif font-light leading-[1.8] line-clamp-3">
-                        {item.description}
-                      </p>
-                      {isCenter && (
-                        <div className="pt-2">
-                          <Link
-                            href={item.href}
-                            className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
-                          >
-                            TÌM HIỂU THÊM
-                          </Link>
-                        </div>
-                      )}
-                    </div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={activeIndex}
+                initial={{
+                  opacity: 0,
+                  x: direction === "next" ? 80 : -80,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  x: direction === "next" ? -80 : 80,
+                }}
+                transition={{
+                  duration: 0.45,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="w-full text-center space-y-3 px-2"
+              >
+                <div className="relative aspect-[3/2] w-full overflow-hidden bg-black/5 shadow-md rounded-sm">
+                  <Image
+                    src={services[activeIndex].image}
+                    alt={services[activeIndex].title}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority
+                  />
+                </div>
+                <div className="space-y-2 px-2">
+                  <h3 className="text-lg font-serif font-bold text-black uppercase">
+                    {services[activeIndex].title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-neutral-800 font-serif font-light leading-[1.8] line-clamp-3">
+                    {services[activeIndex].description}
+                  </p>
+                  <div className="pt-2">
+                    <Link
+                      href={services[activeIndex].href}
+                      className="inline-block px-6 py-2 bg-black hover:bg-[#222] text-white text-xs font-serif uppercase tracking-[0.16em] transition-all duration-300"
+                    >
+                      TÌM HIỂU THÊM
+                    </Link>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Mobile Navigation Arrows */}
             <button
               onClick={prevSlide}
-              disabled={isSliding}
-              className="absolute left-1 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
+              className="absolute left-2 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
               aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextSlide}
-              disabled={isSliding}
-              className="absolute right-1 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
+              className="absolute right-2 top-[110px] -translate-y-1/2 p-2 bg-black/60 hover:bg-black text-white rounded-full transition-colors z-20"
               aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
