@@ -25,9 +25,9 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8"
       >
-        {/* 4-Column Layout */}
+        {/* 4-Column Balanced Luxury Layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Column 1: Logo, Slogan, Domain, Socials & Fanpage */}
+          {/* Column 1: Logo, Slogan, Socials & Zalo QR (col-span-3) */}
           <div className="lg:col-span-3 space-y-4">
             <Link href="/" className="inline-block">
               <div className="relative h-16 sm:h-20 w-48 sm:w-56 flex items-center">
@@ -40,35 +40,52 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
               </div>
             </Link>
 
-            <p className="text-xs sm:text-[13px] font-serif text-neutral-700 leading-relaxed max-w-sm font-light">
+            <p className="text-xs sm:text-[13px] font-serif text-neutral-700 leading-relaxed font-light">
               Khơi nguồn cảm hứng cho không gian sống hoàn mỹ. Đồng hành cùng bạn kiến tạo những không gian sống đẳng cấp, tiện nghi và trường tồn cùng thời gian.
             </p>
 
-            {/* Facebook Fanpage Only */}
-            <div className="pt-2 flex items-center gap-2.5">
-              <motion.a
-                whileHover={{ scale: 1.12, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                href={siteConfig.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#1877F2] hover:bg-[#166fe5] text-white flex items-center justify-center transition-all shadow-sm"
-                aria-label="Facebook Fanpage D2 Luxury Design"
-              >
-                <Facebook className="w-4 h-4 fill-white" />
-              </motion.a>
+            {/* Social Channels & Zalo QR */}
+            <div className="pt-2 space-y-3">
               <a
                 href={siteConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs sm:text-[13px] font-serif text-neutral-800 hover:text-[#1877F2] transition-colors font-medium underline underline-offset-4"
+                className="inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-serif text-neutral-800 hover:text-[#1877F2] transition-colors font-medium group"
               >
-                Fanpage Facebook D2 Luxury Design
+                <span className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm">
+                  <Facebook className="w-4 h-4 fill-white" />
+                </span>
+                <span className="underline underline-offset-4 group-hover:text-[#1877F2]">Fanpage Facebook D2 Luxury Design</span>
+              </a>
+
+              {/* Zalo QR Mini Card */}
+              <a
+                href={siteConfig.zaloUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl bg-[#1c1917] text-white flex items-center gap-3 shadow-md border border-neutral-700/60 hover:border-luxury-gold transition-all duration-300 group max-w-[280px]"
+              >
+                <div className="relative w-11 h-11 bg-white rounded-md p-1 shrink-0 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/zalo-qr.png"
+                    alt="Mã Zalo D2 Luxury Design"
+                    fill
+                    className="object-contain p-0.5 group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <div className="text-left font-sans">
+                  <span className="block font-bold text-xs text-white tracking-wide group-hover:text-luxury-gold transition-colors">
+                    Quét mã Zalo
+                  </span>
+                  <span className="block text-[10.5px] text-neutral-300 font-light leading-tight mt-0.5">
+                    Tư vấn 24/7 ({siteConfig.phone1} – {siteConfig.phone2})
+                  </span>
+                </div>
               </a>
             </div>
           </div>
 
-          {/* Column 2: VỀ D2 LUXURY DESIGN */}
+          {/* Column 2: VỀ D2 LUXURY DESIGN (col-span-2) */}
           <div className="lg:col-span-2 space-y-3.5">
             <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
               VỀ D2 LUXURY DESIGN
@@ -102,7 +119,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             </ul>
           </div>
 
-          {/* Column 3: DỊCH VỤ */}
+          {/* Column 3: DỊCH VỤ (col-span-2) */}
           <div className="lg:col-span-2 space-y-3.5">
             <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
               DỊCH VỤ
@@ -136,101 +153,65 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             </ul>
           </div>
 
-          {/* Column 4: THÔNG TIN LIÊN HỆ & Zalo QR Card */}
+          {/* Column 4: THÔNG TIN LIÊN HỆ & CƠ SỞ (col-span-5) */}
           <div className="lg:col-span-5 space-y-3.5">
             <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
               THÔNG TIN LIÊN HỆ
             </h4>
 
-            <div className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-800 font-light leading-relaxed">
-              {/* Văn phòng Hà Nội */}
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-neutral-900 shrink-0 mt-0.5" />
+            {/* Quick Contact Bar: Hotline & Email */}
+            <div className="bg-white/80 border border-[#ded8ce] p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-serif shadow-sm">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-neutral-900 shrink-0" />
                 <div>
-                  <span className="font-semibold text-black">Văn phòng tại Tp Hà Nội:</span>{" "}
-                  <span>{siteConfig.officeHanoi}</span>
-                </div>
-              </div>
-
-              {/* Hệ thống 3 Xưởng sản xuất */}
-              <div className="pt-1 space-y-1">
-                <div className="flex items-start gap-2">
-                  <span className="text-sm font-bold text-neutral-900 shrink-0 leading-none mt-0.5">➢</span>
-                  <div>
-                    <span className="font-semibold text-black">Xưởng sản xuất tại Hà Nội:</span>{" "}
-                    <span>{siteConfig.workshopHanoi}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <span className="text-sm font-bold text-neutral-900 shrink-0 leading-none mt-0.5">➢</span>
-                  <div>
-                    <span className="font-semibold text-black">Xưởng sản xuất tại Tp HCM:</span>{" "}
-                    <span>{siteConfig.workshopHCMC}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <span className="text-sm font-bold text-neutral-900 shrink-0 leading-none mt-0.5">➢</span>
-                  <div>
-                    <span className="font-semibold text-black">Xưởng sản xuất tại Phú Quốc:</span>{" "}
-                    <span>{siteConfig.workshopPhuQuoc}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Hotline */}
-              <div className="flex items-start gap-2 pt-1.5 border-t border-black/10">
-                <Phone className="w-4 h-4 text-neutral-900 shrink-0 mt-0.5" />
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                  <span className="font-semibold text-black">Hotline:</span>
-                  <a href={`tel:${siteConfig.hotline}`} className="hover:text-luxury-gold font-bold text-neutral-900 transition-colors">
+                  <span className="text-neutral-600 font-light">Hotline: </span>
+                  <a href={`tel:${siteConfig.hotline}`} className="font-bold text-black hover:text-luxury-gold transition-colors">
                     {siteConfig.phone1Contact}
                   </a>
-                  <span>–</span>
-                  <a href={`tel:${siteConfig.hotline2}`} className="hover:text-luxury-gold font-bold text-neutral-900 transition-colors">
+                  <span className="mx-1 text-neutral-400">–</span>
+                  <a href={`tel:${siteConfig.hotline2}`} className="font-bold text-black hover:text-luxury-gold transition-colors">
                     {siteConfig.phone2}
                   </a>
                 </div>
               </div>
-
-              {/* Email & Website */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-0.5">
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-neutral-900 shrink-0" />
-                  <a href={`mailto:${siteConfig.email}`} className="hover:text-black transition-colors font-medium">
-                    {siteConfig.email}
-                  </a>
-                </div>
+              <div className="flex items-center gap-2 border-t sm:border-t-0 sm:border-l border-neutral-300 pt-2 sm:pt-0 sm:pl-3">
+                <Mail className="w-4 h-4 text-neutral-900 shrink-0" />
+                <a href={`mailto:${siteConfig.email}`} className="text-neutral-800 hover:text-black font-medium transition-colors">
+                  {siteConfig.email}
+                </a>
               </div>
             </div>
 
-            {/* Zalo QR Card Container */}
-            <a
-              href={siteConfig.zaloUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3.5 p-3 rounded-2xl bg-[#1c1917] text-white flex items-center gap-3.5 shadow-lg border border-neutral-700/60 hover:border-luxury-gold transition-all duration-300 cursor-pointer group block"
-            >
-              {/* White QR Box */}
-              <div className="relative w-12 h-12 bg-white rounded-lg p-1 shrink-0 overflow-hidden shadow-inner flex items-center justify-center">
-                <Image
-                  src="/zalo-qr.png"
-                  alt="Mã Zalo D2 Luxury Design"
-                  fill
-                  className="object-contain p-0.5 group-hover:scale-105 transition-transform"
-                />
+            {/* Cơ sở & Hệ thống 3 Xưởng sản xuất */}
+            <div className="space-y-2.5 text-xs sm:text-[12.5px] font-serif text-neutral-800 font-light leading-relaxed">
+              {/* Văn phòng Hà Nội */}
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-black shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-black uppercase tracking-wider text-[11px] block">Văn phòng tại Tp Hà Nội:</span>
+                  <span className="text-neutral-700">{siteConfig.officeHanoi}</span>
+                </div>
               </div>
 
-              <div className="text-left font-sans">
-                <span className="block font-bold text-xs sm:text-[13px] text-white tracking-wide group-hover:text-luxury-gold transition-colors">
-                  Quét mã Zalo
-                </span>
-                <span className="block text-[10.5px] sm:text-[11px] text-neutral-300 font-light leading-tight mt-0.5">
-                  Kết nối tư vấn 24/7 ({siteConfig.phone1} – {siteConfig.phone2})
-                </span>
+              {/* Hệ thống 3 Xưởng sản xuất */}
+              <div className="pt-2 border-t border-black/10 space-y-1.5">
+                <span className="font-semibold text-black uppercase tracking-wider text-[11px] block">Hệ thống 3 xưởng sản xuất:</span>
+                <div className="grid grid-cols-1 gap-1.5 pl-3.5 border-l-2 border-luxury-gold/60 text-neutral-700">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="font-medium text-black shrink-0">• Xưởng Hà Nội:</span>
+                    <span>{siteConfig.workshopHanoi}</span>
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="font-medium text-black shrink-0">• Xưởng Tp HCM:</span>
+                    <span>{siteConfig.workshopHCMC}</span>
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="font-medium text-black shrink-0">• Xưởng Phú Quốc:</span>
+                    <span>{siteConfig.workshopPhuQuoc}</span>
+                  </div>
+                </div>
               </div>
-            </a>
+            </div>
           </div>
         </div>
 

@@ -115,12 +115,6 @@ export default function BrandsSection({ onOpenZalo }: BrandsSectionProps = {}) {
                 <p className="text-xs sm:text-[13px] font-serif uppercase tracking-[0.22em] text-neutral-600 font-medium">
                   NỘI THẤT GỖ TỰ NHIÊN
                 </p>
-                <div className="pt-2">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-serif text-[#8a522a] group-hover:underline">
-                    <span>Truy cập noithatd2luxurydesign.com</span>
-                    <span className="text-sm">↗</span>
-                  </span>
-                </div>
               </div>
             </a>
           </motion.div>
