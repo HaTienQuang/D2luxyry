@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -16,6 +16,7 @@ interface ProjectItem {
 }
 
 export default function ProjectsSection() {
+  const [showAllMobile, setShowAllMobile] = useState(false);
   // 12 Authentic D2 Luxury Projects from public/projects/ with real photos & galleries
   const projectItems: ProjectItem[] = [
     {
@@ -219,7 +220,8 @@ export default function ProjectsSection() {
                 </p>
               </div>
 
-              <div className="pt-2 sm:pt-4">
+              {/* Desktop CTA Button: pinned inside sticky sidebar */}
+              <div className="hidden lg:block pt-2 sm:pt-4">
                 <motion.a
                   href="/du-an"
                   whileHover={{ scale: 1.03, y: -2 }}
@@ -235,47 +237,70 @@ export default function ProjectsSection() {
           {/* Right Column: 2-column image grid with Framer Motion Stagger & Hover Elevation */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-              {projectItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    duration: 0.7,
-                    delay: (idx % 2) * 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  whileHover={{ y: -6 }}
-                  className="overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500 bg-black/5"
-                >
-                  <Link
-                    href={`/du-an/${item.id}`}
-                    className="group relative aspect-[3/2] w-full block overflow-hidden cursor-pointer"
-                  >
-                    {/* Real D2 Luxury Photo from public/projects/ */}
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-108"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                    />
+              {projectItems.map((item, idx) => {
+                const isHiddenOnMobile = idx >= 4 && !showAllMobile;
 
-                    {/* Elegant hover title scrim with slide-up reveal */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex items-end p-5 sm:p-6">
-                      <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <span className="text-[11px] sm:text-xs tracking-widest uppercase text-luxury-gold font-sans font-medium block mb-1">
-                          {item.categoryLabel}
-                        </span>
-                        <h3 className="text-white font-serif text-base sm:text-lg tracking-wider font-semibold uppercase drop-shadow-md">
-                          {item.title}
-                        </h3>
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{
+                      duration: 0.7,
+                      delay: (idx % 2) * 0.12,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    whileHover={{ y: -6 }}
+                    className={`overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-500 bg-black/5 ${
+                      isHiddenOnMobile ? "hidden lg:block" : "block"
+                    }`}
+                  >
+                    <Link
+                      href={`/du-an/${item.id}`}
+                      className="group relative aspect-[3/2] w-full block overflow-hidden cursor-pointer"
+                    >
+                      {/* Real D2 Luxury Photo from public/projects/ */}
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-108"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                      />
+
+                      {/* Title Scrim: Always visible on mobile, hover slide-up on desktop */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 ease-out flex items-end p-4 sm:p-6">
+                        <div className="transform translate-y-0 lg:translate-y-3 lg:group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                          <span className="text-[10.5px] sm:text-xs tracking-widest uppercase text-luxury-gold font-sans font-medium block mb-1">
+                            {item.categoryLabel}
+                          </span>
+                          <h3 className="text-white font-serif text-sm sm:text-base lg:text-lg tracking-wider font-semibold uppercase drop-shadow-md">
+                            {item.title}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Mobile / Tablet Action Bar: Expand +8 projects or View Full Archive */}
+            <div className="lg:hidden mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowAllMobile((prev) => !prev)}
+                className="w-full sm:w-auto text-center px-6 py-3 border border-black/40 hover:border-black text-black text-xs sm:text-[13px] font-serif tracking-[0.18em] uppercase font-semibold transition-all bg-white hover:bg-black/5 shadow-sm active:scale-[0.98]"
+              >
+                {showAllMobile ? "Thu gọn dự án" : "Xem thêm dự án (+8)"}
+              </button>
+              <Link
+                href="/du-an"
+                className="w-full sm:w-auto text-center px-8 py-3.5 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase font-semibold transition-all shadow hover:shadow-lg active:scale-[0.98]"
+              >
+                XEM TOÀN BỘ DỰ ÁN
+              </Link>
             </div>
           </div>
         </div>
