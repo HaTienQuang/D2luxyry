@@ -17,7 +17,7 @@ interface ProjectItem {
 
 export default function ProjectsSection() {
   const [showAllMobile, setShowAllMobile] = useState(false);
-  // 12 Authentic D2 Luxury Projects from public/projects/ with real photos & galleries
+  // 12 Authentic D2 Luxury Design Projects from public/projects/ with real photos & galleries
   const projectItems: ProjectItem[] = [
     {
       id: "villa-grand-island-ecopark",
@@ -32,7 +32,7 @@ export default function ProjectsSection() {
         "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-3.gif",
         "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-4.gif",
       ],
-      description: "Dinh thự đảo siêu sang tại Grand Island Ecopark với không gian thông tầng kỳ vĩ, nội thất may đo chuẩn mực mang đậm dấu ấn D2 Luxury."
+      description: "Dinh thự đảo siêu sang tại Grand Island Ecopark với không gian thông tầng kỳ vĩ, nội thất may đo chuẩn mực mang đậm dấu ấn D2 Luxury Design."
     },
     {
       id: "villa-vinhomes-ocean-park",
@@ -174,7 +174,7 @@ export default function ProjectsSection() {
         "/projects/can-ho-han-jardin/main.jpg",
         "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/main.jpg",
       ],
-      description: "Không gian sống tinh tế với gam màu trung tính, bố cục khoa học và đồ nội thất đặt đóng riêng theo chuẩn thẩm mỹ D2 Luxury."
+      description: "Không gian sống tinh tế với gam màu trung tính, bố cục khoa học và đồ nội thất đặt đóng riêng theo chuẩn thẩm mỹ D2 Luxury Design."
     }
   ];
 
@@ -205,7 +205,7 @@ export default function ProjectsSection() {
             <div className="relative z-10 pt-[100px] sm:pt-[120px] lg:pt-[140px] space-y-6">
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold uppercase tracking-wider text-black leading-[1.15]">
-                  DỰ ÁN CỦA<br />D2 LUXURY
+                  DỰ ÁN CỦA<br />D2 LUXURY DESIGN
                 </h2>
                 {/* Clean Black Divider line matching Image 2 */}
                 <div className="w-24 sm:w-28 h-[2px] bg-black mt-4 mb-6 sm:mb-8" />
@@ -213,10 +213,10 @@ export default function ProjectsSection() {
 
               <div className="space-y-4 text-sm sm:text-[15.5px] lg:text-[16px] text-[#222] font-serif leading-[1.9] font-light">
                 <p>
-                  Với hơn 14 năm kinh nghiệm trong lĩnh vực thiết kế và thi công kiến trúc – nội thất, D2 Luxury đã có cơ hội được làm việc với hàng ngàn khách hàng và hàng trăm dự án, thành công mang đến những không gian sống đẳng cấp, thẩm mỹ và thể hiện được dấu ấn cá nhân của gia chủ.
+                  Với hơn 14 năm kinh nghiệm trong lĩnh vực thiết kế và thi công kiến trúc – nội thất, D2 Luxury Design đã có cơ hội được làm việc với hàng ngàn khách hàng và hàng trăm dự án, thành công mang đến những không gian sống đẳng cấp, thẩm mỹ và thể hiện được dấu ấn cá nhân của gia chủ.
                 </p>
                 <p>
-                  Bên cạnh đó, phong cách thiết kế và thi công của D2 Luxury đa dạng: từ Tân Cổ Điển, Bán Cổ Điển, Đông Dương, Farmhouse đến Hiện Đại.
+                  Bên cạnh đó, phong cách thiết kế và thi công của D2 Luxury Design đa dạng: từ Tân Cổ Điển, Bán Cổ Điển, Đông Dương, Farmhouse đến Hiện Đại.
                 </p>
               </div>
 
@@ -260,7 +260,7 @@ export default function ProjectsSection() {
                       href={`/du-an/${item.id}`}
                       className="group relative aspect-[3/2] w-full block overflow-hidden cursor-pointer"
                     >
-                      {/* Real D2 Luxury Photo from public/projects/ */}
+                      {/* Real D2 Luxury Design Photo from public/projects/ */}
                       <Image
                         src={item.image}
                         alt={item.title}

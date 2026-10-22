@@ -239,7 +239,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // High quality D2 Luxury fallback if tunnel is temporarily unreachable
+    // High quality D2 Luxury Design fallback if tunnel is temporarily unreachable
     const randomIndex = Math.floor(Math.random() * fallbackConcepts.length);
     const fallbackImage = fallbackConcepts[randomIndex];
 

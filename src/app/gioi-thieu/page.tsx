@@ -25,7 +25,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/about-living-original.webp"
-            alt="Về chúng tôi - D2 Luxury"
+            alt="Về chúng tôi - D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -46,7 +46,7 @@ export default function AboutPage() {
           </h1>
           <div className="w-20 sm:w-28 h-[2px] bg-white/80 mx-auto mt-4 mb-5" />
           <p className="max-w-2xl sm:max-w-3xl mx-auto text-xs sm:text-[13px] md:text-[14px] font-serif uppercase tracking-[0.08em] text-white/95 leading-relaxed font-normal drop-shadow">
-            BỀN BỈ THEO ĐUỔI &ldquo;BỔN PHẬN ẤM ÊM&rdquo;, D2 LUXURY Ở ĐÂY ĐỂ GIÚP BẠN TẠO NÊN NHỮNG KHÔNG GIAN THOẢI MÁI VÀ HẠNH PHÚC, LÀ &ldquo;CHỐN MONG VỀ&rdquo; VÀ &ldquo;MUỐN GẮN BÓ NHIỀU HƠN&rdquo;.
+            BỀN BỈ THEO ĐUỔI &ldquo;BỔN PHẬN ẤM ÊM&rdquo;, D2 LUXURY DESIGN Ở ĐÂY ĐỂ GIÚP BẠN TẠO NÊN NHỮNG KHÔNG GIAN THOẢI MÁI VÀ HẠNH PHÚC, LÀ &ldquo;CHỐN MONG VỀ&rdquo; VÀ &ldquo;MUỐN GẮN BÓ NHIỀU HƠN&rdquo;.
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg in Image 1 */}
@@ -89,17 +89,17 @@ export default function AboutPage() {
                   LỊCH SỬ HÌNH THÀNH & PHÁT TRIỂN
                 </span>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black leading-tight">
-                  THÔNG TIN SƠ BỘ VỀ D2 LUXURY
+                  THÔNG TIN SƠ BỘ VỀ D2 LUXURY DESIGN
                 </h2>
                 <div className="w-20 h-[1.5px] bg-black mt-3 mb-6" />
               </div>
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  Xuất phát điểm từ một công ty nhỏ thành lập từ năm 2012 với chỉ 3 nhân sự đầy nhiệt huyết, chủ yếu phục vụ nhu cầu trang trí phòng ở. Sau hơn một thập kỷ kiên định với sứ mệnh mang lại giá trị thực, D2 Luxury đã vươn mình trở thành một trong những tổng thầu thiết kế và thi công kiến trúc – nội thất phân khúc cao cấp hàng đầu tại Việt Nam.
+                  Xuất phát điểm từ một công ty nhỏ thành lập từ năm 2012 với chỉ 3 nhân sự đầy nhiệt huyết, chủ yếu phục vụ nhu cầu trang trí phòng ở. Sau hơn một thập kỷ kiên định với sứ mệnh mang lại giá trị thực, D2 Luxury Design đã vươn mình trở thành một trong những tổng thầu thiết kế và thi công kiến trúc – nội thất phân khúc cao cấp hàng đầu tại Việt Nam.
                 </p>
                 <p>
-                  Để có được vị thế vững chắc như hiện tại, Ban lãnh đạo D2 Luxury luôn xác định con người và chất lượng là hai yếu tố cốt lõi cho sự phát triển bền vững. Chúng tôi không chỉ xây dựng những ngôi nhà, mà kiến tạo nên những tổ ấm trường tồn theo năm tháng.
+                  Để có được vị thế vững chắc như hiện tại, Ban lãnh đạo D2 Luxury Design luôn xác định con người và chất lượng là hai yếu tố cốt lõi cho sự phát triển bền vững. Chúng tôi không chỉ xây dựng những ngôi nhà, mà kiến tạo nên những tổ ấm trường tồn theo năm tháng.
                 </p>
               </div>
 
@@ -169,7 +169,7 @@ export default function AboutPage() {
                 <div className="relative z-10 aspect-[4/3] w-full overflow-hidden shadow-2xl bg-[#faf8f5]">
                   <Image
                     src="/projects/biet-thu-tan-co/main.jpg"
-                    alt="Biệt thự độc bản D2 Luxury"
+                    alt="Biệt thự độc bản D2 Luxury Design"
                     fill
                     className="object-cover"
                   />
@@ -197,10 +197,10 @@ export default function AboutPage() {
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  D2 Luxury hướng đến phân khúc khách hàng cao cấp: Biệt thự, Dinh thự, Penthouse và Căn hộ hạng sang. Vì thế, mỗi một công trình, mỗi sản phẩm nội thất luôn đòi hỏi tính độc đáo, thậm chí độc nhất, khác biệt và thể hiện rõ gu thẩm mỹ riêng biệt của từng gia chủ.
+                  D2 Luxury Design hướng đến phân khúc khách hàng cao cấp: Biệt thự, Dinh thự, Penthouse và Căn hộ hạng sang. Vì thế, mỗi một công trình, mỗi sản phẩm nội thất luôn đòi hỏi tính độc đáo, thậm chí độc nhất, khác biệt và thể hiện rõ gu thẩm mỹ riêng biệt của từng gia chủ.
                 </p>
                 <p>
-                  Hiểu được những yêu cầu khắt khe từ tệp khách hàng thượng lưu, toàn bộ đội ngũ nhân sự thiết kế và thi công của D2 Luxury luôn tuân thủ quy trình kiểm soát chất lượng chuẩn xác từ ý tưởng bản vẽ sơ phác 3D cho đến từng mối ghép mộc và lớp sơn hoàn thiện cuối cùng.
+                  Hiểu được những yêu cầu khắt khe từ tệp khách hàng thượng lưu, toàn bộ đội ngũ nhân sự thiết kế và thi công của D2 Luxury Design luôn tuân thủ quy trình kiểm soát chất lượng chuẩn xác từ ý tưởng bản vẽ sơ phác 3D cho đến từng mối ghép mộc và lớp sơn hoàn thiện cuối cùng.
                 </p>
               </div>
 
@@ -322,7 +322,7 @@ export default function AboutPage() {
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-xs font-serif uppercase tracking-widest">
                 <Heart className="w-3.5 h-3.5 text-luxury-gold" />
-                <span>VĂN HÓA DOANH NGHIỆP D2 LUXURY</span>
+                <span>VĂN HÓA DOANH NGHIỆP D2 LUXURY DESIGN</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-serif font-bold uppercase tracking-wider text-black">
@@ -336,7 +336,7 @@ export default function AboutPage() {
 
               <div className="pt-4 border-t border-[#f0ece4]">
                 <p className="font-serif font-bold uppercase tracking-widest text-black text-sm sm:text-base">
-                  BAN LÃNH ĐẠO D2 LUXURY
+                  BAN LÃNH ĐẠO D2 LUXURY DESIGN
                 </p>
                 <span className="text-xs font-serif text-neutral-500 uppercase tracking-wider block mt-1">
                   Đơn vị thiết kế & thi công nội thất cao cấp từ năm 2012
@@ -360,7 +360,7 @@ export default function AboutPage() {
             BẮT ĐẦU HÀNH TRÌNH KIẾN TẠO TỔ ẤM
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold uppercase tracking-wider text-black">
-            D2 LUXURY &ndash; SỰ LỰA CHỌN SỐ 1 CỦA BẠN
+            D2 LUXURY DESIGN &ndash; SỰ LỰA CHỌN SỐ 1 CỦA BẠN
           </h2>
           <div className="w-20 h-[1.5px] bg-black mx-auto" />
           <p className="text-sm sm:text-base font-serif font-light text-neutral-700 max-w-xl mx-auto leading-relaxed">

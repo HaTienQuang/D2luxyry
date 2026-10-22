@@ -67,10 +67,10 @@ export async function POST(req: NextRequest) {
         });
 
         await transporter.sendMail({
-          from: `"D2 Luxury Web" <${process.env.SMTP_USER}>`,
+          from: `"D2 Luxury Design Web" <${process.env.SMTP_USER}>`,
           to: recipientEmail,
           replyTo: email || recipientEmail,
-          subject: `[D2 Luxury] Đăng ký tư vấn mới: ${name} - ${phone}`,
+          subject: `[D2 Luxury Design] Đăng ký tư vấn mới: ${name} - ${phone}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ded8ce; border-radius: 8px;">
               <h2 style="color: #8a522a; text-transform: uppercase; margin-bottom: 5px;">Đăng Ký Tư Vấn Thiết Kế Mới</h2>

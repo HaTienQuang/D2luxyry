@@ -41,7 +41,7 @@ export interface PressArticle {
 }
 
 export const siteConfig = {
-  name: "D2 Luxury",
+  name: "D2 Luxury Design",
   brandSubtitle: "Kiến tạo không gian sống thượng lưu",
   tagline: "Đơn Vị Thiết Kế Và Thi Công Nội Thất Trọn Gói",
   established: 2012,
@@ -65,16 +65,16 @@ export const siteConfig = {
     { value: "1000+", label: "Công trình bàn giao" },
   ],
   quoteCEO: {
-    author: "CEO D2 Luxury",
-    role: "Founder / CEO D2 Luxury",
-    text: "Chúng tôi bắt đầu từ ý nghĩ, rằng ai mà không ước ao có một căn phòng đúng nghĩa của riêng mình. Chắc sẽ đỡ hơn nhiều nếu nhìn quanh đều là những món đồ decor mình yêu thích. Chúng tôi bắt đầu sáng tạo những gì mình nghĩ rằng bản thân sẽ tự hào sở hữu. Thế là D2 Luxury ra đời… Tôi nghĩ ăn - mặc - ở là 3 yếu tố gắn liền suốt cuộc đời của mỗi người, hãy chọn một và làm thật tốt thì sẽ thành công thôi."
+    author: "CEO D2 Luxury Design",
+    role: "Founder / CEO D2 Luxury Design",
+    text: "Chúng tôi bắt đầu từ ý nghĩ, rằng ai mà không ước ao có một căn phòng đúng nghĩa của riêng mình. Chắc sẽ đỡ hơn nhiều nếu nhìn quanh đều là những món đồ decor mình yêu thích. Chúng tôi bắt đầu sáng tạo những gì mình nghĩ rằng bản thân sẽ tự hào sở hữu. Thế là D2 Luxury Design ra đời… Tôi nghĩ ăn - mặc - ở là 3 yếu tố gắn liền suốt cuộc đời của mỗi người, hãy chọn một và làm thật tốt thì sẽ thành công thôi."
   }
 };
 
 export const navLinks = [
   { href: "#sec-duan", label: "Dự án tiêu biểu" },
   { href: "#sec-dichvu", label: "Dịch vụ" },
-  { href: "#sec-gioithieu", label: "Về D2 Luxury" },
+  { href: "#sec-gioithieu", label: "Về D2 Luxury Design" },
   { href: "#sec-khachhang", label: "Khách hàng" },
   { href: "#sec-baochi", label: "Báo chí" },
   { href: "#sec-tuvan", label: "Liên hệ tư vấn" },
@@ -367,7 +367,7 @@ export const reviewsData: Review[] = [
     project: "Nhà phố Long Biên, Hà Nội",
     rating: 5,
     avatar: "/reviews/avatar-6.webp",
-    quote: "Cách đây 6 năm, đó là một cái gì đó rất mới mẻ với em khi làm nhà. Em tìm những giải pháp chú trọng vào chi tiết và D2 Luxury cho thấy được điều đấy. Sau 6 năm thì thường người ta sẽ thay đổi 1 đội thi công khác, nhưng em nghĩ rằng mình đang làm căn nhà mới theo phong cách của D2 Luxury và không có vấn đề gì trong quá trình làm việc, nên chẳng có lý do gì để không tìm đến D2 Luxury đầu tiên."
+    quote: "Cách đây 6 năm, đó là một cái gì đó rất mới mẻ với em khi làm nhà. Em tìm những giải pháp chú trọng vào chi tiết và D2 Luxury Design cho thấy được điều đấy. Sau 6 năm thì thường người ta sẽ thay đổi 1 đội thi công khác, nhưng em nghĩ rằng mình đang làm căn nhà mới theo phong cách của D2 Luxury Design và không có vấn đề gì trong quá trình làm việc, nên chẳng có lý do gì để không tìm đến D2 Luxury Design đầu tiên."
   },
   {
     id: 7,
@@ -375,7 +375,7 @@ export const reviewsData: Review[] = [
     project: "Biệt thự Mrs Hồng, Vinhomes",
     rating: 5,
     avatar: "/reviews/avatar-7.webp",
-    quote: "Điều tiên quyết để chị lựa chọn D2 Luxury là sự tử tế, sự chân thành đối với khách hàng. Đây là căn thứ 3 chị xây dựng và cũng là căn chị ưng ý nhất. Chị được tiếp xúc với các bạn là những người hết lòng vì khách hàng, chỉn chu ngay từ đầu cho đến cả khi đã bàn giao nhà xong. Đó là cái duyên cái phúc của chị để tìm được đội ngũ như D2 Luxury."
+    quote: "Điều tiên quyết để chị lựa chọn D2 Luxury Design là sự tử tế, sự chân thành đối với khách hàng. Đây là căn thứ 3 chị xây dựng và cũng là căn chị ưng ý nhất. Chị được tiếp xúc với các bạn là những người hết lòng vì khách hàng, chỉn chu ngay từ đầu cho đến cả khi đã bàn giao nhà xong. Đó là cái duyên cái phúc của chị để tìm được đội ngũ như D2 Luxury Design."
   },
   {
     id: 8,
@@ -383,7 +383,7 @@ export const reviewsData: Review[] = [
     project: "HD Villa, Bình Thạnh",
     rating: 5,
     avatar: "/reviews/avatar-8.webp",
-    quote: "Để tìm một khách hàng mới đã khó rồi và việc giữ được khách hàng đó còn khó hơn nữa. Việc các bạn lắng nghe mong muốn của chủ nhà là một cái thành công. Anh cảm thấy rất dễ dàng khi làm việc với D2 Luxury."
+    quote: "Để tìm một khách hàng mới đã khó rồi và việc giữ được khách hàng đó còn khó hơn nữa. Việc các bạn lắng nghe mong muốn của chủ nhà là một cái thành công. Anh cảm thấy rất dễ dàng khi làm việc với D2 Luxury Design."
   },
   {
     id: 9,
@@ -391,7 +391,7 @@ export const reviewsData: Review[] = [
     project: "Biệt thự Đức Trọng, Lâm Đồng",
     rating: 5,
     avatar: "/reviews/avatar-9.webp",
-    quote: "Hai ngày chị chọn trang thiết bị cùng với D2 Luxury, đội ngũ có một phòng có tất cả các trang thiết bị để cho chị tha hồ lựa. Ngày đó chị hạnh phúc lắm. Chị rất thích xây nhà, rất thích decor nhà. Chị sẽ muốn decor thêm và người chị muốn làm việc là D2 Luxury chứ không phải đơn vị nào khác."
+    quote: "Hai ngày chị chọn trang thiết bị cùng với D2 Luxury Design, đội ngũ có một phòng có tất cả các trang thiết bị để cho chị tha hồ lựa. Ngày đó chị hạnh phúc lắm. Chị rất thích xây nhà, rất thích decor nhà. Chị sẽ muốn decor thêm và người chị muốn làm việc là D2 Luxury Design chứ không phải đơn vị nào khác."
   },
   {
     id: 10,
@@ -399,7 +399,7 @@ export const reviewsData: Review[] = [
     project: "Biệt thự Song lập ID Junction",
     rating: 5,
     avatar: "/reviews/avatar-10.webp",
-    quote: "Từ lúc hình thành bản vẽ cho đến lúc hoàn thành công trình, D2 Luxury rất chu đáo và tận tâm. Mỗi người công nhân ở đây được bố trí công việc, phối hợp nhau rất hài hòa để công việc diễn ra tốt đẹp. Tinh thần làm việc của anh em rất đáng hoan nghênh và ghi nhận, nỗ lực tăng ca. Tôi rất quý tinh thần của anh em."
+    quote: "Từ lúc hình thành bản vẽ cho đến lúc hoàn thành công trình, D2 Luxury Design rất chu đáo và tận tâm. Mỗi người công nhân ở đây được bố trí công việc, phối hợp nhau rất hài hòa để công việc diễn ra tốt đẹp. Tinh thần làm việc của anh em rất đáng hoan nghênh và ghi nhận, nỗ lực tăng ca. Tôi rất quý tinh thần của anh em."
   },
   {
     id: 11,
@@ -407,7 +407,7 @@ export const reviewsData: Review[] = [
     project: "Bella Na Villa, Tây Ninh",
     rating: 5,
     avatar: "/reviews/avatar-11.webp",
-    quote: "Năng lực sản xuất của D2 Luxury rất là lớn. Đội ngũ có đầy đủ nhân sự từ quản lý cho đến thợ, nhân công. Rất tận tâm tận tình. Cái gì chưa được là thay luôn, làm hài lòng anh chị chứ không bao giờ phản đối hết."
+    quote: "Năng lực sản xuất của D2 Luxury Design rất là lớn. Đội ngũ có đầy đủ nhân sự từ quản lý cho đến thợ, nhân công. Rất tận tâm tận tình. Cái gì chưa được là thay luôn, làm hài lòng anh chị chứ không bao giờ phản đối hết."
   },
   {
     id: 12,
@@ -415,7 +415,7 @@ export const reviewsData: Review[] = [
     project: "Biệt thự Mr Hoàng, Q9",
     rating: 5,
     avatar: "/reviews/avatar-12.webp",
-    quote: "Việc làm của công ty nói chung, cái tâm của đội ngũ D2 Luxury dồn nén vào trong ngôi nhà của anh chị, anh chị cho 10 điểm tuyệt đối."
+    quote: "Việc làm của công ty nói chung, cái tâm của đội ngũ D2 Luxury Design dồn nén vào trong ngôi nhà của anh chị, anh chị cho 10 điểm tuyệt đối."
   }
 ];
 
@@ -424,8 +424,8 @@ export const pressArticles: PressArticle[] = [
     id: "thanhnien",
     publisher: "THANHNIEN.VN",
     date: "30/11/2023",
-    title: "CEO D2 Luxury: ‘Xác định nhân sự chính là linh hồn của D2 Luxury’",
-    excerpt: "“Nhân sự là linh hồn của D2 Luxury. Nhân viên đứng thứ nhất, khách hàng đứng thứ hai, và tôi chỉ đứng thứ 3” – Không chỉ nhấn mạnh vai trò của nhân sự, CEO D2 Luxury luôn xây dựng chính sách phúc lợi tốt để phát triển thương hiệu bền vững.",
+    title: "CEO D2 Luxury Design: ‘Xác định nhân sự chính là linh hồn của D2 Luxury Design’",
+    excerpt: "“Nhân sự là linh hồn của D2 Luxury Design. Nhân viên đứng thứ nhất, khách hàng đứng thứ hai, và tôi chỉ đứng thứ 3” – Không chỉ nhấn mạnh vai trò của nhân sự, CEO D2 Luxury Design luôn xây dựng chính sách phúc lợi tốt để phát triển thương hiệu bền vững.",
     url: "https://thanhnien.vn",
     image: "/press/press-1.webp"
   },
@@ -433,8 +433,8 @@ export const pressArticles: PressArticle[] = [
     id: "cafebiz",
     publisher: "CAFEBIZ / CAFEF",
     date: "24/11/2023",
-    title: "D2 Luxury và hành trình hơn 10 năm kiến tạo những ngôi nhà mơ ước",
-    excerpt: "Đi lên từ đam mê kiến trúc, bằng sự tử tế và chân thành, D2 Luxury đã thành công chuyển mình để trở thành một trong những thương hiệu thiết kế – thi công nội ngoại thất danh tiếng tại Việt Nam.",
+    title: "D2 Luxury Design và hành trình hơn 10 năm kiến tạo những ngôi nhà mơ ước",
+    excerpt: "Đi lên từ đam mê kiến trúc, bằng sự tử tế và chân thành, D2 Luxury Design đã thành công chuyển mình để trở thành một trong những thương hiệu thiết kế – thi công nội ngoại thất danh tiếng tại Việt Nam.",
     url: "https://cafef.vn",
     image: "/press/press-2.jpg"
   },
@@ -442,8 +442,8 @@ export const pressArticles: PressArticle[] = [
     id: "vietnamnet",
     publisher: "VIETNAMNET.VN",
     date: "05/12/2023",
-    title: "Triết lý ‘bổn phận ấm êm’ của thương hiệu thiết kế nội thất D2 Luxury",
-    excerpt: "Từ sự đam mê không gian sống hoàn mỹ, D2 Luxury đã có những bước phát triển mạnh mẽ và trở thành một trong những đơn vị uy tín hàng đầu cho phân khúc biệt thự cao cấp.",
+    title: "Triết lý ‘bổn phận ấm êm’ của thương hiệu thiết kế nội thất D2 Luxury Design",
+    excerpt: "Từ sự đam mê không gian sống hoàn mỹ, D2 Luxury Design đã có những bước phát triển mạnh mẽ và trở thành một trong những đơn vị uy tín hàng đầu cho phân khúc biệt thự cao cấp.",
     url: "https://vietnamnet.vn",
     image: "/press/press-3.webp"
   }

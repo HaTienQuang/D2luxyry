@@ -15,7 +15,7 @@ export default function AboutSection() {
       <div className="absolute top-1 sm:top-2 left-0 sm:left-4 lg:left-8 w-[170px] sm:w-[220px] lg:w-[270px] h-[140px] sm:h-[180px] lg:h-[220px] opacity-70 pointer-events-none select-none z-0">
         <Image
           src="/decor/So1.svg"
-          alt="Watermark 02 D2 Luxury"
+          alt="Watermark 02 D2 Luxury Design"
           fill
           className="object-contain object-left-top"
           priority
@@ -34,7 +34,7 @@ export default function AboutSection() {
           >
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.8rem] font-serif font-bold uppercase tracking-wider text-black leading-[1.2]">
-                D2 LUXURY
+                D2 LUXURY DESIGN
               </h2>
               {/* Crisp Black divider line */}
               <div className="w-24 h-[1.5px] bg-black mt-3 mb-6" />
@@ -42,10 +42,10 @@ export default function AboutSection() {
 
             <div className="text-sm sm:text-[15.5px] lg:text-[16px] text-[#222] font-serif leading-[1.9] font-light space-y-4">
               <p>
-                Ra đời từ năm 2012, hiện tại D2 Luxury là đơn vị thiết kế và thi công
+                Ra đời từ năm 2012, hiện tại D2 Luxury Design là đơn vị thiết kế và thi công
                 nội & ngoại thất hoạt động chủ yếu ở Thành phố Hồ Chí Minh 2 phân
                 xưởng sản xuất, hơn 200 công nhân tay nghề cao, 30 kiến trúc sư và
-                20 giám sát công trình. Với sứ mệnh “mang lại sự ấm êm” D2 Luxury
+                20 giám sát công trình. Với sứ mệnh “mang lại sự ấm êm” D2 Luxury Design
                 luôn cố gắng để tạo ra những sản phẩm tốt nhất cho khách hàng, công
                 việc ổn định cho nhân viên, tạo ra giá trị cho xã hội. Đó là những giá
                 trị cốt lõi cho sự phát triển vững vàng.
@@ -83,7 +83,7 @@ export default function AboutSection() {
               <div className="relative z-10 w-full aspect-[16/10.7] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.18)] bg-[#f7f5f2] transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.25)]">
                 <Image
                   src="/about/main.jpg"
-                  alt="D2 Luxury - Thẩm mỹ và công năng song hành"
+                  alt="D2 Luxury Design - Thẩm mỹ và công năng song hành"
                   fill
                   className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 700px"

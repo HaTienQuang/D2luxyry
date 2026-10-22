@@ -30,7 +30,7 @@ export default function ArchitectureServicePage() {
         <div className="absolute inset-0">
           <Image
             src="/projects/thiet-ke-villa-tai-grand-island-ecopark/main.jpg"
-            alt="Thiết kế kiến trúc D2 Luxury"
+            alt="Thiết kế kiến trúc D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -103,7 +103,7 @@ export default function ArchitectureServicePage() {
                   Một tác phẩm kiến trúc hoàn hảo không chỉ dừng lại ở vẻ đẹp hình khối lộng lẫy bên ngoài, mà phải là không gian sống nuôi dưỡng cảm xúc, đón nhận tối đa ánh sáng tự nhiên và gió trời, đồng thời tối ưu hóa từng mét vuông cho sinh hoạt của các thành viên trong gia đình.
                 </p>
                 <p>
-                  Tại D2 Luxury, đội ngũ 30 kiến trúc sư luôn lắng nghe câu chuyện và thói quen sinh hoạt của từng khách hàng, từ đó nghiên cứu địa thế khu đất, hướng nắng, hướng gió và nguyên lý phong thủy để kiến tạo nên phương án kiến trúc độc nhất.
+                  Tại D2 Luxury Design, đội ngũ 30 kiến trúc sư luôn lắng nghe câu chuyện và thói quen sinh hoạt của từng khách hàng, từ đó nghiên cứu địa thế khu đất, hướng nắng, hướng gió và nguyên lý phong thủy để kiến tạo nên phương án kiến trúc độc nhất.
                 </p>
               </div>
 
@@ -137,7 +137,7 @@ export default function ArchitectureServicePage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
                   src="/projects/vintage-villa-tam-dao/main.jpg"
-                  alt="Biệt thự kiến trúc độc bản D2 Luxury"
+                  alt="Biệt thự kiến trúc độc bản D2 Luxury Design"
                   fill
                   className="object-cover"
                 />
@@ -212,7 +212,7 @@ export default function ArchitectureServicePage() {
             BẮT ĐẦU PHÁC THẢO Ý TƯỞNG KIẾN TRÚC
           </h2>
           <p className="text-sm font-serif text-neutral-600 font-light">
-            Nhận tư vấn trực tiếp từ KTS trưởng của D2 Luxury để hiện thực hóa ngôi nhà trong mơ của bạn.
+            Nhận tư vấn trực tiếp từ KTS trưởng của D2 Luxury Design để hiện thực hóa ngôi nhà trong mơ của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

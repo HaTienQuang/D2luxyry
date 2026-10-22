@@ -33,7 +33,7 @@ export default function ConstructionServicePage() {
         <div className="absolute inset-0">
           <Image
             src="/projects/cong-trinh-thuc-te-tai-tp-hcm/main.jpg"
-            alt="Thi công xây dựng D2 Luxury"
+            alt="Thi công xây dựng D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -103,7 +103,7 @@ export default function ConstructionServicePage() {
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  Thi công xây dựng là khâu hiện thực hóa những ý tưởng từ trang bản vẽ thành công trình thực tế vững chắc. D2 Luxury sở hữu đội ngũ hơn 200 thợ tay nghề cao, 20 kỹ sư giám sát và chỉ huy trưởng giàu kinh nghiệm, đảm bảo an toàn lao động, tiến độ và chất lượng kết cấu bền vững hàng chục năm.
+                  Thi công xây dựng là khâu hiện thực hóa những ý tưởng từ trang bản vẽ thành công trình thực tế vững chắc. D2 Luxury Design sở hữu đội ngũ hơn 200 thợ tay nghề cao, 20 kỹ sư giám sát và chỉ huy trưởng giàu kinh nghiệm, đảm bảo an toàn lao động, tiến độ và chất lượng kết cấu bền vững hàng chục năm.
                 </p>
                 <p>
                   Chúng tôi cam kết sử dụng vật liệu xây dựng chính hãng loại 1, quy trình quản lý chất lượng nghiêm ngặt và đồng hành cùng gia chủ từ khi đặt viên gạch đầu tiên đến khi bàn giao công trình hoàn thiện.
@@ -140,7 +140,7 @@ export default function ConstructionServicePage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
                   src="/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-1.jpg"
-                  alt="Thi công thực tế D2 Luxury"
+                  alt="Thi công thực tế D2 Luxury Design"
                   fill
                   className="object-cover"
                 />
@@ -205,7 +205,7 @@ export default function ConstructionServicePage() {
           className="max-w-3xl mx-auto px-4 space-y-5"
         >
           <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-            BẮT ĐẦU DỰ ÁN CÙNG D2 LUXURY
+            BẮT ĐẦU DỰ ÁN CÙNG D2 LUXURY DESIGN
           </h2>
           <p className="text-sm font-serif text-neutral-600 font-light">
             Liên hệ để nhận dự toán chi tiết và phương án thi công tối ưu cho ngôi nhà của bạn.

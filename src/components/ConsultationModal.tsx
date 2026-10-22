@@ -138,7 +138,7 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
             <p className="text-sm text-neutral-600 leading-relaxed font-sans max-w-md mx-auto">
               Thông tin đăng ký tư vấn đã được gửi trực tiếp đến hòm thư{" "}
               <strong className="text-neutral-900">{siteConfig.email}</strong>.
-              Kiến trúc sư trưởng D2 Luxury sẽ liên hệ lại qua số{" "}
+              Kiến trúc sư trưởng D2 Luxury Design sẽ liên hệ lại qua số{" "}
               <strong className="text-[#8a522a]">{formData.phone}</strong> trong vòng 15 phút.
             </p>
 

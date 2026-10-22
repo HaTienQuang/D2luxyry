@@ -35,7 +35,7 @@ export default function PressSection() {
           </h2>
           <div className="w-20 h-[2px] bg-black" />
           <p className="text-sm sm:text-[14.5px] text-[#222] font-serif leading-[1.8] font-light">
-            D2 Luxury mong muốn mang đến cho khách hàng những bản thiết kế mãn nhãn, những công trình đẳng cấp và sự chuyên nghiệp, tận tâm trong quy cách phục vụ. Đó cũng chính là những điều D2 Luxury luôn tâm niệm trong suốt hành trình hơn 10 năm làm nghề của mình.
+            D2 Luxury Design mong muốn mang đến cho khách hàng những bản thiết kế mãn nhãn, những công trình đẳng cấp và sự chuyên nghiệp, tận tâm trong quy cách phục vụ. Đó cũng chính là những điều D2 Luxury Design luôn tâm niệm trong suốt hành trình hơn 10 năm làm nghề của mình.
           </p>
         </motion.div>
 

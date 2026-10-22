@@ -53,7 +53,7 @@ export default function ContactPage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/main.jpg"
-            alt="Liên hệ D2 Luxury"
+            alt="Liên hệ D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -215,7 +215,7 @@ export default function ContactPage() {
                       Gửi Yêu Cầu Thành Công!
                     </h3>
                     <p className="text-sm text-neutral-600 font-serif font-light leading-relaxed max-w-md mx-auto">
-                      Cảm ơn quý khách <strong>{formData.name}</strong> đã tin tưởng D2 Luxury. Kiến trúc sư trưởng của chúng tôi sẽ liên hệ lại qua số <strong>{formData.phone}</strong> trong vòng 15 phút.
+                      Cảm ơn quý khách <strong>{formData.name}</strong> đã tin tưởng D2 Luxury Design. Kiến trúc sư trưởng của chúng tôi sẽ liên hệ lại qua số <strong>{formData.phone}</strong> trong vòng 15 phút.
                     </p>
                     <motion.button
                       whileHover={{ scale: 1.05 }}

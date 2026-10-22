@@ -57,7 +57,7 @@ export default function ProjectsArchive() {
           <div className="absolute inset-0">
             <Image
               src="/hero/main.jpg"
-              alt="Dự án D2 Luxury"
+              alt="Dự án D2 Luxury Design"
               fill
               className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
               priority
@@ -78,7 +78,7 @@ export default function ProjectsArchive() {
             </h1>
             <div className="w-20 sm:w-28 h-[2px] bg-white/80 mx-auto mt-4 mb-5" />
             <p className="max-w-2xl sm:max-w-3xl mx-auto text-xs sm:text-[13px] md:text-[14px] font-serif uppercase tracking-[0.08em] text-white/95 leading-relaxed font-normal drop-shadow">
-              KHÁM PHÁ CÁC CÔNG TRÌNH BIỆT THỰ, DINH THỰ, PENTHOUSE & CĂN HỘ CAO CẤP HOÀN THIỆN BỞI D2 LUXURY.
+              KHÁM PHÁ CÁC CÔNG TRÌNH BIỆT THỰ, DINH THỰ, PENTHOUSE & CĂN HỘ CAO CẤP HOÀN THIỆN BỞI D2 LUXURY DESIGN.
             </p>
 
             {/* Circular Scroll Down Button matching Roll.svg */}
@@ -116,7 +116,7 @@ export default function ProjectsArchive() {
               className="text-center mb-10 sm:mb-14"
             >
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-                DỰ ÁN CỦA D2 LUXURY
+                DỰ ÁN CỦA D2 LUXURY DESIGN
               </h2>
               <div className="w-16 sm:w-20 h-[2px] bg-black mx-auto mt-3.5 mb-8" />
 

@@ -96,10 +96,10 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             </div>
           </div>
 
-          {/* Column 2: VỀ D2 LUXURY */}
+          {/* Column 2: VỀ D2 LUXURY DESIGN */}
           <div className="lg:col-span-2 space-y-3.5">
             <h4 className="text-xs sm:text-[13px] font-serif font-bold uppercase tracking-wider text-black">
-              VỀ D2 LUXURY
+              VỀ D2 LUXURY DESIGN
             </h4>
             <ul className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-700 font-light">
               <li>
@@ -173,7 +173,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             <div className="space-y-2.5 text-xs sm:text-[13px] font-serif text-neutral-800 font-light leading-relaxed">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-neutral-900 shrink-0 mt-0.5" />
-                <span>Tầng 5, Tòa nhà D2 Luxury, Hà Nội & TP. HCM</span>
+                <span>Tầng 5, Tòa nhà D2 Luxury Design, Hà Nội & TP. HCM</span>
               </div>
 
               <div className="flex items-center gap-2.5">
@@ -202,7 +202,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
               <div className="relative w-12 h-12 bg-white rounded-lg p-1 shrink-0 overflow-hidden shadow-inner flex items-center justify-center">
                 <Image
                   src="/zalo-qr.png"
-                  alt="Mã Zalo D2 Luxury"
+                  alt="Mã Zalo D2 Luxury Design"
                   fill
                   className="object-contain p-0.5 group-hover:scale-105 transition-transform"
                 />
@@ -244,7 +244,7 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
           </div>
 
           <p className="text-[11px] sm:text-xs font-serif text-neutral-500 font-light pt-1">
-            Copyright by D2 Luxury © {new Date().getFullYear()}. All rights reserved.
+            Copyright by D2 Luxury Design © {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </motion.div>

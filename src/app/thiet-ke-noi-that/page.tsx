@@ -30,7 +30,7 @@ export default function InteriorDesignServicePage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/luxury-interior.jpg"
-            alt="Thiết kế nội thất D2 Luxury"
+            alt="Thiết kế nội thất D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -100,10 +100,10 @@ export default function InteriorDesignServicePage() {
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  Nội thất là linh hồn phản ánh chân thực nhất gu thẩm mỹ và tính cách của gia chủ. Mỗi đường cong của ghế sofa, mỗi vân gỗ trên mặt bàn hay ánh sáng vàng ấm từ chụp đèn đều được D2 Luxury tính toán tỉ mỉ để tạo nên bản giao hưởng không gian ấm áp, tinh tế và đầy xúc cảm.
+                  Nội thất là linh hồn phản ánh chân thực nhất gu thẩm mỹ và tính cách của gia chủ. Mỗi đường cong của ghế sofa, mỗi vân gỗ trên mặt bàn hay ánh sáng vàng ấm từ chụp đèn đều được D2 Luxury Design tính toán tỉ mỉ để tạo nên bản giao hưởng không gian ấm áp, tinh tế và đầy xúc cảm.
                 </p>
                 <p>
-                  Với ưu thế sở hữu 2 phân xưởng sản xuất 4200m2 và nguồn gỗ tự nhiên quý (Óc chó Bắc Mỹ, Gõ đỏ Pachy, Hương đá...), D2 Luxury tự tin mang lại giải pháp hoàn thiện nội thất chuẩn mực, đồng bộ từ bản vẽ 3D đến thực tế lắp đặt tại nhà.
+                  Với ưu thế sở hữu 2 phân xưởng sản xuất 4200m2 và nguồn gỗ tự nhiên quý (Óc chó Bắc Mỹ, Gõ đỏ Pachy, Hương đá...), D2 Luxury Design tự tin mang lại giải pháp hoàn thiện nội thất chuẩn mực, đồng bộ từ bản vẽ 3D đến thực tế lắp đặt tại nhà.
                 </p>
               </div>
 
@@ -137,7 +137,7 @@ export default function InteriorDesignServicePage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
                   src="/projects/can-ho-3-phong-ngu-vinhomes-westpoint/main.jpg"
-                  alt="Nội thất căn hộ cao cấp D2 Luxury"
+                  alt="Nội thất căn hộ cao cấp D2 Luxury Design"
                   fill
                   className="object-cover"
                 />
@@ -212,7 +212,7 @@ export default function InteriorDesignServicePage() {
             SỞ HỮU KHÔNG GIAN NỘI THẤT ĐỘC BẢN
           </h2>
           <p className="text-sm font-serif text-neutral-600 font-light">
-            Đăng ký lịch tư vấn để cùng kiến trúc sư D2 Luxury lên ý tưởng thiết kế nội thất hoàn hảo cho ngôi nhà của bạn.
+            Đăng ký lịch tư vấn để cùng kiến trúc sư D2 Luxury Design lên ý tưởng thiết kế nội thất hoàn hảo cho ngôi nhà của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

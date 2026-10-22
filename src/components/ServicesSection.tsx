@@ -21,7 +21,7 @@ export default function ServicesSection() {
       title: "Thiết kế Kiến trúc – Nội thất",
       image: "/services/gallery-1.jpg",
       description:
-        "Các nhà thiết kế của D2 Luxury tận dụng kỹ năng thiết kế và sức sáng tạo để tạo nên bản thiết kế 3D kiến trúc – nội thất, đáp ứng đồng thời về tính thẩm mỹ và công năng sử dụng. Mỗi không gian hứa hẹn mang đến trải nghiệm sống tuyệt hảo cho từng đối tượng khách hàng khác nhau.",
+        "Các nhà thiết kế của D2 Luxury Design tận dụng kỹ năng thiết kế và sức sáng tạo để tạo nên bản thiết kế 3D kiến trúc – nội thất, đáp ứng đồng thời về tính thẩm mỹ và công năng sử dụng. Mỗi không gian hứa hẹn mang đến trải nghiệm sống tuyệt hảo cho từng đối tượng khách hàng khác nhau.",
       href: "/thiet-ke-kien-truc",
     },
     {
@@ -29,7 +29,7 @@ export default function ServicesSection() {
       title: "Thi công xây dựng",
       image: "/services/gallery-2.jpg",
       description:
-        "Với đội ngũ thi công lành nghề, D2 Luxury sẽ góp phần đưa những ý tưởng thiết kế trên mặt giấy vào thực tế. Từ việc lập kế hoạch, tổ chức thi công theo bản vẽ đến khi bàn giao cho khách hàng, chúng tôi luôn luôn tuân thủ những tiêu chuẩn khắt khe nhằm mang đến những sản phẩm hoàn hảo nhất.",
+        "Với đội ngũ thi công lành nghề, D2 Luxury Design sẽ góp phần đưa những ý tưởng thiết kế trên mặt giấy vào thực tế. Từ việc lập kế hoạch, tổ chức thi công theo bản vẽ đến khi bàn giao cho khách hàng, chúng tôi luôn luôn tuân thủ những tiêu chuẩn khắt khe nhằm mang đến những sản phẩm hoàn hảo nhất.",
       href: "/thi-cong-xay-dung",
     },
     {
@@ -37,7 +37,7 @@ export default function ServicesSection() {
       title: "Thi công nội – ngoại thất",
       image: "/services/gallery-3.jpg",
       description:
-        "Chăm chút tỉ mỉ đến từng chi tiết nhỏ nhất chính là kim chỉ nam cho đội ngũ sản xuất và thi công nội – ngoại thất của D2 Luxury. Ngoài ra, với thế mạnh là 2 nhà xưởng được trang bị máy móc hiện đại, chúng tôi tự tin kiểm soát tốt chất lượng sản phẩm, đáp ứng đúng nhu cầu của khách hàng và đảm bảo được tiến độ thi công.",
+        "Chăm chút tỉ mỉ đến từng chi tiết nhỏ nhất chính là kim chỉ nam cho đội ngũ sản xuất và thi công nội – ngoại thất của D2 Luxury Design. Ngoài ra, với thế mạnh là 2 nhà xưởng được trang bị máy móc hiện đại, chúng tôi tự tin kiểm soát tốt chất lượng sản phẩm, đáp ứng đúng nhu cầu của khách hàng và đảm bảo được tiến độ thi công.",
       href: "/thiet-ke-noi-that",
     },
     {
@@ -230,7 +230,7 @@ export default function ServicesSection() {
 
                     {/* Subtle Luxury Corner Tag on Center */}
                     <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/75 backdrop-blur-sm text-luxury-gold text-[10px] font-sans tracking-[0.2em] uppercase font-semibold border border-white/10">
-                      D2 LUXURY
+                      D2 LUXURY DESIGN
                     </div>
                   </motion.div>
                 </AnimatePresence>

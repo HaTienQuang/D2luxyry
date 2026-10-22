@@ -104,7 +104,7 @@ export default function ZaloModal({ isOpen, onClose }: ZaloModalProps) {
               <div className="relative w-44 h-44 sm:w-48 sm:h-48 p-2 bg-white border border-gray-200 rounded-xl shadow-inner flex items-center justify-center">
                 <Image
                   src="/zalo-qr.png"
-                  alt="Mã QR Zalo Bùi Dũng - D2 Luxury"
+                  alt="Mã QR Zalo Bùi Dũng - D2 Luxury Design"
                   fill
                   className="object-contain p-2"
                 />

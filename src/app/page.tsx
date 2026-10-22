@@ -24,10 +24,10 @@ export default function HomePage() {
       {/* 00. HERO SECTION (Hotline number reveal + Nhận tư vấn modal) */}
       <HeroSlider onOpenConsultation={() => setIsConsultationModalOpen(true)} />
 
-      {/* 01. DỰ ÁN CỦA D2 LUXURY */}
+      {/* 01. DỰ ÁN CỦA D2 LUXURY DESIGN */}
       <ProjectsSection />
 
-      {/* 02. VỀ D2 LUXURY */}
+      {/* 02. VỀ D2 LUXURY DESIGN */}
       <AboutSection />
 
       {/* 03. DỊCH VỤ CỦA CHÚNG TÔI */}

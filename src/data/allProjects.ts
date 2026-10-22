@@ -52,7 +52,7 @@ export const allArchiveProjects: ArchiveProject[] = [
       "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-23.gif",
       "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-24.gif"
     ],
-    "description": "Dinh thự đảo siêu sang tại Grand Island Ecopark với diện tích hơn 600m2, thiết kế thông tầng kỳ vĩ, nội thất may đo chuẩn mực mang đậm dấu ấn D2 Luxury. Sự kết hợp hoàn mỹ giữa đá tự nhiên, gỗ óc chó Bắc Mỹ cao cấp và hệ thống vách kính panorama đón trọn ánh sáng ven hồ."
+    "description": "Dinh thự đảo siêu sang tại Grand Island Ecopark với diện tích hơn 600m2, thiết kế thông tầng kỳ vĩ, nội thất may đo chuẩn mực mang đậm dấu ấn D2 Luxury Design. Sự kết hợp hoàn mỹ giữa đá tự nhiên, gỗ óc chó Bắc Mỹ cao cấp và hệ thống vách kính panorama đón trọn ánh sáng ven hồ."
   },
   {
     "id": "villa-vinhomes-ocean-park",
@@ -82,7 +82,7 @@ export const allArchiveProjects: ArchiveProject[] = [
       "/projects/thiet-ke-villa-vinhomes-ocean-park/photo-13.gif",
       "/projects/thiet-ke-villa-vinhomes-ocean-park/photo-14.gif"
     ],
-    "description": "Biệt thự tân cổ điển thanh lịch với đường nét phào chỉ tinh tế, hệ đèn chùm pha lê độc bản và vật liệu cao cấp chuẩn châu Âu. Từng chi tiết nội thất được nghệ nhân D2 Luxury chế tác thủ công chuẩn xác, kiến tạo không gian sống quyền quý cho gia chủ."
+    "description": "Biệt thự tân cổ điển thanh lịch với đường nét phào chỉ tinh tế, hệ đèn chùm pha lê độc bản và vật liệu cao cấp chuẩn châu Âu. Từng chi tiết nội thất được nghệ nhân D2 Luxury Design chế tác thủ công chuẩn xác, kiến tạo không gian sống quyền quý cho gia chủ."
   },
   {
     "id": "vintage-villa-tam-dao",
@@ -135,7 +135,7 @@ export const allArchiveProjects: ArchiveProject[] = [
       "/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-10.gif",
       "/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-11.gif"
     ],
-    "description": "Hình ảnh thực tế sau khi bàn giao biệt thự đơn lập Vinhomes Ocean Park. Đội ngũ thi công và 2 xưởng sản xuất của D2 Luxury đã hiện thực hóa từng chi tiết nội thất tinh xảo, đáp ứng tiêu chuẩn nghiệm thu khắt khe nhất của gia chủ."
+    "description": "Hình ảnh thực tế sau khi bàn giao biệt thự đơn lập Vinhomes Ocean Park. Đội ngũ thi công và 2 xưởng sản xuất của D2 Luxury Design đã hiện thực hóa từng chi tiết nội thất tinh xảo, đáp ứng tiêu chuẩn nghiệm thu khắt khe nhất của gia chủ."
   },
   {
     "id": "biet-thu-vinhomes-riverside",
@@ -355,7 +355,7 @@ export const allArchiveProjects: ArchiveProject[] = [
       "/projects/cong-trinh-thuc-te-tai-tp-hcm/photo-7.jpg",
       "/projects/cong-trinh-thuc-te-tai-tp-hcm/photo-8.jpg"
     ],
-    "description": "Biệt thự phố Thảo Điền hoàn thiện thực tế bởi đội ngũ kỹ sư và xưởng mộc D2 Luxury, không gian ấm cúng, sang trọng với các đường nét bo cong mềm mại và vật liệu cao cấp."
+    "description": "Biệt thự phố Thảo Điền hoàn thiện thực tế bởi đội ngũ kỹ sư và xưởng mộc D2 Luxury Design, không gian ấm cúng, sang trọng với các đường nét bo cong mềm mại và vật liệu cao cấp."
   },
   {
     "id": "villa-nghi-duong-da-lat",
@@ -689,6 +689,6 @@ export const allArchiveProjects: ArchiveProject[] = [
       "/projects/cong-trinh-thi-cong-thuc-te-tai-park-hil/photo-24.gif",
       "/projects/cong-trinh-thi-cong-thuc-te-tai-park-hil/photo-25.gif"
     ],
-    "description": "Căn hộ Park Hill hoàn thiện sắc sảo đến từng góc cạnh, đáp ứng chuẩn mực thẩm mỹ khắt khe của gia chủ qua bàn tay lành nghề của thợ D2 Luxury."
+    "description": "Căn hộ Park Hill hoàn thiện sắc sảo đến từng góc cạnh, đáp ứng chuẩn mực thẩm mỹ khắt khe của gia chủ qua bàn tay lành nghề của thợ D2 Luxury Design."
   }
 ];

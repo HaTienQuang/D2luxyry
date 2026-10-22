@@ -223,7 +223,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                       <ul className="space-y-2 text-xs font-serif">
                         <li>
                           <Link href="/gioi-thieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
-                            Về D2 Luxury
+                            Về D2 Luxury Design
                           </Link>
                         </li>
                         <li>
@@ -324,7 +324,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                         </li>
                         <li>
                           <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
-                            D2 Wood Craft (Bán đồ rời)
+                            D2 Luxury Design (Nội thất gỗ tự nhiên)
                           </Link>
                         </li>
                       </ul>

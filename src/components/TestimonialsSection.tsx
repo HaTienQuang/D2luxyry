@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
           >
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-serif font-bold uppercase tracking-wider text-black leading-[1.2]">
-                Khách hàng nói gì về D2 Luxury?
+                Khách hàng nói gì về D2 Luxury Design?
               </h2>
               {/* Black divider line */}
               <div className="w-24 h-[2px] bg-black mt-4 mb-6" />

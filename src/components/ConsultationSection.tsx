@@ -49,7 +49,7 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
             </div>
 
             <p className="text-sm sm:text-[15px] text-neutral-600 font-serif italic leading-relaxed font-light max-w-lg">
-              Lựa chọn phương thức liên hệ để trao đổi trực tiếp và nhận báo giá từ D2 Luxury
+              Lựa chọn phương thức liên hệ để trao đổi trực tiếp và nhận báo giá từ D2 Luxury Design
             </p>
 
             {/* Pill-shaped Soft Cream Buttons */}
@@ -129,7 +129,7 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
                   priority
                 />
 
-                {/* Bottom Brand Emblem Overlay replacing old watermark with D2 Luxury */}
+                {/* Bottom Brand Emblem Overlay replacing old watermark with D2 Luxury Design */}
                 <div className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none bg-black/60 backdrop-blur-[3px] px-6 py-2.5 border border-white/20 shadow-lg whitespace-nowrap">
                   <span className="text-[11px] sm:text-[12px] font-sans tracking-[0.3em] uppercase text-luxury-gold font-semibold">
                     D2 LUXURY DESIGN

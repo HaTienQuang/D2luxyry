@@ -40,7 +40,7 @@ export default function BrandsSection({ onOpenZalo }: BrandsSectionProps = {}) {
           className="text-center max-w-xl mx-auto mb-12 sm:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold uppercase tracking-wider text-black">
-            THƯƠNG HIỆU CỦA D2 LUXURY
+            THƯƠNG HIỆU CỦA D2 LUXURY DESIGN
           </h2>
           <div className="w-24 sm:w-32 h-[2px] bg-black mx-auto mt-4" />
         </motion.div>

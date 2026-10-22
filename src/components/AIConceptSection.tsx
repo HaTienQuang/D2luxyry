@@ -116,7 +116,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
           </h2>
           <div className="w-20 sm:w-24 h-[1.5px] bg-black mt-3 sm:mt-4 mb-4" />
           <p className="text-sm sm:text-[15px] text-neutral-600 font-serif italic max-w-2xl leading-relaxed">
-            Nhập diện tích và yêu cầu về màu sắc nội ngoại thất mong muốn của bạn. Hệ thống D2 Luxury sẽ phác thảo bản vẽ phối cảnh 3D không gian trực quan dành riêng cho bạn.
+            Nhập diện tích và yêu cầu về màu sắc nội ngoại thất mong muốn của bạn. Hệ thống D2 Luxury Design sẽ phác thảo bản vẽ phối cảnh 3D không gian trực quan dành riêng cho bạn.
           </p>
         </div>
 
@@ -299,7 +299,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                   {/* Consultation Lead Box */}
                   <div className="pt-3 border-t border-[#f0ebe3] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <p className="text-xs text-neutral-600 font-serif italic">
-                      Ưng ý với ý tưởng này? Hãy để D2 Luxury hiện thực hóa thành bản vẽ thi công thực tế.
+                      Ưng ý với ý tưởng này? Hãy để D2 Luxury Design hiện thực hóa thành bản vẽ thi công thực tế.
                     </p>
                     <motion.a
                       href={siteConfig.zaloUrl}

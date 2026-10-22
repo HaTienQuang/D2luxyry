@@ -216,7 +216,7 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
                 YÊU THÍCH THIẾT KẾ CỦA {project.title}?
               </h3>
               <p className="text-sm sm:text-base text-neutral-700 font-serif leading-relaxed max-w-xl mx-auto">
-                Liên hệ ngay với đội ngũ kiến trúc sư D2 Luxury để được tư vấn thiết kế và dự toán thi công hoàn toàn miễn phí cho ngôi nhà của bạn.
+                Liên hệ ngay với đội ngũ kiến trúc sư D2 Luxury Design để được tư vấn thiết kế và dự toán thi công hoàn toàn miễn phí cho ngôi nhà của bạn.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <motion.a

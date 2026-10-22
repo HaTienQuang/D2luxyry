@@ -23,12 +23,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!project) {
     return {
-      title: "Dự án không tồn tại - D2 Luxury",
+      title: "Dự án không tồn tại - D2 Luxury Design",
     };
   }
 
   return {
-    title: `${project.title} - D2 Luxury Thiết kế & Thi công`,
+    title: `${project.title} - D2 Luxury Design Thiết kế & Thi công`,
     description: project.description,
   };
 }
