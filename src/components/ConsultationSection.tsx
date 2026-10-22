@@ -109,17 +109,17 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:col-span-6 flex justify-center lg:justify-end"
+            className="lg:col-span-6 flex justify-center lg:justify-end mt-4 lg:mt-0 px-2 sm:px-0"
           >
             <div className="relative w-full max-w-[420px] sm:max-w-[460px] lg:max-w-[480px]">
-              {/* Offset Wireframe Outline Frame (shifted down and left, exactly like Image 1) */}
+              {/* Offset Wireframe Outline Frame (only visible on sm and above to prevent mobile screen overflow) */}
               <div
-                className="absolute -bottom-6 sm:-bottom-8 -left-6 sm:-left-8 w-full h-full border border-black pointer-events-none z-0"
+                className="hidden sm:block absolute -bottom-6 sm:-bottom-8 -left-6 sm:-left-8 w-full h-full border border-black pointer-events-none z-0"
                 aria-hidden="true"
               />
 
-              {/* Main Photo Frame */}
-              <div className="relative z-10 aspect-[3/4.2] w-full overflow-hidden shadow-2xl bg-black/5">
+              {/* Main Photo Frame: 16:11 on mobile for compact elegant fit, 3:4.2 on desktop */}
+              <div className="relative z-10 aspect-[16/11] sm:aspect-[3/4.2] w-full overflow-hidden shadow-xl sm:shadow-2xl bg-black/5 border border-black/10 sm:border-none">
                 <Image
                   src="/consultation/consultation-interior.webp"
                   alt="D2 Luxury Design - Không gian kiến trúc nội thất đẳng cấp"
@@ -129,12 +129,12 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
                   priority
                 />
 
-                {/* Bottom Brand Emblem Overlay replacing old watermark with D2 Luxury Design */}
-                <div className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none bg-black/60 backdrop-blur-[3px] px-6 py-2.5 border border-white/20 shadow-lg whitespace-nowrap">
-                  <span className="text-[11px] sm:text-[12px] font-sans tracking-[0.3em] uppercase text-luxury-gold font-semibold">
+                {/* Bottom Brand Emblem Overlay */}
+                <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none bg-black/60 backdrop-blur-[3px] px-5 sm:px-6 py-2 sm:py-2.5 border border-white/20 shadow-lg whitespace-nowrap">
+                  <span className="text-[10px] sm:text-[12px] font-sans tracking-[0.25em] sm:tracking-[0.3em] uppercase text-luxury-gold font-semibold">
                     D2 LUXURY DESIGN
                   </span>
-                  <span className="text-[9px] font-serif tracking-[0.2em] uppercase text-white/90">
+                  <span className="text-[8.5px] sm:text-[9px] font-serif tracking-[0.2em] uppercase text-white/90">
                     KIẾN TRÚC & NỘI THẤT
                   </span>
                 </div>

@@ -90,27 +90,26 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
       className="relative w-full py-16 sm:py-20 lg:py-24 bg-[#fbf9f6] text-black overflow-hidden border-t border-[#eae3d9]"
     >
       <div id="sec-ai-concept" className="absolute -top-24" />
-      {/* Background Watermark 05 (So5.svg) refined sizing to prevent clipping & overflow */}
-      <div
-        className="absolute top-1 sm:top-2 left-0 sm:left-4 lg:left-8 w-[170px] sm:w-[220px] lg:w-[270px] h-[140px] sm:h-[180px] lg:h-[220px] opacity-70 pointer-events-none select-none z-0"
-        aria-hidden="true"
-      >
-        <Image
-          src="/decor/So5.svg"
-          alt="Watermark 05 AI Concept"
-          fill
-          className="object-contain object-left-top"
-          priority
-        />
-      </div>
 
       <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading */}
-        <div className="mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-[11px] font-sans tracking-[0.25em] uppercase font-medium mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-luxury-gold" />
-            AI STUDIO
+        {/* Section Heading with Watermark 05 on Left & AI Studio Badge on Right */}
+        <div className="mb-8 sm:mb-12">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="relative w-24 sm:w-32 lg:w-36 h-12 sm:h-16 lg:h-20 select-none pointer-events-none opacity-80">
+              <Image
+                src="/decor/So5.svg"
+                alt="05"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-black text-white text-[10.5px] sm:text-[11px] font-sans tracking-[0.22em] uppercase font-medium shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-luxury-gold" />
+              <span>AI STUDIO</span>
+            </div>
           </div>
+
           <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-serif font-bold uppercase tracking-wider text-black leading-[1.25]">
             LÊN Ý TƯỞNG THIẾT KẾ 3D
           </h2>

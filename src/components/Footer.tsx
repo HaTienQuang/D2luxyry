@@ -75,7 +75,8 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
                 </div>
                 <div className="text-left font-sans">
                   <span className="block font-bold text-xs text-white tracking-wide group-hover:text-luxury-gold transition-colors">
-                    Quét mã Zalo
+                    <span className="sm:hidden">Chat Zalo Tư Vấn 24/7</span>
+                    <span className="hidden sm:inline">Quét mã Zalo</span>
                   </span>
                   <span className="block text-[10.5px] text-neutral-300 font-light leading-tight mt-0.5">
                     Tư vấn 24/7 ({siteConfig.phone1} – {siteConfig.phone2})
