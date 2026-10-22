@@ -73,14 +73,14 @@ export default function AboutSection() {
             className="lg:col-span-7 flex justify-center lg:justify-end pt-4 lg:pt-0"
           >
             <div className="relative w-full max-w-[680px] group">
-              {/* Architectural wireframe outline frame box behind image */}
+              {/* Architectural wireframe outline frame box behind image - hidden on mobile to prevent overflow */}
               <div
-                className="absolute -left-5 sm:-left-7 top-8 sm:top-10 -bottom-7 sm:-bottom-9 right-6 sm:right-8 border border-[#333333] z-0 pointer-events-none transition-transform duration-700 ease-out group-hover:translate-x-1 group-hover:translate-y-1"
+                className="hidden sm:block absolute -left-5 sm:-left-7 top-8 sm:top-10 -bottom-7 sm:-bottom-9 right-6 sm:right-8 border border-[#333333] z-0 pointer-events-none transition-transform duration-700 ease-out group-hover:translate-x-1 group-hover:translate-y-1"
                 aria-hidden="true"
               />
 
               {/* Floating photo with luxury drop shadow */}
-              <div className="relative z-10 w-full aspect-[16/10.7] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.18)] bg-[#f7f5f2] transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.25)]">
+              <div className="relative z-10 w-full aspect-[16/10.7] overflow-hidden shadow-lg sm:shadow-[0_20px_50px_rgba(0,0,0,0.18)] bg-[#f7f5f2] border border-black/10 sm:border-none transition-all duration-700 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.25)]">
                 <Image
                   src="/about/main.jpg"
                   alt="D2 Luxury Design - Thẩm mỹ và công năng song hành"
