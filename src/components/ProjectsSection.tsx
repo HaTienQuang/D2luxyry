@@ -100,81 +100,6 @@ export default function ProjectsSection() {
         "/projects/villa-da-lat/gallery-2.jpg",
       ],
       description: "Không gian sống hòa quyện cùng thiên nhiên sương mờ Đà Lạt, sử dụng tone màu ấm cúng và nội thất gỗ gia công tỉ mỉ."
-    },
-    {
-      id: "sapphire-villa-tam-dao",
-      title: "SAPPHIRE VILLA – TAM ĐẢO",
-      image: "/projects/thiet-ke-sapphire-villa-tai-tam-dao/main.gif",
-      categoryLabel: "Biệt thự đồi sinh thái",
-      location: "Tam Đảo, Vĩnh Phúc",
-      gallery: [
-        "/projects/thiet-ke-sapphire-villa-tai-tam-dao/main.gif",
-        "/projects/thiet-ke-sapphire-villa-tai-tam-dao/photo-1.gif",
-        "/projects/thiet-ke-sapphire-villa-tai-tam-dao/photo-2.gif",
-      ],
-      description: "Tác phẩm kiến trúc hiện đại hòa mình vào đồi thông, hệ ban công kính mở rộng tầm nhìn trọn vẹn thung lũng mây."
-    },
-    {
-      id: "maya-villa-ba-vi",
-      title: "MAYA VILLA – BA VÌ",
-      image: "/projects/thiet-ke-villa-tai-ba-vi/main.gif",
-      categoryLabel: "Biệt thự vườn sinh thái",
-      location: "Ba Vì, Hà Nội",
-      gallery: [
-        "/projects/thiet-ke-villa-tai-ba-vi/main.gif",
-        "/projects/thiet-ke-villa-tai-ba-vi/photo-1.gif",
-        "/projects/thiet-ke-villa-tai-ba-vi/photo-2.gif",
-      ],
-      description: "Biệt thự nhà vườn phong cách Farmhouse sang trọng, kết hợp bể bơi vô cực và khuôn viên cỏ cây xanh mướt thư thái."
-    },
-    {
-      id: "penthouse-indochine",
-      title: "PENTHOUSE INDOCHINE",
-      image: "/projects/thiet-ke-penthouse-indochina/main.gif",
-      categoryLabel: "Penthouse cao cấp",
-      location: "Hà Nội",
-      gallery: [
-        "/projects/thiet-ke-penthouse-indochina/main.gif",
-        "/projects/penthouse-tan-co/main.jpg",
-      ],
-      description: "Sự kết hợp hoàn hảo giữa nét lãng mạn Đông Dương và tiện nghi hiện đại của căn hộ thông tầng đỉnh cao."
-    },
-    {
-      id: "biet-thu-tan-co-dien",
-      title: "BIỆT THỰ TÂN CỔ ĐIỂN CAO CẤP",
-      image: "/projects/biet-thu-tan-co/main.jpg",
-      categoryLabel: "Dinh thự tân cổ điển",
-      location: "TP. Hồ Chí Minh",
-      gallery: [
-        "/projects/biet-thu-tan-co/main.jpg",
-        "/projects/cong-trinh-thuc-te-tai-tp-hcm/main.jpg",
-      ],
-      description: "Công trình tân cổ điển bề thế, hoa văn thạch cao dát vàng nhẹ nhàng và sàn gỗ tự nhiên herringbone cao cấp."
-    },
-    {
-      id: "can-ho-vinhomes-metropolis",
-      title: "CĂN HỘ VINHOMES METROPOLIS",
-      image: "/projects/vinhomes-metropolis/main.jpg",
-      categoryLabel: "Căn hộ hạng sang",
-      location: "Liễu Giai, Ba Đình, Hà Nội",
-      gallery: [
-        "/projects/vinhomes-metropolis/main.jpg",
-        "/projects/vinhomes-metropolis/gallery-1.jpg",
-        "/projects/vinhomes-metropolis/gallery-2.jpg",
-      ],
-      description: "Căn hộ trung tâm thủ đô mang ngôn ngữ hiện đại tối giản, mặt đá marble sang trọng và hệ tủ áo cánh kính thời thượng."
-    },
-    {
-      id: "can-ho-han-jardin",
-      title: "CĂN HỘ HAN JARDIN – NGOẠI GIAO ĐOÀN",
-      image: "/projects/can-ho-han-jardin/main.jpg",
-      categoryLabel: "Căn hộ cao cấp",
-      location: "Bắc Từ Liêm, Hà Nội",
-      gallery: [
-        "/projects/can-ho-han-jardin/main.jpg",
-        "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/main.jpg",
-      ],
-      description: "Không gian sống tinh tế với gam màu trung tính, bố cục khoa học và đồ nội thất đặt đóng riêng theo chuẩn thẩm mỹ D2 Luxury Design."
     }
   ];
 
@@ -293,7 +218,7 @@ export default function ProjectsSection() {
                 onClick={() => setShowAllMobile((prev) => !prev)}
                 className="w-full sm:w-auto text-center px-6 py-3 border border-black/40 hover:border-black text-black text-xs sm:text-[13px] font-serif tracking-[0.18em] uppercase font-semibold transition-all bg-white hover:bg-black/5 shadow-sm active:scale-[0.98]"
               >
-                {showAllMobile ? "Thu gọn dự án" : "Xem thêm dự án (+8)"}
+                {showAllMobile ? "Thu gọn dự án" : "Xem thêm dự án (+2)"}
               </button>
               <Link
                 href="/projects"
