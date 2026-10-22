@@ -49,6 +49,7 @@ const PROJECT_GROUPS = [
 
 export default function Header({ onOpenZalo }: HeaderProps = {}) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -85,29 +86,44 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
     setActiveMenu(null);
   };
 
+  const isSolid = isScrolled || isHovered || activeMenu !== null;
+
   return (
     <>
       <header
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          handleMouseLeave();
+        }}
         className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 ${
-          isScrolled || activeMenu !== null
-            ? "bg-[#f4f0ec]/98 backdrop-blur-md shadow-sm py-2.5 border-b border-[#e7e1d8] text-black"
-            : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-3 sm:py-4 text-white"
+          isSolid
+            ? "bg-[#faf8f5] shadow-md py-2 sm:py-2.5 border-b border-[#e5dfd5] text-neutral-900"
+            : "bg-gradient-to-b from-black/90 via-black/55 to-transparent py-3 sm:py-4 text-white"
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-0.5 shrink-0">
-              <div className="relative h-11 sm:h-13 lg:h-14 w-40 sm:w-52 lg:w-56 flex items-center transition-transform duration-300 group-hover:scale-105">
+            <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-1 shrink-0">
+              <div className="relative h-13 sm:h-16 lg:h-20 w-48 sm:w-64 lg:w-80 flex items-center transition-transform duration-300 group-hover:scale-105">
+                {/* Dark Logo (displayed on solid background) */}
                 <Image
-                  src={isScrolled || activeMenu !== null ? "/logo.png" : "/logo-white.png"}
+                  src="/logo.png"
                   alt="D2 Luxury Design"
                   fill
-                  className={`object-contain object-left transition-all duration-300 ${
-                    isScrolled || activeMenu !== null
-                      ? "drop-shadow-sm"
-                      : "drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] drop-shadow-[0_0_18px_rgba(255,255,255,0.45)] brightness-110"
+                  className={`object-contain object-left transition-opacity duration-300 ${
+                    isSolid ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                  priority
+                />
+                {/* White Logo (displayed on dark/transparent hero background) */}
+                <Image
+                  src="/logo-white.png"
+                  alt="D2 Luxury Design"
+                  fill
+                  className={`object-contain object-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] drop-shadow-[0_0_18px_rgba(255,255,255,0.45)] brightness-110 transition-opacity duration-300 ${
+                    isSolid ? "opacity-0 pointer-events-none" : "opacity-100"
                   }`}
                   priority
                 />
@@ -115,17 +131,20 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[13.5px] xl:text-[15px] uppercase tracking-[0.12em] font-serif font-semibold">
+            <nav className="hidden lg:flex items-center space-x-2 xl:space-x-3 text-[13.5px] xl:text-[15px] uppercase tracking-[0.12em] font-serif font-semibold">
               {/* Trang chủ */}
               <Link
                 href="/"
                 onClick={closeMenu}
                 onMouseEnter={() => handleMouseEnter("Trang chủ")}
-                className={`transition-colors py-2 hover:text-luxury-gold ${
-                  isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center ${
+                  isSolid
+                    ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                 }`}
               >
-                Trang chủ
+                <span>Trang chủ</span>
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
               </Link>
 
               {/* DỰ ÁN */}
@@ -135,12 +154,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               >
                 <Link
                   href="/du-an"
-                  className={`transition-colors py-2 inline-flex items-center gap-1 hover:text-luxury-gold ${
-                    activeMenu === "Dự án" ? "text-luxury-gold" : isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                  className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
+                    activeMenu === "Dự án"
+                      ? "text-luxury-gold bg-black/[0.04]"
+                      : isSolid
+                      ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                      : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                   }`}
                 >
                   <span>Dự án</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </Link>
 
                 {/* Dropdown: Các kiểu & mẫu dự án đúng link thực tế */}
@@ -201,12 +225,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               >
                 <Link
                   href="/gioi-thieu"
-                  className={`transition-colors py-2 inline-flex items-center gap-1 hover:text-luxury-gold ${
-                    activeMenu === "Giới thiệu" ? "text-luxury-gold" : isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                  className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
+                    activeMenu === "Giới thiệu"
+                      ? "text-luxury-gold bg-black/[0.04]"
+                      : isSolid
+                      ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                      : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                   }`}
                 >
                   <span>Giới thiệu</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </Link>
 
                 <AnimatePresence>
@@ -249,12 +278,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               >
                 <Link
                   href="/#sec-dichvu"
-                  className={`transition-colors py-2 inline-flex items-center gap-1 hover:text-luxury-gold ${
-                    activeMenu === "Dịch vụ" ? "text-luxury-gold" : isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                  className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
+                    activeMenu === "Dịch vụ"
+                      ? "text-luxury-gold bg-black/[0.04]"
+                      : isSolid
+                      ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                      : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                   }`}
                 >
                   <span>Dịch vụ</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </Link>
 
                 <AnimatePresence>
@@ -297,12 +331,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               >
                 <Link
                   href="/#sec-thuonghieu"
-                  className={`transition-colors py-2 inline-flex items-center gap-1 hover:text-luxury-gold ${
-                    activeMenu === "Thương hiệu" ? "text-luxury-gold" : isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                  className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
+                    activeMenu === "Thương hiệu"
+                      ? "text-luxury-gold bg-black/[0.04]"
+                      : isSolid
+                      ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                      : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                   }`}
                 >
                   <span>Thương hiệu</span>
                   <ChevronDown className="w-3 h-3 opacity-60" />
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
                 </Link>
 
                 <AnimatePresence>
@@ -338,11 +377,14 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 href="/#sec-thietke3d"
                 onClick={closeMenu}
                 onMouseEnter={() => handleMouseEnter("AI Studio")}
-                className={`transition-colors py-2 hover:text-luxury-gold ${
-                  isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center ${
+                  isSolid
+                    ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                 }`}
               >
-                AI Studio
+                <span>AI Studio</span>
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
               </Link>
 
               {/* LIÊN HỆ */}
@@ -350,11 +392,14 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 href="/lien-he"
                 onClick={closeMenu}
                 onMouseEnter={() => handleMouseEnter("Liên hệ")}
-                className={`transition-colors py-2 hover:text-luxury-gold ${
-                  isScrolled || activeMenu !== null ? "text-neutral-900" : "text-white drop-shadow"
+                className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center ${
+                  isSolid
+                    ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                 }`}
               >
-                Liên hệ
+                <span>Liên hệ</span>
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-luxury-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
               </Link>
             </nav>
 
@@ -362,8 +407,10 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
             <div className="flex items-center shrink-0">
               <button
                 onClick={() => setSearchOpen(true)}
-                className={`p-2 hover:opacity-70 transition-opacity ${
-                  isScrolled || activeMenu !== null ? "text-black" : "text-white drop-shadow"
+                className={`p-2.5 rounded-full transition-all duration-200 ${
+                  isSolid
+                    ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
                 }`}
                 aria-label="Tìm kiếm"
               >
@@ -374,8 +421,8 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
 
           {/* Mobile Navigation Strip */}
           <nav
-            className={`lg:hidden flex items-center overflow-x-auto no-scrollbar gap-5 pt-2.5 pb-1.5 border-t transition-colors ${
-              isScrolled ? "border-black/10" : "border-white/10"
+            className={`lg:hidden flex items-center overflow-x-auto no-scrollbar gap-2 pt-2 pb-1 border-t transition-colors ${
+              isSolid ? "border-black/10" : "border-white/10"
             } text-[12.5px] sm:text-[13.5px] font-serif uppercase tracking-wider font-medium whitespace-nowrap`}
           >
             {[
@@ -391,8 +438,10 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className={`transition-colors shrink-0 py-0.5 ${
-                  isScrolled ? "text-neutral-800 hover:text-black" : "text-white hover:text-luxury-gold"
+                className={`transition-all shrink-0 px-2.5 py-1 rounded ${
+                  isSolid
+                    ? "text-neutral-800 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white hover:text-luxury-gold hover:bg-white/[0.12]"
                 }`}
               >
                 {item.label}
