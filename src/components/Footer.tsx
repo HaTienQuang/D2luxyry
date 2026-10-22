@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/data/siteData";
-import { Phone, Mail, MapPin, Facebook, Youtube, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface FooterProps {
@@ -44,78 +44,28 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
               Khơi nguồn cảm hứng cho không gian sống hoàn mỹ. Đồng hành cùng bạn kiến tạo những không gian sống đẳng cấp, tiện nghi và trường tồn cùng thời gian.
             </p>
 
-            <div className="pt-1">
-              <span className="block text-[11px] font-serif uppercase tracking-wider text-neutral-500 font-medium">Website chính thức:</span>
-              <a
-                href={siteConfig.siteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs sm:text-[13px] font-serif font-bold text-black hover:text-luxury-gold transition-colors tracking-wider"
-              >
-                {siteConfig.domain}
-              </a>
-            </div>
-
-            {/* Social Icons row */}
-            <div className="flex items-center gap-2.5 pt-1">
+            {/* Facebook Fanpage Only */}
+            <div className="pt-2 flex items-center gap-2.5">
               <motion.a
-                whileHover={{ scale: 1.15, y: -2 }}
+                whileHover={{ scale: 1.12, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href={siteConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#1877F2] flex items-center justify-center transition-colors shadow-sm"
+                className="w-9 h-9 rounded-full bg-[#1877F2] hover:bg-[#166fe5] text-white flex items-center justify-center transition-all shadow-sm"
                 aria-label="Facebook Fanpage D2 Luxury Design"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-4 h-4 fill-white" />
               </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+              <a
                 href={siteConfig.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#E4405F] flex items-center justify-center transition-colors shadow-sm"
-                aria-label="Instagram"
+                className="text-xs sm:text-[13px] font-serif text-neutral-800 hover:text-[#1877F2] transition-colors font-medium underline underline-offset-4"
               >
-                <Instagram className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                href={siteConfig.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-[#FF0000] flex items-center justify-center transition-colors shadow-sm"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://www.tiktok.com/@d2luxury"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-neutral-900 text-white hover:bg-black flex items-center justify-center transition-colors shadow-sm"
-                aria-label="TikTok"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.87-4.48V8.69a8.19 8.19 0 0 0 4.9 1.6V6.84a4.87 4.87 0 0 1-1-.15z" />
-                </svg>
-              </motion.a>
+                Fanpage Facebook D2 Luxury Design
+              </a>
             </div>
-
-            {/* Direct Fanpage Link */}
-            <a
-              href={siteConfig.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11.5px] font-serif text-neutral-600 hover:text-[#1877F2] transition-colors pt-0.5 group"
-            >
-              <Facebook className="w-3.5 h-3.5 text-[#1877F2] shrink-0" />
-              <span className="underline underline-offset-2 group-hover:text-[#1877F2]">Theo dõi Fanpage D2 Luxury Design</span>
-            </a>
           </div>
 
           {/* Column 2: VỀ D2 LUXURY DESIGN */}
