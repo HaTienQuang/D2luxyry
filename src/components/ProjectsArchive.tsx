@@ -169,7 +169,7 @@ export default function ProjectsArchive() {
                       whileHover={{ y: -6 }}
                     >
                       <Link
-                        href={`/du-an/${item.slug}`}
+                        href={`/projects/${item.slug}`}
                         className="group cursor-pointer flex flex-col h-full"
                       >
                         {/* Project Photo with Aspect Ratio ~3:2 */}

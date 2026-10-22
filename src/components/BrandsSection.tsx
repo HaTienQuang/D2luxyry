@@ -56,7 +56,7 @@ export default function BrandsSection({ onOpenZalo }: BrandsSectionProps = {}) {
             whileHover={{ y: -8 }}
           >
             <Link
-              href="/du-an"
+              href="/projects"
               className="group block h-full bg-[#faf8f5] border border-[#ded8ce] p-8 sm:p-12 hover:border-black/40 hover:shadow-2xl transition-all duration-500 text-center"
             >
               {/* Logo Presentation Box */}

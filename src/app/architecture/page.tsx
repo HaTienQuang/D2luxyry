@@ -8,19 +8,16 @@ import Footer from "@/components/Footer";
 import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { siteConfig } from "@/data/siteData";
-import { ArrowRight, CheckCircle2, Hammer, HardHat, Phone, ShieldCheck, Warehouse } from "lucide-react";
+import { ArrowRight, Compass, Layers, Palette, Phone, Ruler, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function ConstructionServicePage() {
+export default function ArchitectureServicePage() {
   const [isZaloModalOpen, setIsZaloModalOpen] = useState(false);
 
-  const constructionSteps = [
-    { step: "01", title: "Khảo sát & Lập biện pháp thi công", desc: "Đo đạc hiện trạng địa chất, lập hồ sơ biện pháp thi công và tiến độ chi tiết từng giai đoạn." },
-    { step: "02", title: "Thi công kết cấu phần thô", desc: "Ép cọc, đào móng, đổ bê tông cốt thép móng, dầm, sàn cột theo đúng tiêu chuẩn kỹ thuật nghiêm ngặt." },
-    { step: "03", title: "Thi công xây tô & Chống thấm", desc: "Xây tường ngăn, trát phẳng mác cao, thi công chống thấm nhiều lớp bằng vật liệu cao cấp." },
-    { step: "04", title: "Lắp đặt hệ thống cơ điện (M&E)", desc: "Đi âm ống luồn dây điện, hệ thống cấp thoát nước, điều hòa âm trần và mạng thông minh." },
-    { step: "05", title: "Hoàn thiện ốp lát & Sơn nước", desc: "Ốp lát đá tự nhiên/gạch khổ lớn chuẩn milimet, sơn nước cao cấp bóng mịn và trần thạch cao giật cấp." },
-    { step: "06", title: "Nghiệm thu & Bàn giao chìa khóa", desc: "Kiểm tra toàn diện, vệ sinh công nghiệp và bàn giao chìa khóa trao tay kèm biên bản bảo hành dài hạn." },
+  const styles = [
+    { title: "TÂN CỔ ĐIỂN", desc: "Hài hòa giữa vẻ đẹp quý phái châu Âu và tiện nghi hiện đại với các thức cột, vòm cong và phào chỉ tinh tế.", img: "/projects/biet-thu-tan-co/main.jpg" },
+    { title: "HIỆN ĐẠI LUXURY", desc: "Đường nét khúc chiết, không gian mở ngập tràn ánh sáng với vách kính lớn và vật liệu cao cấp.", img: "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-1.gif" },
+    { title: "INDOCHINE ĐÔNG DƯƠNG", desc: "Giao thoa giữa bản sắc Á Đông truyền thống và nét lãng mạn kiểu Pháp, ấm cúng và đầy chiều sâu.", img: "/projects/thiet-ke-penthouse-indochina/main.gif" },
   ];
 
   return (
@@ -29,11 +26,11 @@ export default function ConstructionServicePage() {
 
       {/* Hero Banner matching synchronized style */}
       <section className="relative w-full h-[52vh] min-h-[460px] sm:min-h-[500px] flex items-center justify-center overflow-hidden">
-        {/* Construction site image with natural illumination */}
+        {/* Architectural villa design with natural illumination */}
         <div className="absolute inset-0">
           <Image
-            src="/projects/cong-trinh-thuc-te-tai-tp-hcm/main.jpg"
-            alt="Thi công xây dựng D2 Luxury Design"
+            src="/projects/thiet-ke-villa-tai-grand-island-ecopark/main.gif"
+            alt="Thiết kế kiến trúc D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -50,11 +47,11 @@ export default function ConstructionServicePage() {
           className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
-            THI CÔNG XÂY DỰNG
+            THIẾT KẾ KIẾN TRÚC
           </h1>
           <div className="w-20 sm:w-28 h-[2px] bg-white/80 mx-auto mt-4 mb-5" />
           <p className="max-w-2xl sm:max-w-3xl mx-auto text-xs sm:text-[13px] md:text-[14px] font-serif uppercase tracking-[0.08em] text-white/95 leading-relaxed font-normal drop-shadow">
-            TỔNG THẦU THI CÔNG XÂY DỰNG TRỌN GÓI BIỆT THỰ, DINH THỰ, NHÀ PHỐ CAO CẤP VỚI HƠN 14 NĂM KINH NGHIỆM VÀ TIÊU CHUẨN KỸ THUẬT HÀNG ĐẦU.
+            SÁNG TẠO NÊN NHỮNG CÔNG TRÌNH KIẾN TRÚC ĐỘC BẢN MANG DẤU ÂN RIÊNG, TỐI ƯU HÓA CÔNG NĂNG VÀ PHONG THỦY CHO GIA CHỦ.
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg */}
@@ -66,7 +63,7 @@ export default function ConstructionServicePage() {
             <a
               href="#content"
               className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
-              aria-label="Cuộn xuống nội dung thi công"
+              aria-label="Cuộn xuống nội dung thiết kế kiến trúc"
             >
               <Image
                 src="/Roll.svg"
@@ -80,7 +77,7 @@ export default function ConstructionServicePage() {
         </motion.div>
       </section>
 
-      {/* Overview Section */}
+      {/* Philosophy Section */}
       <section id="content" className="py-16 sm:py-24 bg-white text-black border-b border-[#eae3d9] scroll-mt-20">
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -93,39 +90,39 @@ export default function ConstructionServicePage() {
             >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
-                  CHUẨN MỰC CHẤT LƯỢNG
+                  TRIẾT LÝ THIẾT KẾ
                 </span>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black leading-tight">
-                  MỖI CÔNG TRÌNH LÀ MỘT TUYỆT TÁC TRƯỜNG TỒN
+                  TỔNG HÒA GIỮA THẨM MỸ, CÔNG NĂNG & THIÊN NHIÊN
                 </h2>
                 <div className="w-20 h-[1.5px] bg-black mt-3 mb-6" />
               </div>
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  Thi công xây dựng là khâu hiện thực hóa những ý tưởng từ trang bản vẽ thành công trình thực tế vững chắc. D2 Luxury Design sở hữu đội ngũ hơn 200 thợ tay nghề cao, 20 kỹ sư giám sát và chỉ huy trưởng giàu kinh nghiệm, đảm bảo an toàn lao động, tiến độ và chất lượng kết cấu bền vững hàng chục năm.
+                  Một tác phẩm kiến trúc hoàn hảo không chỉ dừng lại ở vẻ đẹp hình khối lộng lẫy bên ngoài, mà phải là không gian sống nuôi dưỡng cảm xúc, đón nhận tối đa ánh sáng tự nhiên và gió trời, đồng thời tối ưu hóa từng mét vuông cho sinh hoạt của các thành viên trong gia đình.
                 </p>
                 <p>
-                  Chúng tôi cam kết sử dụng vật liệu xây dựng chính hãng loại 1, quy trình quản lý chất lượng nghiêm ngặt và đồng hành cùng gia chủ từ khi đặt viên gạch đầu tiên đến khi bàn giao công trình hoàn thiện.
+                  Tại D2 Luxury Design, đội ngũ 30 kiến trúc sư luôn lắng nghe câu chuyện và thói quen sinh hoạt của từng khách hàng, từ đó nghiên cứu địa thế khu đất, hướng nắng, hướng gió và nguyên lý phong thủy để kiến tạo nên phương án kiến trúc độc nhất.
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 pt-2 text-xs sm:text-sm font-serif">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-luxury-gold" />
-                  <span>Bảo hành kết cấu 10 năm</span>
+                  <Ruler className="w-4 h-4 text-luxury-gold" />
+                  <span>Quy hoạch công năng khoa học</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <HardHat className="w-4 h-4 text-luxury-gold" />
-                  <span>Giám sát 24/7 tại công trường</span>
+                  <Compass className="w-4 h-4 text-luxury-gold" />
+                  <span>Tối ưu phong thủy và vi khí hậu</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Warehouse className="w-4 h-4 text-luxury-gold" />
-                  <span>Vật tư chuẩn mác chính hãng</span>
+                  <Palette className="w-4 h-4 text-luxury-gold" />
+                  <span>Phối cảnh 3D chân thực 100%</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Hammer className="w-4 h-4 text-luxury-gold" />
-                  <span>Cam kết đúng tiến độ 100%</span>
+                  <Layers className="w-4 h-4 text-luxury-gold" />
+                  <span>Hồ sơ bản vẽ kỹ thuật chi tiết</span>
                 </div>
               </div>
             </motion.div>
@@ -139,8 +136,8 @@ export default function ConstructionServicePage() {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
-                  src="/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-1.jpg"
-                  alt="Thi công thực tế D2 Luxury Design"
+                  src="/projects/thiet-ke-vintage-villa-tai-tam-dao/main.gif"
+                  alt="Biệt thự kiến trúc độc bản D2 Luxury Design"
                   fill
                   className="object-cover"
                 />
@@ -150,7 +147,7 @@ export default function ConstructionServicePage() {
         </div>
       </section>
 
-      {/* Process Section */}
+      {/* Architectural Styles Showcase */}
       <section className="py-16 sm:py-24 bg-[#f4f0ec] text-black border-b border-[#eae3d9]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -161,41 +158,48 @@ export default function ConstructionServicePage() {
             className="text-center max-w-2xl mx-auto mb-14"
           >
             <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
-              QUY TRÌNH CHUẨN MỰC
+              ĐA DẠNG PHONG CÁCH
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-              QUY TRÌNH 6 BƯỚC THI CÔNG XÂY DỰNG
+              CÁC PHONG CÁCH THIẾT KẾ CHỦ ĐẠO
             </h2>
             <div className="w-24 h-[1.5px] bg-black mx-auto mt-3" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {constructionSteps.map((item, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {styles.map((style, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="bg-white border border-[#ded8ce] p-8 space-y-4 shadow-sm hover:shadow-xl transition-all duration-300"
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                whileHover={{ y: -8 }}
+                className="bg-white border border-[#ded8ce] overflow-hidden group hover:shadow-2xl transition-all duration-500"
               >
-                <span className="text-3xl font-serif font-bold text-luxury-gold block">
-                  {item.step}
-                </span>
-                <h3 className="text-lg font-serif font-bold uppercase tracking-wider text-black">
-                  {item.title}
-                </h3>
-                <p className="text-xs sm:text-sm font-serif text-neutral-600 leading-relaxed font-light">
-                  {item.desc}
-                </p>
+                <div className="relative aspect-[16/11] w-full overflow-hidden bg-black/5">
+                  <Image
+                    src={style.img}
+                    alt={style.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-6 sm:p-8 space-y-3">
+                  <h3 className="text-lg font-serif font-bold uppercase tracking-wider text-black group-hover:text-luxury-gold transition-colors">
+                    {style.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-serif text-neutral-600 leading-relaxed font-light">
+                    {style.desc}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <section className="py-16 sm:py-20 bg-[#f4f0ec] text-black text-center border-t border-[#ded8ce]">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -205,10 +209,10 @@ export default function ConstructionServicePage() {
           className="max-w-3xl mx-auto px-4 space-y-5"
         >
           <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-            BẮT ĐẦU DỰ ÁN CÙNG D2 LUXURY DESIGN
+            BẮT ĐẦU PHÁC THẢO Ý TƯỞNG KIẾN TRÚC
           </h2>
           <p className="text-sm font-serif text-neutral-600 font-light">
-            Liên hệ để nhận dự toán chi tiết và phương án thi công tối ưu cho ngôi nhà của bạn.
+            Nhận tư vấn trực tiếp từ KTS trưởng của D2 Luxury Design để hiện thực hóa ngôi nhà trong mơ của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -216,18 +220,17 @@ export default function ConstructionServicePage() {
                 href="/#sec-tuvan"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
               >
-                <span>NHẬN BÁO GIÁ THI CÔNG</span>
+                <span>ĐĂNG KÝ TƯ VẤN KIẾN TRÚC</span>
                 <ArrowRight className="w-4 h-4 text-luxury-gold" />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a
-                href={`tel:${siteConfig.hotline}`}
+              <Link
+                href="/projects"
                 className="inline-flex items-center gap-2 px-8 py-3.5 border border-black text-black text-xs font-serif font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-all"
               >
-                <Phone className="w-4 h-4" />
-                <span>HOTLINE: {siteConfig.phone1}</span>
-              </a>
+                <span>XEM BỘ SƯU TẬP DỰ ÁN</span>
+              </Link>
             </motion.div>
           </div>
         </motion.div>

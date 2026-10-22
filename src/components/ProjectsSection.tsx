@@ -223,7 +223,7 @@ export default function ProjectsSection() {
               {/* Desktop CTA Button: pinned inside sticky sidebar */}
               <div className="hidden lg:block pt-2 sm:pt-4">
                 <motion.a
-                  href="/du-an"
+                  href="/projects"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 shadow hover:shadow-lg active:translate-y-0"
@@ -257,7 +257,7 @@ export default function ProjectsSection() {
                     }`}
                   >
                     <Link
-                      href={`/du-an/${item.id}`}
+                      href={`/projects/${item.id}`}
                       className="group relative aspect-[3/2] w-full block overflow-hidden cursor-pointer"
                     >
                       {/* Real D2 Luxury Design Photo from public/projects/ */}
@@ -296,7 +296,7 @@ export default function ProjectsSection() {
                 {showAllMobile ? "Thu gọn dự án" : "Xem thêm dự án (+8)"}
               </button>
               <Link
-                href="/du-an"
+                href="/projects"
                 className="w-full sm:w-auto text-center px-8 py-3.5 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase font-semibold transition-all shadow hover:shadow-lg active:scale-[0.98]"
               >
                 XEM TOÀN BỘ DỰ ÁN

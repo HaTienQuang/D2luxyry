@@ -75,27 +75,27 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             </h4>
             <ul className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-700 font-light">
               <li>
-                <Link href="/gioi-thieu" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/about" className="hover:text-black hover:font-normal transition-colors">
                   Giới thiệu
                 </Link>
               </li>
               <li>
-                <Link href="/gioi-thieu#sec-doi-ngu" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/about#sec-doi-ngu" className="hover:text-black hover:font-normal transition-colors">
                   Đội ngũ kiến trúc sư
                 </Link>
               </li>
               <li>
-                <Link href="/du-an" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/projects" className="hover:text-black hover:font-normal transition-colors">
                   Dự án thực tế
                 </Link>
               </li>
               <li>
-                <Link href="/gioi-thieu#sec-quy-trinh" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/about#sec-quy-trinh" className="hover:text-black hover:font-normal transition-colors">
                   Quy trình làm việc
                 </Link>
               </li>
               <li>
-                <Link href="/gioi-thieu#sec-danh-gia" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/about#sec-danh-gia" className="hover:text-black hover:font-normal transition-colors">
                   Khách hàng đánh giá
                 </Link>
               </li>
@@ -109,27 +109,27 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
             </h4>
             <ul className="space-y-2 text-xs sm:text-[13px] font-serif text-neutral-700 font-light">
               <li>
-                <Link href="/thiet-ke-noi-that" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/interior" className="hover:text-black hover:font-normal transition-colors">
                   Thiết kế nội thất cao cấp
                 </Link>
               </li>
               <li>
-                <Link href="/thi-cong-xay-dung" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/construction" className="hover:text-black hover:font-normal transition-colors">
                   Thi công nội thất trọn gói
                 </Link>
               </li>
               <li>
-                <Link href="/thiet-ke-noi-that" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/interior" className="hover:text-black hover:font-normal transition-colors">
                   Sản xuất nội thất theo yêu cầu
                 </Link>
               </li>
               <li>
-                <Link href="/thi-cong-xay-dung" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/construction" className="hover:text-black hover:font-normal transition-colors">
                   Cải tạo và nâng cấp không gian
                 </Link>
               </li>
               <li>
-                <Link href="/lien-he" className="hover:text-black hover:font-normal transition-colors">
+                <Link href="/contact" className="hover:text-black hover:font-normal transition-colors">
                   Tư vấn phong thủy nhà ở
                 </Link>
               </li>
@@ -240,13 +240,13 @@ export default function Footer({ onOpenZalo }: FooterProps = {}) {
         {/* Sub-footer: Centered service links & copyright */}
         <div className="text-center space-y-2">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] sm:text-xs font-serif uppercase tracking-[0.2em] font-medium text-neutral-700">
-            <Link href="/thi-cong-xay-dung" className="hover:text-black transition-colors">
+            <Link href="/construction" className="hover:text-black transition-colors">
               THI CÔNG XÂY DỰNG
             </Link>
-            <Link href="/thiet-ke-kien-truc" className="hover:text-black transition-colors">
+            <Link href="/architecture" className="hover:text-black transition-colors">
               THIẾT KẾ KIẾN TRÚC
             </Link>
-            <Link href="/thiet-ke-noi-that" className="hover:text-black transition-colors">
+            <Link href="/interior" className="hover:text-black transition-colors">
               THIẾT KẾ NỘI THẤT
             </Link>
             <button

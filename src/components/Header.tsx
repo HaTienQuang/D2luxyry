@@ -154,7 +154,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 onMouseEnter={() => handleMouseEnter("Dự án")}
               >
                 <Link
-                  href="/du-an"
+                  href="/projects"
                   className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
                     activeMenu === "Dự án"
                       ? "text-luxury-gold bg-black/[0.04]"
@@ -190,7 +190,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                               {group.projects.map((p, pIdx) => (
                                 <li key={pIdx}>
                                   <Link
-                                    href={`/du-an/${p.slug}`}
+                                    href={`/projects/${p.slug}`}
                                     onClick={closeMenu}
                                     className="text-[12px] font-serif text-neutral-700 hover:text-luxury-gold hover:translate-x-0.5 transition-all block line-clamp-1 py-0.5"
                                   >
@@ -206,7 +206,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                       <div className="mt-5 pt-3 border-t border-[#eae3d9] flex items-center justify-between text-xs font-serif">
                         <span className="text-neutral-500 italic">Hơn 1.000+ công trình thực tế và bản vẽ 3D</span>
                         <Link
-                          href="/du-an"
+                          href="/projects"
                           onClick={closeMenu}
                           className="font-bold text-black hover:text-luxury-gold inline-flex items-center gap-1 uppercase tracking-wider"
                         >
@@ -225,7 +225,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                 onMouseEnter={() => handleMouseEnter("Giới thiệu")}
               >
                 <Link
-                  href="/gioi-thieu"
+                  href="/about"
                   className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center gap-1 ${
                     activeMenu === "Giới thiệu"
                       ? "text-luxury-gold bg-black/[0.04]"
@@ -252,17 +252,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                     >
                       <ul className="space-y-2 text-xs font-serif">
                         <li>
-                          <Link href="/gioi-thieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/about" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Về D2 Luxury Design
                           </Link>
                         </li>
                         <li>
-                          <Link href="/gioi-thieu#sec-trietly" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/about#sec-trietly" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Triết lý thiết kế
                           </Link>
                         </li>
                         <li>
-                          <Link href="/gioi-thieu#sec-nangluc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/about#sec-nangluc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Năng lực 2 phân xưởng
                           </Link>
                         </li>
@@ -305,17 +305,17 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                     >
                       <ul className="space-y-2 text-xs font-serif">
                         <li>
-                          <Link href="/thiet-ke-kien-truc" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/architecture" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Thiết kế Kiến trúc
                           </Link>
                         </li>
                         <li>
-                          <Link href="/thiet-ke-noi-that" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/interior" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Thiết kế Nội thất
                           </Link>
                         </li>
                         <li>
-                          <Link href="/thi-cong-xay-dung" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
+                          <Link href="/construction" onClick={closeMenu} className="hover:text-luxury-gold block py-1">
                             Thi công Xây dựng Trọn gói
                           </Link>
                         </li>
@@ -397,7 +397,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
 
               {/* LIÊN HỆ */}
               <Link
-                href="/lien-he"
+                href="/contact"
                 onClick={closeMenu}
                 onMouseEnter={() => handleMouseEnter("Liên hệ")}
                 className={`transition-all duration-200 px-3 py-1.5 rounded relative group inline-flex items-center ${
@@ -435,12 +435,12 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
           >
             {[
               { label: "Trang chủ", href: "/" },
-              { label: "Dự án", href: "/du-an" },
-              { label: "Giới thiệu", href: "/gioi-thieu" },
+              { label: "Dự án", href: "/projects" },
+              { label: "Giới thiệu", href: "/about" },
               { label: "Dịch vụ", href: "/#sec-dichvu" },
               { label: "Thương hiệu", href: "/#sec-thuonghieu" },
               { label: "AI Studio", href: "/#sec-thietke3d" },
-              { label: "Liên hệ", href: "/lien-he" },
+              { label: "Liên hệ", href: "/contact" },
             ].map((item) => (
               <Link
                 key={item.href}

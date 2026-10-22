@@ -123,7 +123,7 @@ export default function ProjectDetailView({ project }: ProjectDetailViewProps) {
               className="mb-8"
             >
               <Link
-                href="/du-an"
+                href="/projects"
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-neutral-500 hover:text-black transition-colors mb-6 group"
               >
                 <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />

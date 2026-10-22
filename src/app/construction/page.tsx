@@ -8,16 +8,19 @@ import Footer from "@/components/Footer";
 import FloatingWidgets from "@/components/FloatingWidgets";
 import ZaloModal from "@/components/ZaloModal";
 import { siteConfig } from "@/data/siteData";
-import { ArrowRight, CheckCircle2, Gem, Lamp, Phone, Sparkles, Trees } from "lucide-react";
+import { ArrowRight, CheckCircle2, Hammer, HardHat, Phone, ShieldCheck, Warehouse } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function InteriorDesignServicePage() {
+export default function ConstructionServicePage() {
   const [isZaloModalOpen, setIsZaloModalOpen] = useState(false);
 
-  const spaces = [
-    { title: "PHÒNG KHÁCH THƯỢNG LƯU", desc: "Không gian tiếp khách sang trọng, kết hợp sofa da bò Ý, gỗ óc chó tự nhiên và đá xuyên sáng onyx cao cấp.", img: "/projects/thiet-ke-villa-vinhomes-ocean-park/main.jpg" },
-    { title: "PHÒNG BẾP & BÀN ĂN ẤM CÚNG", desc: "Trái tim của ngôi nhà với tủ bếp công thái học, thiết bị âm hiện đại và bàn ăn nguyên tấm gỗ quý.", img: "/consultation/consultation-interior.webp" },
-    { title: "PHÒNG NGỦ MASTER BIỆT LẬP", desc: "Không gian nghỉ ngơi yên tĩnh chuẩn resort 5 sao với phòng thay đồ walk-in closet và phòng tắm kính panorama.", img: "/projects/thiet-ke-penthouse-indochina/main.jpg" },
+  const constructionSteps = [
+    { step: "01", title: "Khảo sát & Lập biện pháp thi công", desc: "Đo đạc hiện trạng địa chất, lập hồ sơ biện pháp thi công và tiến độ chi tiết từng giai đoạn." },
+    { step: "02", title: "Thi công kết cấu phần thô", desc: "Ép cọc, đào móng, đổ bê tông cốt thép móng, dầm, sàn cột theo đúng tiêu chuẩn kỹ thuật nghiêm ngặt." },
+    { step: "03", title: "Thi công xây tô & Chống thấm", desc: "Xây tường ngăn, trát phẳng mác cao, thi công chống thấm nhiều lớp bằng vật liệu cao cấp." },
+    { step: "04", title: "Lắp đặt hệ thống cơ điện (M&E)", desc: "Đi âm ống luồn dây điện, hệ thống cấp thoát nước, điều hòa âm trần và mạng thông minh." },
+    { step: "05", title: "Hoàn thiện ốp lát & Sơn nước", desc: "Ốp lát đá tự nhiên/gạch khổ lớn chuẩn milimet, sơn nước cao cấp bóng mịn và trần thạch cao giật cấp." },
+    { step: "06", title: "Nghiệm thu & Bàn giao chìa khóa", desc: "Kiểm tra toàn diện, vệ sinh công nghiệp và bàn giao chìa khóa trao tay kèm biên bản bảo hành dài hạn." },
   ];
 
   return (
@@ -26,11 +29,11 @@ export default function InteriorDesignServicePage() {
 
       {/* Hero Banner matching synchronized style */}
       <section className="relative w-full h-[52vh] min-h-[460px] sm:min-h-[500px] flex items-center justify-center overflow-hidden">
-        {/* Luxury interior with natural illumination */}
+        {/* Construction site image with natural illumination */}
         <div className="absolute inset-0">
           <Image
-            src="/hero/luxury-interior.jpg"
-            alt="Thiết kế nội thất D2 Luxury Design"
+            src="/projects/cong-trinh-thuc-te-tai-tp-hcm/main.jpg"
+            alt="Thi công xây dựng D2 Luxury Design"
             fill
             className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
             priority
@@ -47,11 +50,11 @@ export default function InteriorDesignServicePage() {
           className="relative z-10 max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-24 pb-8 flex flex-col items-center"
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold uppercase tracking-[0.2em] text-white drop-shadow-md leading-tight">
-            THIẾT KẾ NỘI THẤT
+            THI CÔNG XÂY DỰNG
           </h1>
           <div className="w-20 sm:w-28 h-[2px] bg-white/80 mx-auto mt-4 mb-5" />
           <p className="max-w-2xl sm:max-w-3xl mx-auto text-xs sm:text-[13px] md:text-[14px] font-serif uppercase tracking-[0.08em] text-white/95 leading-relaxed font-normal drop-shadow">
-            THIẾT KẾ NỘI THẤT MAY ĐO ĐỘC BẢN CHO BIỆT THỰ, DINH THỰ, PENTHOUSE & CĂN HỘ CAO CẤP VỚI VẬT LIỆU GỖ TỰ NHIÊN QUÝ HIẾM.
+            TỔNG THẦU THI CÔNG XÂY DỰNG TRỌN GÓI BIỆT THỰ, DINH THỰ, NHÀ PHỐ CAO CẤP VỚI HƠN 14 NĂM KINH NGHIỆM VÀ TIÊU CHUẨN KỸ THUẬT HÀNG ĐẦU.
           </p>
 
           {/* Circular Scroll Down Button matching Roll.svg */}
@@ -63,7 +66,7 @@ export default function InteriorDesignServicePage() {
             <a
               href="#content"
               className="inline-flex items-center justify-center opacity-85 hover:opacity-100 transition-opacity"
-              aria-label="Cuộn xuống nội dung thiết kế nội thất"
+              aria-label="Cuộn xuống nội dung thi công"
             >
               <Image
                 src="/Roll.svg"
@@ -77,7 +80,7 @@ export default function InteriorDesignServicePage() {
         </motion.div>
       </section>
 
-      {/* Concept Section */}
+      {/* Overview Section */}
       <section id="content" className="py-16 sm:py-24 bg-white text-black border-b border-[#eae3d9] scroll-mt-20">
         <div className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -90,39 +93,39 @@ export default function InteriorDesignServicePage() {
             >
               <div>
                 <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
-                  CHẾ TÁC NỘI THẤT MAY ĐO
+                  CHUẨN MỰC CHẤT LƯỢNG
                 </span>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black leading-tight">
-                  TÔN VINH ĐẲNG CẤP VÀ PHONG CÁCH SỐNG GIA CHỦ
+                  MỖI CÔNG TRÌNH LÀ MỘT TUYỆT TÁC TRƯỜNG TỒN
                 </h2>
                 <div className="w-20 h-[1.5px] bg-black mt-3 mb-6" />
               </div>
 
               <div className="text-sm sm:text-[15.5px] text-neutral-700 font-serif leading-[1.9] font-light space-y-4">
                 <p>
-                  Nội thất là linh hồn phản ánh chân thực nhất gu thẩm mỹ và tính cách của gia chủ. Mỗi đường cong của ghế sofa, mỗi vân gỗ trên mặt bàn hay ánh sáng vàng ấm từ chụp đèn đều được D2 Luxury Design tính toán tỉ mỉ để tạo nên bản giao hưởng không gian ấm áp, tinh tế và đầy xúc cảm.
+                  Thi công xây dựng là khâu hiện thực hóa những ý tưởng từ trang bản vẽ thành công trình thực tế vững chắc. D2 Luxury Design sở hữu đội ngũ hơn 200 thợ tay nghề cao, 20 kỹ sư giám sát và chỉ huy trưởng giàu kinh nghiệm, đảm bảo an toàn lao động, tiến độ và chất lượng kết cấu bền vững hàng chục năm.
                 </p>
                 <p>
-                  Với ưu thế sở hữu 2 phân xưởng sản xuất 4200m2 và nguồn gỗ tự nhiên quý (Óc chó Bắc Mỹ, Gõ đỏ Pachy, Hương đá...), D2 Luxury Design tự tin mang lại giải pháp hoàn thiện nội thất chuẩn mực, đồng bộ từ bản vẽ 3D đến thực tế lắp đặt tại nhà.
+                  Chúng tôi cam kết sử dụng vật liệu xây dựng chính hãng loại 1, quy trình quản lý chất lượng nghiêm ngặt và đồng hành cùng gia chủ từ khi đặt viên gạch đầu tiên đến khi bàn giao công trình hoàn thiện.
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 pt-2 text-xs sm:text-sm font-serif">
                 <div className="flex items-center gap-2">
-                  <Trees className="w-4 h-4 text-luxury-gold" />
-                  <span>100% Gỗ tự nhiên tuyển chọn</span>
+                  <ShieldCheck className="w-4 h-4 text-luxury-gold" />
+                  <span>Bảo hành kết cấu 10 năm</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Gem className="w-4 h-4 text-luxury-gold" />
-                  <span>Chế tác thủ công tinh xảo</span>
+                  <HardHat className="w-4 h-4 text-luxury-gold" />
+                  <span>Giám sát 24/7 tại công trường</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Lamp className="w-4 h-4 text-luxury-gold" />
-                  <span>Thiết kế ánh sáng nghệ thuật</span>
+                  <Warehouse className="w-4 h-4 text-luxury-gold" />
+                  <span>Vật tư chuẩn mác chính hãng</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-luxury-gold" />
-                  <span>Đồng bộ 98% so với 3D</span>
+                  <Hammer className="w-4 h-4 text-luxury-gold" />
+                  <span>Cam kết đúng tiến độ 100%</span>
                 </div>
               </div>
             </motion.div>
@@ -136,8 +139,8 @@ export default function InteriorDesignServicePage() {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden shadow-2xl bg-neutral-100">
                 <Image
-                  src="/projects/can-ho-3-phong-ngu-vinhomes-westpoint/main.jpg"
-                  alt="Nội thất căn hộ cao cấp D2 Luxury Design"
+                  src="/projects/thi-cong-thuc-te-tai-villa-vinhomes-ocean-park/photo-1.gif"
+                  alt="Thi công thực tế D2 Luxury Design"
                   fill
                   className="object-cover"
                 />
@@ -147,7 +150,7 @@ export default function InteriorDesignServicePage() {
         </div>
       </section>
 
-      {/* Spaces Showcase */}
+      {/* Process Section */}
       <section className="py-16 sm:py-24 bg-[#f4f0ec] text-black border-b border-[#eae3d9]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -158,48 +161,41 @@ export default function InteriorDesignServicePage() {
             className="text-center max-w-2xl mx-auto mb-14"
           >
             <span className="text-luxury-gold text-xs uppercase tracking-[0.25em] font-sans font-semibold block mb-2">
-              KHÔNG GIAN TIÊU BIỂU
+              QUY TRÌNH CHUẨN MỰC
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-              CÁC KHÔNG GIAN NỘI THẤT NỔI BẬT
+              QUY TRÌNH 6 BƯỚC THI CÔNG XÂY DỰNG
             </h2>
             <div className="w-24 h-[1.5px] bg-black mx-auto mt-3" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {spaces.map((space, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {constructionSteps.map((item, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.12 }}
-                whileHover={{ y: -8 }}
-                className="bg-white border border-[#ded8ce] overflow-hidden group hover:shadow-2xl transition-all duration-500"
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="bg-white border border-[#ded8ce] p-8 space-y-4 shadow-sm hover:shadow-xl transition-all duration-300"
               >
-                <div className="relative aspect-[16/11] w-full overflow-hidden bg-black/5">
-                  <Image
-                    src={space.img}
-                    alt={space.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 sm:p-8 space-y-3">
-                  <h3 className="text-lg font-serif font-bold uppercase tracking-wider text-black group-hover:text-luxury-gold transition-colors">
-                    {space.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-serif text-neutral-600 leading-relaxed font-light">
-                    {space.desc}
-                  </p>
-                </div>
+                <span className="text-3xl font-serif font-bold text-luxury-gold block">
+                  {item.step}
+                </span>
+                <h3 className="text-lg font-serif font-bold uppercase tracking-wider text-black">
+                  {item.title}
+                </h3>
+                <p className="text-xs sm:text-sm font-serif text-neutral-600 leading-relaxed font-light">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA Section */}
       <section className="py-16 sm:py-20 bg-[#f4f0ec] text-black text-center border-t border-[#ded8ce]">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -209,10 +205,10 @@ export default function InteriorDesignServicePage() {
           className="max-w-3xl mx-auto px-4 space-y-5"
         >
           <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-            SỞ HỮU KHÔNG GIAN NỘI THẤT ĐỘC BẢN
+            BẮT ĐẦU DỰ ÁN CÙNG D2 LUXURY DESIGN
           </h2>
           <p className="text-sm font-serif text-neutral-600 font-light">
-            Đăng ký lịch tư vấn để cùng kiến trúc sư D2 Luxury Design lên ý tưởng thiết kế nội thất hoàn hảo cho ngôi nhà của bạn.
+            Liên hệ để nhận dự toán chi tiết và phương án thi công tối ưu cho ngôi nhà của bạn.
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -220,7 +216,7 @@ export default function InteriorDesignServicePage() {
                 href="/#sec-tuvan"
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-black text-white text-xs font-serif font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-all shadow-md"
               >
-                <span>TƯ VẤN THIẾT KẾ NỘI THẤT</span>
+                <span>NHẬN BÁO GIÁ THI CÔNG</span>
                 <ArrowRight className="w-4 h-4 text-luxury-gold" />
               </Link>
             </motion.div>

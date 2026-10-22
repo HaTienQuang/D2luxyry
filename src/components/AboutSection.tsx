@@ -54,7 +54,7 @@ export default function AboutSection() {
 
             <div className="pt-2 sm:pt-4">
               <motion.a
-                href="/gioi-thieu"
+                href="/about"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-block px-9 sm:px-11 py-3.5 sm:py-4 bg-black hover:bg-[#1a1a1a] text-white text-xs sm:text-[13.5px] font-serif tracking-[0.22em] uppercase font-semibold transition-all duration-300 hover:shadow-lg active:translate-y-0"
