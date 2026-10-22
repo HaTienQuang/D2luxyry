@@ -91,12 +91,26 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
     >
       <div id="sec-ai-concept" className="absolute -top-24" />
 
+      {/* Background Watermark 05 (So5.svg) - Visible on desktop, hidden on mobile */}
+      <div
+        className="hidden sm:block absolute top-1 sm:top-2 left-0 sm:left-4 lg:left-8 w-[170px] sm:w-[220px] lg:w-[270px] h-[140px] sm:h-[180px] lg:h-[220px] opacity-70 pointer-events-none select-none z-0"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/So5.svg"
+          alt="Watermark 05 AI Concept"
+          fill
+          className="object-contain object-left-top"
+          priority
+        />
+      </div>
+
       <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-black text-white text-[10.5px] sm:text-[11px] font-sans tracking-[0.22em] uppercase font-medium shadow-sm mb-3 sm:mb-4">
+        <div className="mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-[11px] font-sans tracking-[0.25em] uppercase font-medium mb-3">
             <Sparkles className="w-3.5 h-3.5 text-luxury-gold" />
-            <span>AI STUDIO</span>
+            AI STUDIO
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-serif font-bold uppercase tracking-wider text-black leading-[1.25]">
