@@ -94,7 +94,7 @@ export default function ZaloModal({ isOpen, onClose }: ZaloModalProps) {
                   D2 LUXURY DESIGN
                 </p>
                 <p className="text-xs text-neutral-400 mt-0.5">
-                  Hotline / Zalo: {siteConfig.phone1}
+                  Hotline / Zalo: {siteConfig.hotlineFormatted}
                 </p>
               </div>
             </div>

@@ -115,7 +115,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
 
               {/* Tooltip on top */}
               <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/90 text-luxury-gold text-[11px] font-sans rounded shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
-                Gọi ngay: {siteConfig.phone1}
+                Gọi ngay: {siteConfig.phone1Contact} – {siteConfig.phone2}
               </span>
             </motion.a>
 

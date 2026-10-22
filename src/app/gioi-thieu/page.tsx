@@ -237,7 +237,7 @@ export default function AboutPage() {
               NĂNG LỰC SẢN XUẤT TRỰC TIẾP
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold uppercase tracking-wider text-black">
-              2 PHÂN XƯỞNG SẢN XUẤT 4200M² & ĐỘI NGŨ THỰC THI
+              HỆ THỐNG 3 XƯỞNG SẢN XUẤT QUY MÔ & ĐỘI NGŨ THỰC THI
             </h2>
             <div className="w-24 h-[1.5px] bg-black mx-auto mt-3 mb-5" />
             <p className="text-sm sm:text-base text-neutral-600 font-serif font-light leading-relaxed">
@@ -246,7 +246,7 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Card 1: 2 Xưởng 4200m2 */}
+            {/* Card 1: 3 Xưởng sản xuất */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -259,10 +259,10 @@ export default function AboutPage() {
                 <Factory className="w-6 h-6 text-luxury-gold" />
               </div>
               <h3 className="text-xl font-serif font-bold uppercase tracking-wider text-black">
-                2 XƯỞNG QUY MÔ 4200M²
+                3 XƯỞNG SẢN XUẤT QUY MÔ
               </h3>
               <p className="text-sm font-serif text-neutral-700 leading-relaxed font-light">
-                Sở hữu hai phân xưởng lớn tại TP. Hồ Chí Minh (Nguyễn Văn Cự, Quận Bình Tân) và Bình Thuận (Thị Trấn Tân Nghĩa, Hàm Tân). Trang bị đầy đủ máy móc CNC, máy dán cạnh tự động và phòng sơn sấy áp suất âm hiện đại.
+                Sở hữu hệ thống 3 phân xưởng sản xuất tại Hà Nội (Nhà thờ Cần Kiệm, Hạ Bằng), TP. Hồ Chí Minh (80C đường Gò Cát, P. Long Trường) và Phú Quốc (Khu phố 10, Dương Đông, Đặc khu Phú Quốc). Trang bị đầy đủ máy móc CNC, máy dán cạnh tự động và phòng sơn sấy áp suất âm hiện đại.
               </p>
             </motion.div>
 

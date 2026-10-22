@@ -98,7 +98,7 @@ export default function ConsultationSection({ onOpenZalo, onOpenConsultation }: 
                 href={`tel:${siteConfig.hotline}`}
                 className="w-full text-center py-3 sm:py-3.5 px-6 bg-[#ede9e3] hover:bg-black text-[#222] hover:text-white border border-[#ded8ce] hover:border-black rounded-full text-xs sm:text-[13px] font-serif tracking-[0.2em] uppercase transition-colors font-medium shadow-sm hover:shadow"
               >
-                HOTLINE: {siteConfig.phone1}
+                HOTLINE: {siteConfig.phone1} – {siteConfig.phone2}
               </motion.a>
             </div>
           </motion.div>

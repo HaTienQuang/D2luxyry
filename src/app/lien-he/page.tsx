@@ -129,18 +129,8 @@ export default function ContactPage() {
                     <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Trụ Sở Chính (TP.HCM)</h4>
-                    <p className="text-neutral-600 font-light mt-1">{siteConfig.addressHCMC}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#faf8f5] border border-[#ded8ce] flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-black" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Chi Nhánh Miền Bắc (Hà Nội)</h4>
-                    <p className="text-neutral-600 font-light mt-1">{siteConfig.addressHanoi}</p>
+                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Văn Phòng Tại Tp Hà Nội</h4>
+                    <p className="text-neutral-600 font-light mt-1">{siteConfig.officeHanoi}</p>
                   </div>
                 </div>
 
@@ -149,9 +139,16 @@ export default function ContactPage() {
                     <Warehouse className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Hệ Thống 2 Xưởng Sản Xuất</h4>
-                    <p className="text-neutral-600 font-light mt-1">Xưởng 1: {siteConfig.workshop1}</p>
-                    <p className="text-neutral-600 font-light mt-0.5">Xưởng 2: {siteConfig.workshop2}</p>
+                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Hệ Thống 3 Xưởng Sản Xuất</h4>
+                    <p className="text-neutral-600 font-light mt-1">
+                      <span className="font-semibold text-neutral-900">➢ Xưởng Hà Nội:</span> {siteConfig.workshopHanoi}
+                    </p>
+                    <p className="text-neutral-600 font-light mt-1">
+                      <span className="font-semibold text-neutral-900">➢ Xưởng Tp HCM:</span> {siteConfig.workshopHCMC}
+                    </p>
+                    <p className="text-neutral-600 font-light mt-1">
+                      <span className="font-semibold text-neutral-900">➢ Xưởng Phú Quốc:</span> {siteConfig.workshopPhuQuoc}
+                    </p>
                   </div>
                 </div>
 
@@ -160,13 +157,13 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Hotline & Zalo Hỗ Trợ</h4>
-                    <p className="text-neutral-600 font-light mt-1">
-                      <a href={`tel:${siteConfig.phone1}`} className="hover:text-black font-semibold text-black">
-                        {siteConfig.phone1}
-                      </a>{" "}
-                      &bull;{" "}
-                      <a href={`tel:${siteConfig.phone2}`} className="hover:text-black font-semibold text-black">
+                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Hotline & Zalo Hỗ Trợ 24/7</h4>
+                    <p className="text-neutral-600 font-light mt-1 flex flex-wrap items-center gap-2">
+                      <a href={`tel:${siteConfig.hotline}`} className="hover:text-luxury-gold font-bold text-black transition-colors">
+                        {siteConfig.phone1Contact}
+                      </a>
+                      <span>–</span>
+                      <a href={`tel:${siteConfig.hotline2}`} className="hover:text-luxury-gold font-bold text-black transition-colors">
                         {siteConfig.phone2}
                       </a>
                     </p>
@@ -178,10 +175,18 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Hòm Thư Điện Tử</h4>
+                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Email & Website Chính Thức</h4>
                     <p className="text-neutral-600 font-light mt-1">
-                      <a href={`mailto:${siteConfig.email}`} className="hover:text-black">
+                      <a href={`mailto:${siteConfig.email}`} className="hover:text-luxury-gold transition-colors block">
                         {siteConfig.email}
+                      </a>
+                      <a
+                        href={siteConfig.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-luxury-gold transition-colors font-semibold text-black mt-0.5 block"
+                      >
+                        {siteConfig.domain}
                       </a>
                     </p>
                   </div>
@@ -192,8 +197,18 @@ export default function ContactPage() {
                     <Clock className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Thời Gian Làm Việc</h4>
+                    <h4 className="font-bold uppercase tracking-wider text-black text-xs sm:text-sm">Thời Gian Làm Việc & Kênh Xã Hội</h4>
                     <p className="text-neutral-600 font-light mt-1">Thứ 2 - Thứ 7: 08:00 - 18:30 (Chủ nhật theo lịch hẹn)</p>
+                    <div className="mt-2">
+                      <a
+                        href={siteConfig.facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#1877F2] font-semibold hover:underline"
+                      >
+                        <span>Fanpage Facebook: D2 Luxury Design</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

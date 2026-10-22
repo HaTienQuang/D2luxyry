@@ -81,7 +81,7 @@ export default function FloatingWidgets({ onOpenConsultation }: FloatingWidgetsP
 
         {/* Tooltip on hover */}
         <span className="absolute right-14 px-3 py-1.5 bg-black/90 text-white text-xs font-serif whitespace-nowrap rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-          Hotline: {siteConfig.phone1}
+          Hotline: {siteConfig.phone1} – {siteConfig.phone2}
         </span>
       </motion.a>
 

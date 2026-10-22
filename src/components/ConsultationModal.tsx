@@ -147,7 +147,7 @@ export default function ConsultationModal({ isOpen, onClose, defaultProject = ""
                 href={`tel:${siteConfig.hotline}`}
                 className="px-6 py-3 bg-[#8a522a] text-white rounded-xl text-xs font-semibold tracking-wider uppercase hover:bg-[#74421d] transition-colors"
               >
-                Gọi Hotline Ngay ({siteConfig.phone1})
+                Gọi Hotline Ngay ({siteConfig.phone1} – {siteConfig.phone2})
               </a>
               <button
                 onClick={handleReset}

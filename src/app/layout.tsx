@@ -17,10 +17,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://d2luxury.vn"),
+  metadataBase: new URL("https://d2luxurydesign.com"),
   title: "D2 Luxury Design - Đơn Vị Thiết Kế Và Thi Công Kiến Trúc & Nội Thất Trọn Gói",
   description: "Từ năm 2012, D2 Luxury Design là đơn vị thiết kế kiến trúc, nội thất & thi công trọn gói phân khúc cao cấp, sở hữu xưởng quy mô lớn và hàng trăm nhân sự lành nghề.",
-  keywords: "thiết kế nội thất, thi công nội thất biệt thự, kiến trúc tân cổ điển, d2 luxury design, d2 luxury, villa ecopark, vinhomes, penthouse",
+  keywords: "thiết kế nội thất, thi công nội thất biệt thự, kiến trúc tân cổ điển, d2 luxury design, d2luxurydesign.com, villa ecopark, vinhomes, penthouse",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "D2 Luxury Design - Thiết Kế & Thi Công Nội Thất Biệt Thự Cao Cấp",
     description: "Đơn vị thiết kế và thi công nội ngoại thất phân khúc cao cấp với đa dạng phong cách thiết kế.",
+    url: "https://d2luxurydesign.com",
+    siteName: "D2 Luxury Design",
     images: ["/hero/main.jpg"],
   }
 };
