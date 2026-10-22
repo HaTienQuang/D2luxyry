@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, X, ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { siteConfig } from "@/data/siteData";
 
 interface HeaderProps {
   onOpenZalo?: () => void;
@@ -362,9 +363,16 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                           </Link>
                         </li>
                         <li>
-                          <Link href="/#sec-thuonghieu" onClick={closeMenu} className="hover:text-luxury-gold block py-1 font-medium">
-                            D2 Luxury Design (Nội thất gỗ tự nhiên)
-                          </Link>
+                          <a
+                            href={siteConfig.woodFurnitureUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={closeMenu}
+                            className="hover:text-luxury-gold py-1 font-medium flex items-center justify-between group/link"
+                          >
+                            <span>D2 Luxury Design (Nội thất gỗ tự nhiên)</span>
+                            <span className="text-[11px] opacity-70 group-hover/link:opacity-100">↗</span>
+                          </a>
                         </li>
                       </ul>
                     </motion.div>

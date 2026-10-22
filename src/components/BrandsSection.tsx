@@ -91,19 +91,18 @@ export default function BrandsSection({ onOpenZalo }: BrandsSectionProps = {}) {
             whileHover={{ y: -8 }}
           >
             <a
-              href={siteConfig.zaloUrl}
+              href={siteConfig.woodFurnitureUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onOpenZalo ? (e) => { e.preventDefault(); onOpenZalo(); } : undefined}
-              className="group block h-full bg-[#faf8f5] border border-[#ded8ce] p-8 sm:p-12 hover:border-[#4a2e18]/40 hover:shadow-2xl transition-all duration-500 text-center"
+              className="group block h-full bg-[#faf8f5] border border-[#ded8ce] p-8 sm:p-12 hover:border-[#4a2e18]/40 hover:shadow-2xl transition-all duration-500 text-center cursor-pointer"
             >
               {/* Logo Presentation Box */}
-              <div className="relative w-full aspect-[16/11] max-w-[340px] mx-auto bg-white border border-[#eae3d9] p-6 sm:p-8 flex items-center justify-center group-hover:shadow-md transition-all duration-500">
+              <div className="relative w-full aspect-[16/11] max-w-[340px] mx-auto bg-white border border-[#eae3d9] p-4 sm:p-6 flex items-center justify-center group-hover:shadow-md transition-all duration-500 overflow-hidden">
                 <Image
                   src="/brand/logo-go-tunhien.png"
                   alt="D2 Luxury Design - Nội thất gỗ tự nhiên"
                   fill
-                  className="object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                  className="object-contain p-2 sm:p-3 transition-transform duration-700 group-hover:scale-105"
                   priority
                 />
               </div>
@@ -116,6 +115,12 @@ export default function BrandsSection({ onOpenZalo }: BrandsSectionProps = {}) {
                 <p className="text-xs sm:text-[13px] font-serif uppercase tracking-[0.22em] text-neutral-600 font-medium">
                   NỘI THẤT GỖ TỰ NHIÊN
                 </p>
+                <div className="pt-2">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-serif text-[#8a522a] group-hover:underline">
+                    <span>Truy cập noithatd2luxurydesign.com</span>
+                    <span className="text-sm">↗</span>
+                  </span>
+                </div>
               </div>
             </a>
           </motion.div>

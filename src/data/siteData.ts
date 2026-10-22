@@ -44,6 +44,7 @@ export const siteConfig = {
   name: "D2 Luxury Design",
   domain: "d2luxurydesign.com",
   siteUrl: "https://d2luxurydesign.com",
+  woodFurnitureUrl: "https://noithatd2luxurydesign.com",
   brandSubtitle: "Kiến tạo không gian sống thượng lưu",
   tagline: "Đơn Vị Thiết Kế Và Thi Công Nội Thất Trọn Gói",
   established: 2012,
