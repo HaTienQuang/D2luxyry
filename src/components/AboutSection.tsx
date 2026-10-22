@@ -11,8 +11,8 @@ export default function AboutSection() {
       id="sec-gioithieu"
       className="relative w-full py-16 sm:py-24 bg-white text-black overflow-hidden border-t border-[#eae3d9]"
     >
-      {/* Background Watermark 02 (So1.svg) with unified sizing & positioning */}
-      <div className="absolute top-2 left-0 sm:left-4 w-[420px] sm:w-[520px] lg:w-[560px] h-[400px] sm:h-[500px] lg:h-[540px] opacity-85 pointer-events-none select-none z-0">
+      {/* Background Watermark 02 (So1.svg) refined sizing to prevent clipping & overflow */}
+      <div className="absolute top-1 sm:top-2 left-0 sm:left-4 lg:left-8 w-[170px] sm:w-[220px] lg:w-[270px] h-[140px] sm:h-[180px] lg:h-[220px] opacity-70 pointer-events-none select-none z-0">
         <Image
           src="/decor/So1.svg"
           alt="Watermark 02 D2 Luxury"

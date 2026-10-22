@@ -187,9 +187,9 @@ export default function ProjectsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Anchored Watermark 01 (So3.svg) and Title */}
           <div className="lg:col-span-4 relative lg:sticky lg:top-24">
-            {/* Watermark 01 (So3.svg) with unified sizing & styling */}
+            {/* Watermark 01 (So3.svg) refined sizing to prevent clipping & oversized display */}
             <div
-              className="absolute -top-16 sm:-top-20 lg:-top-24 -left-6 sm:-left-8 lg:-left-10 w-[420px] sm:w-[520px] lg:w-[560px] h-[400px] sm:h-[500px] lg:h-[540px] opacity-85 pointer-events-none select-none z-0"
+              className="absolute -top-8 sm:-top-10 lg:-top-12 -left-2 sm:-left-4 lg:-left-6 w-[200px] sm:w-[260px] lg:w-[300px] h-[160px] sm:h-[210px] lg:h-[250px] opacity-75 pointer-events-none select-none z-0"
               aria-hidden="true"
             >
               <Image
@@ -201,8 +201,8 @@ export default function ProjectsSection() {
               />
             </div>
 
-            {/* Left Content positioned below numeral 01 and diagonal line */}
-            <div className="relative z-10 pt-[165px] sm:pt-[195px] lg:pt-[220px] space-y-6">
+            {/* Left Content positioned below numeral 01 */}
+            <div className="relative z-10 pt-[100px] sm:pt-[120px] lg:pt-[140px] space-y-6">
               <div>
                 <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold uppercase tracking-wider text-black leading-[1.15]">
                   DỰ ÁN CỦA<br />D2 LUXURY
