@@ -12,6 +12,8 @@ html {
   scroll-behavior: smooth;
   color: #1a1a1a;
   background-color: #f4f0ec;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {

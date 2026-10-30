@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Search, X, ChevronDown, ArrowRight, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/data/siteData";
 
@@ -54,6 +54,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -107,7 +108,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-1 shrink-0">
-              <div className="relative h-13 sm:h-16 lg:h-20 w-48 sm:w-64 lg:w-80 flex items-center transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-10 sm:h-14 lg:h-20 w-36 sm:w-56 lg:w-80 flex items-center transition-transform duration-300 group-hover:scale-105">
                 {/* Dark Logo (displayed on solid background) */}
                 <Image
                   src="/logo.png"
@@ -411,11 +412,11 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               </Link>
             </nav>
 
-            {/* Right: Search Toggle */}
-            <div className="flex items-center shrink-0">
+            {/* Right: Search Toggle & Mobile Hamburger Menu */}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               <button
                 onClick={() => setSearchOpen(true)}
-                className={`p-2.5 rounded-full transition-all duration-200 ${
+                className={`p-2 sm:p-2.5 rounded-full transition-all duration-200 ${
                   isSolid
                     ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
                     : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
@@ -424,40 +425,118 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
               >
                 <Search className="w-5 sm:w-6 h-5 sm:h-6 stroke-[1.8]" />
               </button>
+
+              {/* Hamburger Menu Toggle (Mobile & Tablet) */}
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className={`lg:hidden p-2 rounded-lg transition-all duration-200 ${
+                  isSolid
+                    ? "text-neutral-900 hover:text-luxury-gold hover:bg-black/[0.04]"
+                    : "text-white drop-shadow hover:text-luxury-gold hover:bg-white/[0.12]"
+                }`}
+                aria-label="Mở menu điều hướng"
+              >
+                <Menu className="w-6 h-6 stroke-[2]" />
+              </button>
             </div>
           </div>
-
-          {/* Mobile Navigation Strip */}
-          <nav
-            className={`lg:hidden flex items-center overflow-x-auto no-scrollbar gap-2 pt-2 pb-1 border-t transition-colors ${
-              isSolid ? "border-black/10" : "border-white/10"
-            } text-[12.5px] sm:text-[13.5px] font-serif uppercase tracking-wider font-medium whitespace-nowrap`}
-          >
-            {[
-              { label: "Trang chủ", href: "/" },
-              { label: "Dự án", href: "/projects" },
-              { label: "Giới thiệu", href: "/about" },
-              { label: "Dịch vụ", href: "/#sec-dichvu" },
-              { label: "Thương hiệu", href: "/#sec-thuonghieu" },
-              { label: "AI Studio", href: "/#sec-thietke3d" },
-              { label: "Liên hệ", href: "/contact" },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={closeMenu}
-                className={`transition-all shrink-0 px-2.5 py-1 rounded ${
-                  isSolid
-                    ? "text-neutral-800 hover:text-luxury-gold hover:bg-black/[0.04]"
-                    : "text-white hover:text-luxury-gold hover:bg-white/[0.12]"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
         </div>
       </header>
+
+      {/* Mobile Navigation Drawer (Sleek Luxury Slide-Over) */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
+            {/* Dark Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            {/* Slide-in Drawer Container */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              className="relative z-10 w-[85%] max-w-[360px] h-full bg-[#fbf9f6] text-black shadow-2xl flex flex-col justify-between overflow-y-auto border-l border-[#ded8ce]"
+            >
+              {/* Drawer Top Header */}
+              <div>
+                <div className="flex items-center justify-between p-4 sm:p-5 border-b border-[#eae3d9]">
+                  <div className="relative h-9 w-32">
+                    <Image
+                      src="/logo.png"
+                      alt="D2 Luxury Design"
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 rounded-full text-neutral-600 hover:text-black hover:bg-black/5 transition-colors"
+                    aria-label="Đóng menu"
+                  >
+                    <X className="w-6 h-6 stroke-[1.8]" />
+                  </button>
+                </div>
+
+                {/* Navigation Links */}
+                <nav className="p-4 sm:p-5 space-y-1">
+                  {[
+                    { label: "Trang chủ", href: "/" },
+                    { label: "Dự án thực tế", href: "/projects" },
+                    { label: "Giới thiệu công ty", href: "/about" },
+                    { label: "Thiết kế kiến trúc", href: "/architecture" },
+                    { label: "Thiết kế nội thất", href: "/interior" },
+                    { label: "Thi công xây dựng", href: "/construction" },
+                    { label: "Thương hiệu gỗ tự nhiên", href: "/#sec-thuonghieu" },
+                    { label: "AI Studio 3D", href: "/#sec-thietke3d" },
+                    { label: "Liên hệ tư vấn", href: "/contact" },
+                  ].map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between py-3 px-3 rounded-lg text-xs sm:text-sm font-serif font-semibold uppercase tracking-wider text-neutral-800 hover:text-luxury-gold hover:bg-black/[0.03] transition-colors border-b border-black/[0.04]"
+                    >
+                      <span>{item.label}</span>
+                      <ArrowRight className="w-3.5 h-3.5 opacity-40 text-neutral-500" />
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Drawer Footer with Quick Contact */}
+              <div className="p-4 sm:p-5 border-t border-[#eae3d9] bg-white/70 space-y-3">
+                <div className="text-[11px] font-serif text-neutral-500 uppercase tracking-widest font-semibold">
+                  Hotline tư vấn 24/7
+                </div>
+                <div className="flex flex-col gap-2">
+                  <a
+                    href={`tel:${siteConfig.hotline}`}
+                    className="flex items-center justify-center gap-2 py-3 px-4 bg-black text-white text-xs font-serif tracking-widest uppercase font-semibold rounded shadow hover:bg-neutral-800 transition-colors"
+                  >
+                    <span>GỌI {siteConfig.phone1}</span>
+                  </a>
+                  <a
+                    href={siteConfig.zaloUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-2.5 px-4 bg-[#0068ff] text-white text-xs font-serif tracking-widest uppercase font-semibold rounded shadow hover:bg-[#0055d4] transition-colors"
+                  >
+                    <span>CHAT ZALO NGAY</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Search Modal */}
       <AnimatePresence>
