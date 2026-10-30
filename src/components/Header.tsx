@@ -597,75 +597,47 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
 
                 <button
                   onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-                  className="px-3 py-1.5 text-xs font-serif uppercase tracking-widest text-neutral-600 hover:text-black hover:bg-black/5 rounded transition-colors font-semibold shrink-0"
+                  className="p-2 text-neutral-500 hover:text-black hover:bg-black/5 rounded-full transition-colors shrink-0 flex items-center justify-center"
+                  aria-label="Đóng tìm kiếm"
                 >
-                  Đóng [✕]
+                  <X className="w-5 h-5 stroke-[2]" />
                 </button>
               </div>
 
               {/* Search Results / Suggestions Content */}
               <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5">
-                {/* When Query is Empty: Show popular suggestion tags */}
+                {/* When Query is Empty: Show Featured Projects directly */}
                 {searchQuery.trim() === "" ? (
-                  <div className="space-y-4">
-                    <div>
-                      <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-500 block mb-2.5">
-                        Gợi ý tìm kiếm phổ biến
-                      </span>
-                      <div className="flex flex-wrap gap-2 text-xs font-serif">
-                        {[
-                          "Grand Island Ecopark",
-                          "Vinhomes Ocean Park",
-                          "Tam Đảo",
-                          "Indochine",
-                          "Penthouse",
-                          "Tân Cổ Điển",
-                          "Biệt Thự Đảo",
-                          "Hiện Đại",
-                        ].map((tag) => (
-                          <button
-                            key={tag}
-                            type="button"
-                            onClick={() => setSearchQuery(tag)}
-                            className="px-3 py-1.5 bg-white border border-[#ded8ce] hover:border-black hover:text-luxury-gold text-neutral-800 transition-all rounded-full shadow-sm text-xs font-medium"
-                          >
-                            {tag}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-3 border-t border-[#eae3d9]">
-                      <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-500 block mb-2.5">
-                        Dự án tiêu biểu
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {allArchiveProjects.slice(0, 4).map((p) => (
-                          <Link
-                            key={p.id}
-                            href={`/projects/${p.slug}`}
-                            onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-                            className="flex items-center gap-3 p-2 bg-white border border-[#eae3d9] hover:border-black/40 hover:shadow-md transition-all group"
-                          >
-                            <div className="relative w-14 h-11 bg-neutral-200 overflow-hidden shrink-0">
-                              <Image
-                                src={p.mainImage}
-                                alt={p.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform"
-                              />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-xs font-serif font-semibold text-black uppercase tracking-wider truncate group-hover:text-luxury-gold transition-colors">
-                                {p.title}
-                              </h4>
-                              <p className="text-[11px] text-neutral-500 font-sans truncate mt-0.5">
-                                {p.categoryLabel}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                  <div>
+                    <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-500 block mb-3">
+                      Dự án tiêu biểu
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {allArchiveProjects.slice(0, 6).map((p) => (
+                        <Link
+                          key={p.id}
+                          href={`/projects/${p.slug}`}
+                          onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                          className="flex items-center gap-3 p-2 bg-white border border-[#eae3d9] hover:border-black/40 hover:shadow-md transition-all group rounded-sm"
+                        >
+                          <div className="relative w-16 h-12 bg-neutral-200 overflow-hidden shrink-0 rounded-sm">
+                            <Image
+                              src={p.mainImage}
+                              alt={p.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-xs font-serif font-semibold text-black uppercase tracking-wider truncate group-hover:text-luxury-gold transition-colors">
+                              {p.title}
+                            </h4>
+                            <p className="text-[11px] text-neutral-500 font-sans truncate mt-0.5">
+                              {p.categoryLabel}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 ) : (
