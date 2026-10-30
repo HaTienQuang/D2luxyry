@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Search, X, ChevronDown, ArrowRight, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/data/siteData";
+import { allArchiveProjects } from "@/data/allProjects";
 
 interface HeaderProps {
   onOpenZalo?: () => void;
@@ -55,6 +56,19 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Live real-time project search filtering
+  const filteredProjects = searchQuery.trim()
+    ? allArchiveProjects.filter((p) => {
+        const q = searchQuery.toLowerCase().trim();
+        return (
+          p.title.toLowerCase().includes(q) ||
+          p.categoryLabel.toLowerCase().includes(q) ||
+          p.location.toLowerCase().includes(q) ||
+          p.style.toLowerCase().includes(q)
+        );
+      }).slice(0, 6)
+    : [];
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -108,7 +122,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <Link href="/" onClick={closeMenu} className="inline-flex items-center group py-1 shrink-0">
-              <div className="relative h-10 sm:h-14 lg:h-20 w-36 sm:w-56 lg:w-80 flex items-center transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-12 sm:h-16 lg:h-20 w-44 sm:w-60 lg:w-80 flex items-center transition-transform duration-300 group-hover:scale-105">
                 {/* Dark Logo (displayed on solid background) */}
                 <Image
                   src="/logo.png"
@@ -119,12 +133,12 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
                   }`}
                   priority
                 />
-                {/* White Logo (displayed on dark/transparent hero background) */}
+                {/* White Logo (displayed on dark/transparent hero background - sharp without blurry glow) */}
                 <Image
                   src="/logo-white.png"
                   alt="D2 Luxury Design"
                   fill
-                  className={`object-contain object-left drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] drop-shadow-[0_0_18px_rgba(255,255,255,0.45)] brightness-110 transition-opacity duration-300 ${
+                  className={`object-contain object-left drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)] transition-opacity duration-300 ${
                     isSolid ? "opacity-0 pointer-events-none" : "opacity-100"
                   }`}
                   priority
@@ -538,7 +552,7 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
         )}
       </AnimatePresence>
 
-      {/* Search Modal */}
+      {/* Real-time Project Search Modal & Fullscreen Mobile View */}
       <AnimatePresence>
         {searchOpen && (
           <motion.div
@@ -546,51 +560,184 @@ export default function Header({ onOpenZalo }: HeaderProps = {}) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/75 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-start justify-center bg-black/80 backdrop-blur-md sm:p-4 sm:pt-20"
           >
-            <div className="absolute inset-0" onClick={() => setSearchOpen(false)} />
+            {/* Backdrop click to close on desktop */}
+            <div className="hidden sm:block absolute inset-0" onClick={() => { setSearchOpen(false); setSearchQuery(""); }} />
+
             <motion.div
-              initial={{ opacity: 0, y: -25, scale: 0.98 }}
+              initial={{ opacity: 0, y: -20, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="relative z-10 w-full max-w-xl bg-white text-black p-6 shadow-2xl border border-gray-200"
+              transition={{ type: "spring", damping: 28, stiffness: 300 }}
+              className="relative z-10 w-full h-full sm:h-auto sm:max-h-[85vh] sm:max-w-2xl bg-[#fbf9f6] text-black shadow-2xl border-0 sm:border sm:border-[#ded8ce] flex flex-col overflow-hidden"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-gray-200">
-                <span className="text-xs uppercase tracking-widest font-semibold text-gray-500">
-                  Tìm kiếm dự án & phong cách
-                </span>
+              {/* Search Header Bar */}
+              <div className="p-4 sm:p-5 border-b border-[#eae3d9] bg-white flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 flex-1">
+                  <Search className="w-5 h-5 text-luxury-gold shrink-0" />
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Tìm dự án, villa, penthouse, phong cách..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full py-1 bg-transparent text-sm sm:text-base font-serif text-black placeholder:text-neutral-400 focus:outline-none"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="p-1 rounded-full text-neutral-400 hover:text-black hover:bg-neutral-100 transition-colors"
+                      aria-label="Xóa từ khóa"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
                 <button
-                  onClick={() => setSearchOpen(false)}
-                  className="p-1 text-gray-400 hover:text-black"
-                  aria-label="Đóng tìm kiếm"
+                  onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                  className="px-3 py-1.5 text-xs font-serif uppercase tracking-widest text-neutral-600 hover:text-black hover:bg-black/5 rounded transition-colors font-semibold shrink-0"
                 >
-                  <X className="w-5 h-5" />
+                  Đóng [✕]
                 </button>
               </div>
-              <div className="mt-4 flex items-center gap-3">
-                <Search className="w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  autoFocus
-                  placeholder="Nhập tên dự án (VD: Villa, Penthouse, Ecopark...)"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full py-2 bg-transparent text-sm focus:outline-none"
-                />
-              </div>
-              <div className="mt-6 pt-4 border-t border-gray-100 flex flex-wrap gap-2 text-xs text-gray-600">
-                <span className="text-gray-400">Gợi ý:</span>
-                {["Villa Thảo Điền", "Grand Island Ecopark", "Vinhomes Ocean Park", "Tam Đảo", "Metropolis"].map((tag) => (
-                  <a
-                    key={tag}
-                    href="#sec-duan"
-                    onClick={() => setSearchOpen(false)}
-                    className="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-black transition-colors"
-                  >
-                    {tag}
-                  </a>
-                ))}
+
+              {/* Search Results / Suggestions Content */}
+              <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5">
+                {/* When Query is Empty: Show popular suggestion tags */}
+                {searchQuery.trim() === "" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-500 block mb-2.5">
+                        Gợi ý tìm kiếm phổ biến
+                      </span>
+                      <div className="flex flex-wrap gap-2 text-xs font-serif">
+                        {[
+                          "Grand Island Ecopark",
+                          "Vinhomes Ocean Park",
+                          "Tam Đảo",
+                          "Indochine",
+                          "Penthouse",
+                          "Tân Cổ Điển",
+                          "Biệt Thự Đảo",
+                          "Hiện Đại",
+                        ].map((tag) => (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => setSearchQuery(tag)}
+                            className="px-3 py-1.5 bg-white border border-[#ded8ce] hover:border-black hover:text-luxury-gold text-neutral-800 transition-all rounded-full shadow-sm text-xs font-medium"
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-[#eae3d9]">
+                      <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-500 block mb-2.5">
+                        Dự án tiêu biểu
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {allArchiveProjects.slice(0, 4).map((p) => (
+                          <Link
+                            key={p.id}
+                            href={`/projects/${p.slug}`}
+                            onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                            className="flex items-center gap-3 p-2 bg-white border border-[#eae3d9] hover:border-black/40 hover:shadow-md transition-all group"
+                          >
+                            <div className="relative w-14 h-11 bg-neutral-200 overflow-hidden shrink-0">
+                              <Image
+                                src={p.mainImage}
+                                alt={p.title}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform"
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-xs font-serif font-semibold text-black uppercase tracking-wider truncate group-hover:text-luxury-gold transition-colors">
+                                {p.title}
+                              </h4>
+                              <p className="text-[11px] text-neutral-500 font-sans truncate mt-0.5">
+                                {p.categoryLabel}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* When Query is Typed: Show Live Filtered Results */
+                  <div>
+                    {filteredProjects.length > 0 ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between pb-1 border-b border-[#eae3d9]">
+                          <span className="text-[11px] uppercase tracking-widest font-serif font-bold text-neutral-600">
+                            Kết quả tìm kiếm ({filteredProjects.length})
+                          </span>
+                          <span className="text-[11px] text-neutral-500 font-serif italic">
+                            Từ khóa: &quot;{searchQuery}&quot;
+                          </span>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {filteredProjects.map((p) => (
+                            <Link
+                              key={p.id}
+                              href={`/projects/${p.slug}`}
+                              onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                              className="flex items-center gap-3 sm:gap-4 p-2.5 bg-white border border-[#ded8ce] hover:border-black/50 hover:shadow-lg transition-all group rounded-sm"
+                            >
+                              <div className="relative w-16 sm:w-20 h-12 sm:h-14 bg-neutral-200 overflow-hidden shrink-0">
+                                <Image
+                                  src={p.mainImage}
+                                  alt={p.title}
+                                  fill
+                                  className="object-cover group-hover:scale-108 transition-transform duration-500"
+                                />
+                              </div>
+                              <div className="min-w-0 flex-1 space-y-1">
+                                <h4 className="text-xs sm:text-[13.5px] font-serif font-bold text-black uppercase tracking-wider truncate group-hover:text-luxury-gold transition-colors">
+                                  {p.title}
+                                </h4>
+                                <div className="flex flex-wrap items-center gap-x-2 text-[11px] text-neutral-500 font-sans">
+                                  <span className="font-medium text-luxury-gold">{p.categoryLabel}</span>
+                                  <span>•</span>
+                                  <span>{p.location}</span>
+                                </div>
+                              </div>
+                              <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all shrink-0 mr-1" />
+                            </Link>
+                          ))}
+                        </div>
+
+                        <div className="pt-3 text-center">
+                          <Link
+                            href="/projects"
+                            onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                            className="text-xs font-serif uppercase tracking-widest font-semibold text-black hover:text-luxury-gold hover:underline inline-flex items-center gap-1.5"
+                          >
+                            <span>Xem tất cả hơn 1.000 dự án</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    ) : (
+                      /* No results state */
+                      <div className="py-8 sm:py-12 text-center space-y-3">
+                        <Search className="w-10 h-10 text-neutral-300 mx-auto" />
+                        <h4 className="text-sm font-serif font-bold text-black uppercase tracking-wider">
+                          Không tìm thấy dự án phù hợp
+                        </h4>
+                        <p className="text-xs font-serif text-neutral-500 max-w-sm mx-auto leading-relaxed">
+                          Không có kết quả nào cho &quot;<strong>{searchQuery}</strong>&quot;. Quý khách vui lòng thử tìm kiếm bằng từ khóa khác như <em>Villa</em>, <em>Ecopark</em>, <em>Penthouse</em> hoặc <em>Tam Đảo</em>.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
