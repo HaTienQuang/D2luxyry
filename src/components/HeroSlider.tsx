@@ -99,7 +99,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
               onClick={() => setIsHotlineRevealed(true)}
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="group relative inline-flex items-center justify-center min-w-[140px] sm:min-w-[180px] px-6 sm:px-8 py-3.5 sm:py-4 bg-black hover:bg-[#181818] text-white text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-black/60 border border-white/25 hover:border-luxury-gold whitespace-nowrap shrink-0 cursor-pointer"
+              className="group relative inline-flex items-center justify-center min-w-[130px] sm:min-w-[180px] px-4 sm:px-8 py-3 sm:py-4 bg-black hover:bg-[#181818] text-white text-[11.5px] sm:text-sm font-serif font-bold tracking-[0.14em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-black/60 border border-white/25 hover:border-luxury-gold whitespace-nowrap shrink-0 cursor-pointer"
               aria-label={`Hotline ${siteConfig.phone1}`}
             >
               <div className="flex items-center justify-center gap-2 transition-all duration-300">
@@ -114,7 +114,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
               </div>
 
               {/* Tooltip on top */}
-              <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/90 text-luxury-gold text-[11px] font-sans rounded shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
+              <span className="hidden sm:block absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/90 text-luxury-gold text-[11px] font-sans rounded shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
                 Gọi ngay: {siteConfig.phone1Contact} – {siteConfig.phone2}
               </span>
             </motion.a>
@@ -125,7 +125,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
               onClick={onOpenConsultation}
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center px-7 sm:px-9 py-3.5 sm:py-4 bg-luxury-gold hover:bg-luxury-goldLight text-black text-xs sm:text-sm font-serif font-bold tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-luxury-gold/40 whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center justify-center px-5 sm:px-9 py-3 sm:py-4 bg-luxury-gold hover:bg-luxury-goldLight text-black text-[11.5px] sm:text-sm font-serif font-bold tracking-[0.14em] sm:tracking-[0.18em] uppercase transition-all duration-300 shadow-xl hover:shadow-luxury-gold/40 whitespace-nowrap shrink-0 cursor-pointer"
             >
               NHẬN TƯ VẤN
             </motion.button>
@@ -134,7 +134,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
       </div>
 
       {/* Bottom Center Arch Scroll Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+      <div className="hidden sm:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex-col items-center">
         <button
           onClick={scrollToNextSection}
           className="group flex flex-col items-center cursor-pointer opacity-90 hover:opacity-100 transition-opacity p-2 animate-bounce-arch"
@@ -148,7 +148,7 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
       </div>
 
       {/* Slide dots */}
-      <div className="absolute bottom-6 right-6 sm:right-10 z-20 flex items-center gap-2">
+      <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-10 z-20 flex items-center gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
