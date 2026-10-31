@@ -4,9 +4,9 @@ const fallbackConcepts: string[] = [
   "/projects/d2-luxury-3d-sample.jpg",
   "/hero/luxury-interior.jpg",
   "/hero/main.jpg",
-  "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.gif",
-  "/projects/thiet-ke-villa-vinhomes-ocean-park/main.gif",
-  "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.gif",
+  "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.png",
+  "/projects/thiet-ke-villa-vinhomes-ocean-park/main.png",
+  "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
 ];
 
 function extractColors(text: string): { interior: string; exterior: string } {

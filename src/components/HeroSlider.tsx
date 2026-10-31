@@ -24,12 +24,12 @@ export default function HeroSlider({ onOpenConsultation }: HeroSliderProps = {})
     },
     {
       id: 3,
-      image: "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.gif",
+      image: "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.png",
       text: "ĐẲNG CẤP NỘI THẤT MAY ĐO ĐỘC BẢN",
     },
     {
       id: 4,
-      image: "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.gif",
+      image: "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
       text: "TINH HOA KIẾN TRÚC & NGHỆ THUẬT SỐNG",
     },
   ];

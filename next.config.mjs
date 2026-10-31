@@ -14,6 +14,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/projects/:path*.gif',
+        destination: '/projects/:path*.png',
+      },
+    ];
+  },
   async redirects() {
     return [
       { source: '/thiet-ke-kien-truc', destination: '/architecture', permanent: true },
