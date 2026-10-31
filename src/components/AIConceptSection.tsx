@@ -11,21 +11,21 @@ interface AIConceptSectionProps {
 }
 
 export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps = {}) {
-  // Direct, simplified customer requirements
-  const [area, setArea] = useState("");
+  // Focus purely on customer design requirements without artificial area constraint
+  const [designNeed, setDesignNeed] = useState("");
   const [colorRequirements, setColorRequirements] = useState("");
   const [designWishes, setDesignWishes] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
-  const [conceptImage, setConceptImage] = useState("/projects/d2-luxury-3d-sample.jpg");
+  const [conceptImage, setConceptImage] = useState("/projects/d2-luxury-3d-sample.png");
   const [conceptMeta, setConceptMeta] = useState<{
-    area: string;
+    spaceTitle: string;
     colorRequirements: string;
     isDemo: boolean;
     message?: string;
   }>({
-    area: "Không gian tiêu chuẩn",
+    spaceTitle: "Phối cảnh 3D Không gian",
     colorRequirements: "Tone màu Luxury sang trọng",
     isDemo: false,
   });
@@ -33,8 +33,8 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const loadingStepsText = [
-    "Khởi tạo cấu trúc hình học 3D theo diện tích...",
-    "Phối hợp ánh sáng raytracing, màu nội & ngoại thất...",
+    "Phân tích chuyên sâu nhu cầu không gian & công năng...",
+    "Phối hợp ánh sáng raytracing, vật liệu & tone màu...",
     "Hoàn thiện phối cảnh 3D độ phân giải cao...",
   ];
 
@@ -54,13 +54,13 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          area: area.trim() || "120m² không gian cao cấp",
+          designNeed: designNeed.trim() || "Phòng ngủ Master cao cấp",
           colorRequirements:
             colorRequirements.trim() ||
-            "Nội thất gỗ óc chó & đá tự nhiên, ngoại thất màu sáng hiện đại",
+            "Tone gỗ óc chó & đá tự nhiên, sang trọng",
           designWishes:
             designWishes.trim() ||
-            "Thiết kế không gian mở sang trọng, tinh tế, ánh sáng tự nhiên",
+            "Không gian mở sang trọng, tinh tế, tràn ngập ánh sáng tự nhiên",
         }),
       });
 
@@ -70,7 +70,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
       if (data.success && data.imageUrl) {
         setConceptImage(data.imageUrl);
         setConceptMeta({
-          area: data.area || area || "Không gian cao cấp",
+          spaceTitle: data.spaceTitle || designNeed || "Không gian cao cấp",
           colorRequirements: data.colorRequirements || colorRequirements || "Màu sắc Luxury",
           isDemo: data.isDemo,
           message: data.message,
@@ -118,7 +118,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
           </h2>
           <div className="w-20 sm:w-24 h-[1.5px] bg-black mt-3 sm:mt-4 mb-4" />
           <p className="text-sm sm:text-[15px] text-neutral-600 font-serif italic max-w-2xl leading-relaxed">
-            Nhập diện tích và yêu cầu về màu sắc nội ngoại thất mong muốn của bạn. Hệ thống D2 Luxury Design sẽ phác thảo bản vẽ phối cảnh 3D không gian trực quan dành riêng cho bạn.
+            Nhập nhu cầu thiết kế không gian, tone màu và phong cách mong muốn của bạn. Hệ thống AI Studio của D2 Luxury Design sẽ phân tích chuyên sâu các mô tả và kiến tạo bản vẽ phối cảnh 3D trực quan theo đúng mong muốn.
           </p>
         </div>
 
@@ -129,30 +129,30 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
             onSubmit={handleGenerate}
             className="lg:col-span-5 bg-white p-6 sm:p-7 border border-[#ded8ce] shadow-sm space-y-5"
           >
-            {/* Input 1: Diện tích không gian */}
+            {/* Input 1: Nhu cầu & không gian cần thiết kế */}
             <div>
               <label className="block text-xs font-serif uppercase tracking-[0.15em] text-black font-semibold mb-2">
-                1. Diện tích không gian cần thiết kế
+                1. Nhu cầu & Không gian cần thiết kế
               </label>
               <input
                 type="text"
-                value={area}
-                onChange={(e) => setArea(e.target.value)}
-                placeholder="Ví dụ: 120m², Biệt thự 350m², Căn hộ 90m² 3 phòng ngủ..."
+                value={designNeed}
+                onChange={(e) => setDesignNeed(e.target.value)}
+                placeholder="Ví dụ: Thiết kế phòng ngủ master khép kín, Phòng bếp & đảo bar, Phòng khách biệt thự, Phòng thờ gia tiên, Biệt thự sân vườn..."
                 className="w-full text-xs sm:text-[13px] font-sans px-4 py-3 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400"
               />
             </div>
 
-            {/* Input 2: Yêu cầu màu nội thất & ngoại thất */}
+            {/* Input 2: Yêu cầu màu sắc & chất liệu */}
             <div>
               <label className="block text-xs font-serif uppercase tracking-[0.15em] text-black font-semibold mb-2">
-                2. Yêu cầu về màu sắc nội thất & màu sắc ngoại thất
+                2. Yêu cầu về màu sắc & chất liệu
               </label>
               <input
                 type="text"
                 value={colorRequirements}
                 onChange={(e) => setColorRequirements(e.target.value)}
-                placeholder="Ví dụ: Nội thất tone gỗ óc chó & đá tự nhiên; Ngoại thất trắng sứ kết hợp đá xám khói..."
+                placeholder="Ví dụ: Tone xanh dương sang trọng, Gỗ óc chó & đá tự nhiên, Tone trắng kem & vàng champagne..."
                 className="w-full text-xs sm:text-[13px] font-sans px-4 py-3 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400"
               />
             </div>
@@ -160,12 +160,12 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
             {/* Input 3: Mô tả chi tiết mong muốn thiết kế */}
             <div>
               <label className="block text-xs font-serif uppercase tracking-[0.15em] text-black font-semibold mb-2">
-                3. Mong muốn thiết kế như thế nào
+                3. Chi tiết mong muốn thiết kế
               </label>
               <textarea
                 value={designWishes}
                 onChange={(e) => setDesignWishes(e.target.value)}
-                placeholder="Mô tả chi tiết mong muốn của bạn (Ví dụ: Không gian phòng khách mở tràn ngập ánh sáng, cửa sổ kính tràn viền view sân vườn, sofa cong bọc da cao cấp, trần cao thoáng đãng, đèn chùm pha lê hiện đại...)"
+                placeholder="Mô tả chi tiết mong muốn của bạn (Ví dụ: Không gian riêng tư khép kín, vách ốp đầu giường da cao cấp, cửa kính lớn đón nắng tự nhiên, đèn thả trang trí...)"
                 rows={4}
                 className="w-full text-xs sm:text-[13px] font-sans p-4 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400 leading-relaxed"
               />
@@ -198,7 +198,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
             </motion.button>
           </form>
 
-          {/* Right Column: 3D Visualization Preview - Expanded to 7 columns with widescreen aspect */}
+          {/* Right Column: 3D Visualization Preview */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-end w-full">
             <div className="relative w-full">
               {/* Offset Wireframe Outline (Signature D2 Luxury Design Frame) */}
@@ -209,7 +209,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
 
               {/* Main Preview Container */}
               <div className="relative z-10 bg-white border border-[#ded8ce] shadow-xl overflow-hidden group w-full">
-                {/* Image Display: Generous Aspect Ratio showing full spacious architecture */}
+                {/* Image Display */}
                 <div className="relative aspect-[16/10] w-full min-h-[360px] sm:min-h-[460px] lg:min-h-[500px] bg-neutral-900 overflow-hidden">
                   <div key={conceptImage} className="relative w-full h-full animate-smooth-crossfade">
                     <Image
@@ -255,8 +255,8 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                         GÓC RỘNG TOÀN CẢNH 16MM
                       </span>
                     </div>
-                    <span className="px-3 py-1 bg-luxury-gold text-black text-[10px] font-sans tracking-[0.15em] uppercase font-bold shadow-sm">
-                      {conceptMeta.area}
+                    <span className="px-3 py-1 bg-luxury-gold text-black text-[10px] font-sans tracking-[0.15em] uppercase font-bold shadow-sm max-w-[200px] truncate">
+                      {conceptMeta.spaceTitle}
                     </span>
                   </div>
 
@@ -272,7 +272,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                       </button>
                       <a
                         href={conceptImage}
-                        download="d2luxury-3d-concept.jpg"
+                        download="d2luxury-3d-concept.png"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-4 py-2 bg-black/90 hover:bg-black text-white text-xs font-serif tracking-wider uppercase flex items-center gap-2 rounded shadow"
@@ -286,12 +286,15 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                 {/* Concept Information Footer */}
                 <div className="p-5 bg-white border-t border-[#ded8ce] space-y-4">
                   <div className="space-y-1.5 text-xs font-serif">
-                    <div className="flex items-center justify-between">
-                      <div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="leading-relaxed">
+                        <span className="text-neutral-500">Không gian: </span>
+                        <strong className="text-black font-medium">{conceptMeta.spaceTitle}</strong>
+                        <span className="mx-2 text-neutral-300">|</span>
                         <span className="text-neutral-500">Màu sắc: </span>
                         <strong className="text-black font-medium">{conceptMeta.colorRequirements}</strong>
                       </div>
-                      <div className="flex items-center gap-1.5 text-emerald-700 text-[11px]">
+                      <div className="flex items-center gap-1.5 text-emerald-700 text-[11px] shrink-0">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Render 8K</span>
                       </div>
@@ -348,4 +351,3 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
     </section>
   );
 }
-
