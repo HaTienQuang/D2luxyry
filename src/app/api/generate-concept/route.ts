@@ -1,52 +1,230 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const fallbackConcepts: { [key: string]: string[] } = {
-  bedroom: [
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-10.png",
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-14.png",
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-15.png",
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-16.png",
-    "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-10.png",
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-10.png",
-    "/projects/thiet-ke-penthouse-indochina/photo-10.png",
-  ],
-  kitchen: [
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-6.png",
-    "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-6.png",
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-6.png",
-    "/projects/thiet-ke-penthouse-indochina/photo-5.png",
-  ],
-  bathroom: [
-    "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-8.png",
-    "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-8.png",
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-8.png",
-  ],
-  altar: [
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-12.png",
-    "/projects/thiet-ke-penthouse-indochina/photo-1.png",
-  ],
-  living: [
-    "/projects/d2-luxury-3d-sample.png",
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.png",
-    "/projects/thiet-ke-villa-vinhomes-ocean-park/main.png",
-    "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
-  ],
-  exterior: [
-    "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
-    "/projects/thiet-ke-vintage-villa-tai-tam-dao/photo-1.png",
-    "/projects/thiet-ke-vintage-villa-tai-tam-dao/photo-2.png",
-    "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-1.png",
-  ],
+// Comprehensive Room & Color Matrix for High-Resolution Visual Concepts
+const curatedConcepts: Record<string, Record<string, string[]>> = {
+  bedroom: {
+    blue: [
+      "/concepts/bedroom-blue.png",
+      "/projects/thiet-ke-chung-cu-tai-vinsmart-city/photo-10.png",
+      "/projects/thiet-ke-can-ho-vinsmart/photo-10.png",
+    ],
+    wood: [
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-14.png",
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-15.png",
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-16.png",
+      "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-10.png",
+      "/projects/thiet-ke-penthouse-indochina/photo-10.png",
+    ],
+    gold: [
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-10.png",
+      "/projects/thi-cong-thuc-te-villa-vinhomes-star-city/photo-15.png",
+      "/projects/thiet-ke-can-ho-tai-vinhomes-ocean-park-gia-lam-ha-noi/photo-14.png",
+    ],
+    green: [
+      "/projects/thiet-ke-biet-thu-tai-ecopark/photo-14.png",
+      "/projects/thiet-ke-can-ho-lien-ke-tai-khu-biet-thu-minh-tam-co-linh/photo-16.png",
+    ],
+    white: [
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-10.png",
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-16.png",
+    ],
+    dark: [
+      "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-10.png",
+    ],
+    default: [
+      "/concepts/bedroom-blue.png",
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-14.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-10.png",
+    ],
+  },
+  kitchen: {
+    blue: [
+      "/concepts/kitchen-blue.png",
+    ],
+    wood: [
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-6.png",
+      "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-6.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-6.png",
+      "/projects/thiet-ke-penthouse-indochina/photo-5.png",
+    ],
+    white: [
+      "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-6.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-6.png",
+    ],
+    default: [
+      "/concepts/kitchen-blue.png",
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-6.png",
+    ],
+  },
+  living: {
+    blue: [
+      "/concepts/living-blue.png",
+      "/projects/d2-luxury-3d-sample.png",
+      "/projects/thiet-ke-biet-thu-hien-dai-day-du-tien-ich-tai-phuc-tho-ha-noi/photo-19.png",
+    ],
+    wood: [
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.png",
+      "/projects/thiet-ke-villa-vinhomes-ocean-park/main.png",
+      "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
+    ],
+    gold: [
+      "/projects/d2-luxury-3d-sample.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/main.png",
+    ],
+    white: [
+      "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
+      "/projects/thiet-ke-villa-vinhomes-ocean-park/main.png",
+    ],
+    default: [
+      "/concepts/living-blue.png",
+      "/projects/d2-luxury-3d-sample.png",
+    ],
+  },
+  altar: {
+    wood: [
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-12.png",
+      "/projects/thiet-ke-penthouse-indochina/photo-1.png",
+    ],
+    default: [
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-12.png",
+      "/projects/thiet-ke-penthouse-indochina/photo-1.png",
+    ],
+  },
+  bathroom: {
+    white: [
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-8.png",
+      "/projects/thiet-ke-can-ho-du-an-brg-diamond/photo-8.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-8.png",
+    ],
+    default: [
+      "/projects/can-ho-3-phong-ngu-vinhomes-westpoint/photo-8.png",
+    ],
+  },
+  exterior: {
+    default: [
+      "/projects/thiet-ke-vintage-villa-tai-tam-dao/main.png",
+      "/projects/thiet-ke-vintage-villa-tai-tam-dao/photo-1.png",
+      "/projects/thiet-ke-vintage-villa-tai-tam-dao/photo-2.png",
+      "/projects/thiet-ke-villa-tai-grand-island-ecopark/photo-1.png",
+    ],
+  },
 };
+
+type ColorCategory = "blue" | "green" | "wood" | "gold" | "white" | "dark" | "pink" | "default";
+
+function detectColorFamily(text: string): ColorCategory {
+  const lower = (text || "").toLowerCase();
+
+  // 1. Blue detection - include common typos like "xanh dươnq" and broad blue terms
+  const isBlue =
+    lower.includes("dươnq") ||
+    lower.includes("dương") ||
+    lower.includes("duong") ||
+    lower.includes("navy") ||
+    lower.includes("sapphire") ||
+    lower.includes("cobalt") ||
+    lower.includes("xanh lam") ||
+    lower.includes("xanh biển") ||
+    lower.includes("xanh bien") ||
+    lower.includes("blue") ||
+    (lower.includes("xanh") &&
+      !lower.includes("lá") &&
+      !lower.includes("la") &&
+      !lower.includes("rêu") &&
+      !lower.includes("reu") &&
+      !lower.includes("ngọc") &&
+      !lower.includes("ngoc"));
+
+  if (isBlue) return "blue";
+
+  // 2. Green
+  if (
+    lower.includes("xanh lá") ||
+    lower.includes("xanh la") ||
+    lower.includes("xanh ngọc") ||
+    lower.includes("xanh ngoc") ||
+    lower.includes("rêu") ||
+    lower.includes("reu") ||
+    lower.includes("emerald") ||
+    lower.includes("sage") ||
+    lower.includes("green")
+  ) {
+    return "green";
+  }
+
+  // 3. Pink
+  if (lower.includes("hồng") || lower.includes("hong") || lower.includes("pink") || lower.includes("rose")) {
+    return "pink";
+  }
+
+  // 4. Wood / Walnut
+  if (
+    lower.includes("gỗ") ||
+    lower.includes("go") ||
+    lower.includes("óc chó") ||
+    lower.includes("oc cho") ||
+    lower.includes("walnut") ||
+    lower.includes("sồi") ||
+    lower.includes("soi") ||
+    lower.includes("nâu") ||
+    lower.includes("nau") ||
+    lower.includes("wood") ||
+    lower.includes("timber")
+  ) {
+    return "wood";
+  }
+
+  // 5. Gold / Champagne / Warm Yellow / Beige
+  if (
+    lower.includes("vàng") ||
+    lower.includes("vang") ||
+    lower.includes("gold") ||
+    lower.includes("champagne") ||
+    lower.includes("đồng") ||
+    lower.includes("dong") ||
+    lower.includes("brass") ||
+    lower.includes("kem") ||
+    lower.includes("be") ||
+    lower.includes("beige")
+  ) {
+    return "gold";
+  }
+
+  // 6. White / Marble
+  if (
+    lower.includes("trắng") ||
+    lower.includes("trang") ||
+    lower.includes("white") ||
+    lower.includes("ivory")
+  ) {
+    return "white";
+  }
+
+  // 7. Dark / Black / Charcoal
+  if (
+    lower.includes("đen") ||
+    lower.includes("den") ||
+    lower.includes("black") ||
+    lower.includes("xám") ||
+    lower.includes("xam") ||
+    lower.includes("ghi") ||
+    lower.includes("charcoal")
+  ) {
+    return "dark";
+  }
+
+  return "default";
+}
 
 interface SemanticAnalysis {
   spaceCategory: "bedroom" | "kitchen" | "bathroom" | "altar" | "office" | "living" | "exterior";
   spaceTitleVi: string;
   spaceTitleEn: string;
+  colorFamily: ColorCategory;
+  colorPrompt: string;
   styleDescription: string;
   furniturePrompt: string;
   customFeatures: string;
-  colorMaterialsPrompt: string;
   focalGuidance: string;
 }
 
@@ -56,6 +234,7 @@ function analyzeCustomerPrompt(
   designWishes: string
 ): SemanticAnalysis {
   const combined = `${designNeed} ${colorRequirements} ${designWishes}`.toLowerCase();
+  const colorFamily = detectColorFamily(`${colorRequirements} ${designWishes} ${designNeed}`);
 
   // 1. STYLE ANALYSIS
   let styleDescription = "contemporary ultra-luxury architectural design";
@@ -69,51 +248,34 @@ function analyzeCustomerPrompt(
     styleDescription = "sleek modern luxury architecture, clean crisp geometric lines, concealed flush details";
   }
 
-  // 2. COLOR & MATERIAL DEEP MAPPING
-  const colorFragments: string[] = [];
-  if (combined.includes("xanh dương") || combined.includes("xanh duong") || combined.includes("navy") || combined.includes("sapphire") || combined.includes("xanh lam")) {
-    colorFragments.push("luxurious deep navy blue and royal sapphire velvet upholstery with rich midnight accents");
+  // 2. COLOR PROMPT SPECIFICATION
+  let colorPrompt = "luxurious warm neutral palette with premium fabric textures and brushed metallic accents";
+  if (colorFamily === "blue") {
+    colorPrompt = "luxurious royal sapphire blue and deep midnight navy velvet upholstery with bespoke dark walnut accents";
+  } else if (colorFamily === "green") {
+    colorPrompt = "rich emerald green and refined sage velvet textures with natural dark wood finishes";
+  } else if (colorFamily === "wood") {
+    colorPrompt = "warm American dark walnut architectural timber paneling and fluted joinery";
+  } else if (colorFamily === "gold") {
+    colorPrompt = "warm champagne gold, brushed brass accents, and opulent warm beige cashmere upholstery";
+  } else if (colorFamily === "white") {
+    colorPrompt = "pristine alabaster white, bookmatched Calacatta marble, and warm cream boucle fabric";
+  } else if (colorFamily === "dark") {
+    colorPrompt = "bold matte black architectural metals, moody graphite stone, and smoked glass accents";
+  } else if (colorFamily === "pink") {
+    colorPrompt = "soft blush pink and dusty rose cashmere tones with warm brass trims";
   }
-  if (combined.includes("xanh ngọc") || combined.includes("teal")) {
-    colorFragments.push("deep ocean teal and emerald velvet accents");
-  }
-  if (combined.includes("xanh lá") || combined.includes("rêu") || combined.includes("sage")) {
-    colorFragments.push("refined olive sage green and botanical velvet textures");
-  }
-  if (combined.includes("hồng") || combined.includes("pink")) {
-    colorFragments.push("soft blush pink and dusty rose cashmere tones");
-  }
-  if (combined.includes("gỗ óc chó") || combined.includes("oc cho") || combined.includes("walnut")) {
-    colorFragments.push("warm American dark walnut architectural timber paneling and fluted joinery");
-  } else if (combined.includes("gỗ sồi") || combined.includes("gỗ") || combined.includes("wood")) {
-    colorFragments.push("natural warm timber woodwork and refined architectural joinery");
-  }
-  if (combined.includes("đá marble") || combined.includes("cẩm thạch") || combined.includes("marble") || combined.includes("đá tự nhiên")) {
-    colorFragments.push("bookmatched white Calacatta marble surfaces with delicate gold and grey veining");
-  }
-  if (combined.includes("vàng") || combined.includes("gold") || combined.includes("đồng") || combined.includes("brass")) {
-    colorFragments.push("brushed champagne gold metallic trims and warm brass architectural hardware");
-  }
-  if (combined.includes("đen") || combined.includes("black")) {
-    colorFragments.push("bold modern matte black metal trims and smoked glass accents");
-  }
-  if (combined.includes("trắng") || combined.includes("kem") || combined.includes("be") || combined.includes("ivory")) {
-    colorFragments.push("pristine warm ivory, cream boucle fabric, alabaster stone, and soft beige tones");
-  }
-  if (combined.includes("xám") || combined.includes("ghi") || combined.includes("charcoal")) {
-    colorFragments.push("tailored warm graphite gray and polished architectural stone textures");
-  }
-
-  const colorMaterialsPrompt =
-    colorFragments.length > 0
-      ? colorFragments.join(", ")
-      : "luxurious warm neutral palette with premium fabric textures, natural timber, and brushed metallic accents";
 
   // 3. ARCHITECTURAL & CUSTOM SPATIAL FEATURES
   const customFeaturesList: string[] = [];
   const isEnsuite = combined.includes("khép kín") || combined.includes("khep kin") || combined.includes("ensuite") || combined.includes("wc");
   if (isEnsuite) {
-    customFeaturesList.push("private self-contained master suite layout with an integrated en-suite luxury glass-partitioned bathroom");
+    customFeaturesList.push("private self-contained master suite layout with integrated en-suite luxury glass-partitioned bathroom");
+  }
+  if (combined.includes("vách ốp gỗ") || combined.includes("ốp gỗ") || combined.includes("vách gỗ") || combined.includes("lam gỗ")) {
+    customFeaturesList.push("bespoke vertical fluted natural dark walnut wood wall paneling behind the bed with integrated warm cove lighting");
+  } else if (combined.includes("vách ốp") || combined.includes("vách da")) {
+    customFeaturesList.push("bespoke upholstered accent wall paneling with brushed brass inlay trims");
   }
   if (combined.includes("thông tầng") || combined.includes("trần cao") || combined.includes("cao thoáng")) {
     customFeaturesList.push("dramatic soaring double-height ceilings with custom architectural chandelier");
@@ -124,16 +286,10 @@ function analyzeCustomerPrompt(
     customFeaturesList.push("expansive architectural floor-to-ceiling glass walls flooding the space with natural daylight");
   }
   if (combined.includes("đèn chùm") || combined.includes("đèn thả") || combined.includes("ánh sáng")) {
-    customFeaturesList.push("layered architectural indirect cove LED illumination and designer statement pendant lighting");
-  }
-  if (combined.includes("tủ rượu") || combined.includes("quầy rượu")) {
-    customFeaturesList.push("bespoke floor-to-ceiling temperature-controlled illuminated smoked-glass wine display cellar");
+    customFeaturesList.push("layered architectural indirect cove LED illumination and designer statement drop pendant lighting");
   }
   if (combined.includes("đảo bếp") || combined.includes("quầy bar")) {
     customFeaturesList.push("freestanding monolithic waterfall marble kitchen island paired with designer bar counter stools");
-  }
-  if (combined.includes("ban công") || combined.includes("logia")) {
-    customFeaturesList.push("sliding glass doors opening directly onto a scenic landscaped private balcony terrace");
   }
 
   const customFeatures =
@@ -141,8 +297,7 @@ function analyzeCustomerPrompt(
       ? customFeaturesList.join(". ")
       : "expansive architectural glass, layered cove ambient LED lighting, seamless bespoke finishes";
 
-  // 4. SPACE CATEGORY & FUNCTIONAL CORE
-  // Check Pure Exterior
+  // 4. SPACE CATEGORY & CORE
   const isExterior =
     (combined.includes("ngoại thất") || combined.includes("mặt tiền") || combined.includes("toàn cảnh villa") || combined.includes("kiến trúc ngoài")) &&
     !combined.includes("phòng ngủ") &&
@@ -154,15 +309,15 @@ function analyzeCustomerPrompt(
       spaceCategory: "exterior",
       spaceTitleVi: "Ngoại thất Biệt thự cao cấp",
       spaceTitleEn: "luxury modern architectural villa exterior",
+      colorFamily,
+      colorPrompt,
       styleDescription,
-      furniturePrompt: "Dramatic front elevation view of the luxury villa with geometric architectural facade, landscaped courtyard, outdoor swimming pool terrace, and illuminated water features",
+      furniturePrompt: "Dramatic front elevation view of the luxury villa with geometric architectural facade, landscaped courtyard, and outdoor swimming pool terrace",
       customFeatures,
-      colorMaterialsPrompt,
       focalGuidance: "Exterior architectural photograph. Cinematic dusk golden hour lighting. Octane render 8k.",
     };
   }
 
-  // Check Bedroom
   if (
     combined.includes("phòng ngủ") ||
     combined.includes("phong ngu") ||
@@ -176,15 +331,15 @@ function analyzeCustomerPrompt(
       spaceCategory: "bedroom",
       spaceTitleVi: "Phòng ngủ Master cao cấp",
       spaceTitleEn: "ultra-luxury master bedroom suite",
+      colorFamily,
+      colorPrompt,
       styleDescription,
-      furniturePrompt: `Centering on an imposing designer king-size bed with a bespoke architectural headboard upholstered in ${colorMaterialsPrompt}, layered with fine luxury linens and accent pillows. Floating matching nightstands with bedside pendant drop lights, bespoke fluted wall paneling, and an integrated walk-in wardrobe closet with smoked glass doors`,
+      furniturePrompt: `Centering on an imposing designer king-size bed with bespoke upholstered headboard in ${colorPrompt}, layered with fine luxury linens and accent pillows. Floating matching nightstands with bedside pendant drop lights, bespoke fluted wall paneling, and integrated walk-in wardrobe closet with smoked glass doors`,
       customFeatures,
-      colorMaterialsPrompt,
       focalGuidance: "FOCAL GUIDANCE: Camera is positioned inside the bedroom, focused directly on the luxury king-size bed, headboard, nightstands, and wardrobe sanctuary. STRICT NEGATIVE CONSTRAINTS: NO living room sofas, NO kitchen island or counters, NO dining tables, NO living salon setup.",
     };
   }
 
-  // Check Kitchen & Dining
   if (
     combined.includes("phòng bếp") ||
     combined.includes("phong bep") ||
@@ -193,7 +348,6 @@ function analyzeCustomerPrompt(
     combined.includes("bep") ||
     combined.includes("kitchen") ||
     combined.includes("bàn ăn") ||
-    combined.includes("ban an") ||
     combined.includes("tủ bếp") ||
     combined.includes("đảo bếp")
   ) {
@@ -201,15 +355,15 @@ function analyzeCustomerPrompt(
       spaceCategory: "kitchen",
       spaceTitleVi: "Phòng bếp & Bàn ăn sang trọng",
       spaceTitleEn: "contemporary luxury chef kitchen and dining room",
+      colorFamily,
+      colorPrompt,
       styleDescription,
-      furniturePrompt: `Dominated by a magnificent monolithic waterfall marble kitchen island with integrated cooktop and stylish designer bar stools finished in ${colorMaterialsPrompt}. Floor-to-ceiling seamless handleless cabinetry with warm natural wood accents, integrated chef-grade flush appliances, and an adjacent sculptural contemporary dining table with comfortable designer dining chairs`,
+      furniturePrompt: `Dominated by a magnificent monolithic waterfall marble kitchen island with integrated cooktop and stylish designer bar stools finished in ${colorPrompt}. Floor-to-ceiling seamless handleless cabinetry with warm natural wood accents, integrated chef-grade flush appliances, and adjacent sculptural contemporary dining table with designer chairs`,
       customFeatures,
-      colorMaterialsPrompt,
-      focalGuidance: "FOCAL GUIDANCE: Camera is positioned inside the kitchen looking directly at the marble kitchen island, cabinetry, and dining area. Pure culinary luxury. STRICT NEGATIVE CONSTRAINTS: NO living room sofas, NO coffee tables, NO beds, NO bedroom furniture in the frame.",
+      focalGuidance: "FOCAL GUIDANCE: Camera is positioned inside the kitchen looking directly at the marble kitchen island, cabinetry, and dining area. STRICT NEGATIVE CONSTRAINTS: NO living room sofas, NO coffee tables, NO beds in the frame.",
     };
   }
 
-  // Check Bathroom
   if (
     combined.includes("phòng tắm") ||
     combined.includes("phong tam") ||
@@ -222,15 +376,15 @@ function analyzeCustomerPrompt(
       spaceCategory: "bathroom",
       spaceTitleVi: "Phòng tắm Master phong cách Spa",
       spaceTitleEn: "spa-inspired luxury master ensuite bathroom",
+      colorFamily,
+      colorPrompt,
       styleDescription,
-      furniturePrompt: `Featuring a freestanding oval stone soaking bathtub, double floating marble vanity with backlit LED mirrors and brushed gold/brass fixtures, frameless walk-in rainfall shower with fluted glass screen, floor-to-ceiling large format porcelain slabs and warm slatted accents`,
+      furniturePrompt: `Featuring a freestanding oval stone soaking bathtub, double floating marble vanity with backlit LED mirrors and brushed gold/brass fixtures, frameless walk-in rainfall shower with fluted glass screen`,
       customFeatures,
-      colorMaterialsPrompt,
-      focalGuidance: "FOCAL GUIDANCE: Focused on the freestanding soaking tub, vanity mirrors, and luxury stone finishes. STRICT NEGATIVE CONSTRAINTS: NO sofas, NO beds, NO kitchen counters.",
+      focalGuidance: "FOCAL GUIDANCE: Focused on the freestanding soaking tub and vanity mirrors. STRICT NEGATIVE CONSTRAINTS: NO sofas, NO beds, NO kitchen counters.",
     };
   }
 
-  // Check Altar Room
   if (
     combined.includes("phòng thờ") ||
     combined.includes("phong tho") ||
@@ -242,43 +396,25 @@ function analyzeCustomerPrompt(
       spaceCategory: "altar",
       spaceTitleVi: "Phòng thờ gia tiên trang trọng",
       spaceTitleEn: "solemn contemporary Vietnamese ancestral altar room",
+      colorFamily,
+      colorPrompt,
       styleDescription,
       furniturePrompt: "Centered upon a bespoke handcrafted natural dark walnut wood ancestral altar table with refined traditional geometric lattice motifs, intricate wooden CNC partition screens, warm amber silk lanterns, and bronze incense vessels",
       customFeatures,
-      colorMaterialsPrompt,
       focalGuidance: "FOCAL GUIDANCE: Symmetrical, solemn, respectful view of the traditional altar table and wooden screens. STRICT NEGATIVE CONSTRAINTS: NO casual living room sofas, NO beds, NO kitchen counters.",
     };
   }
 
-  // Check Home Office / Study
-  if (
-    combined.includes("làm việc") ||
-    combined.includes("lam viec") ||
-    combined.includes("office") ||
-    combined.includes("thư viện") ||
-    combined.includes("đọc sách")
-  ) {
-    return {
-      spaceCategory: "office",
-      spaceTitleVi: "Phòng làm việc & Thư viện riêng",
-      spaceTitleEn: "prestigious executive home office and private library",
-      styleDescription,
-      furniturePrompt: `Anchored by an executive solid wood and leather desk, ergonomic designer chair in ${colorMaterialsPrompt}, full-height architectural bookshelves with vertical warm LED illumination, and a comfortable reading lounge chair`,
-      customFeatures,
-      colorMaterialsPrompt,
-      focalGuidance: "FOCAL GUIDANCE: Focused on the executive desk, library bookshelves, and private quiet workspace. STRICT NEGATIVE CONSTRAINTS: NO beds, NO kitchen counters.",
-    };
-  }
-
-  // Default: Grand Living Salon
+  // Default: Living Room
   return {
     spaceCategory: "living",
     spaceTitleVi: "Phòng khách sang trọng",
     spaceTitleEn: "spacious open-concept luxury living salon",
+    colorFamily,
+    colorPrompt,
     styleDescription,
-    furniturePrompt: `Featuring a prominent luxury designer modular sofa set in ${colorMaterialsPrompt}, sculptural marble and smoked glass coffee table on a plush custom area rug, bespoke low-profile media console, curated fine art pieces`,
+    furniturePrompt: `Featuring a prominent luxury designer modular sofa set in ${colorPrompt}, sculptural marble and smoked glass coffee table on a plush custom area rug, bespoke low-profile media console, curated fine art pieces`,
     customFeatures,
-    colorMaterialsPrompt,
     focalGuidance: "FOCAL GUIDANCE: Wide architectural interior view of the grand living salon and lounge area.",
   };
 }
@@ -288,22 +424,23 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
       designNeed = "",
-      area = "", // support backward compatibility
+      area = "",
       colorRequirements = "Tone màu trung tính, gỗ óc chó tự nhiên",
       designWishes = "Thiết kế không gian mở sang trọng, ánh sáng tự nhiên",
     } = body;
 
     const actualNeed = designNeed || area || "Phòng ngủ Master cao cấp";
 
-    // Deep semantic analysis of customer requirements
+    // Deep semantic analysis of space, features, and color family
     const analysis = analyzeCustomerPrompt(actualNeed, colorRequirements, designWishes);
 
-    const fullArchitecturalPrompt = `Architectural Digest professional interior photograph of a ${analysis.styleDescription} ${analysis.spaceTitleEn}. Key elements: ${analysis.furniturePrompt}. Spatial features: ${analysis.customFeatures}. Palette: ${analysis.colorMaterialsPrompt}. ${analysis.focalGuidance} Natural daylight, warm indirect cove LED illumination, photorealistic 8k, Octane render, Ray tracing, architectural masterpiece.`;
+    const fullArchitecturalPrompt = `Architectural Digest professional interior photograph of a ${analysis.styleDescription} ${analysis.spaceTitleEn}. Key elements: ${analysis.furniturePrompt}. Spatial features: ${analysis.customFeatures}. Color palette: ${analysis.colorPrompt}. ${analysis.focalGuidance} Natural daylight, warm indirect cove LED illumination, photorealistic 8k, Octane render, Ray tracing, architectural masterpiece.`;
 
     console.log(`[AI-Studio] Space Category: ${analysis.spaceCategory}`);
+    console.log(`[AI-Studio] Detected Color: ${analysis.colorFamily}`);
     console.log(`[AI-Studio] Space Title: ${analysis.spaceTitleVi}`);
-    console.log(`[AI-Studio] Generated Prompt: ${fullArchitecturalPrompt}`);
 
+    // Check external AI generation tunnel
     const apiKey =
       process.env.NINE_ROUTER_API_KEY ||
       process.env.OPENROUTER_API_KEY ||
@@ -321,7 +458,7 @@ export async function POST(req: NextRequest) {
     if (apiKey) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s timeout for fast response
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
 
         const response = await fetch(`${baseUrl.replace(/\/+$/, "")}/images/generations`, {
           method: "POST",
@@ -376,14 +513,21 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // High quality room-specific fallback matching the exact analyzed space
-    const list = fallbackConcepts[analysis.spaceCategory] || fallbackConcepts.bedroom;
-    const randomIndex = Math.floor(Math.random() * list.length);
-    const fallbackImage = list[randomIndex];
+    // High quality color-matched visual concept
+    const spaceGroup = curatedConcepts[analysis.spaceCategory] || curatedConcepts.bedroom;
+    const colorGroup =
+      spaceGroup[analysis.colorFamily] ||
+      spaceGroup.default ||
+      Object.values(spaceGroup)[0];
+
+    const randomIndex = Math.floor(Math.random() * colorGroup.length);
+    const selectedConceptImage = colorGroup[randomIndex];
+
+    console.log(`[AI-Studio] Selected matching concept: ${selectedConceptImage}`);
 
     return NextResponse.json({
       success: true,
-      imageUrl: fallbackImage,
+      imageUrl: selectedConceptImage,
       prompt: fullArchitecturalPrompt,
       spaceCategory: analysis.spaceCategory,
       spaceTitle: analysis.spaceTitleVi,
