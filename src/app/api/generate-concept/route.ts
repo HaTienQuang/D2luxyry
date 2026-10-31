@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { buildArchitecturalReport } from "@/data/architecturalReport";
 
 // Comprehensive Room & Color Matrix for High-Resolution Visual Concepts
 const curatedConcepts: Record<string, Record<string, string[]>> = {
@@ -434,6 +435,14 @@ export async function POST(req: NextRequest) {
     // Deep semantic analysis of space, features, and color family
     const analysis = analyzeCustomerPrompt(actualNeed, colorRequirements, designWishes);
 
+    const report = buildArchitecturalReport(
+      actualNeed,
+      colorRequirements,
+      designWishes,
+      analysis.spaceTitleVi,
+      analysis.colorFamily
+    );
+
     const fullArchitecturalPrompt = `Architectural Digest professional interior photograph of a ${analysis.styleDescription} ${analysis.spaceTitleEn}. Key elements: ${analysis.furniturePrompt}. Spatial features: ${analysis.customFeatures}. Color palette: ${analysis.colorPrompt}. ${analysis.focalGuidance} Natural daylight, warm indirect cove LED illumination, photorealistic 8k, Octane render, Ray tracing, architectural masterpiece.`;
 
     console.log(`[AI-Studio] Space Category: ${analysis.spaceCategory}`);
@@ -501,6 +510,7 @@ export async function POST(req: NextRequest) {
               spaceTitle: analysis.spaceTitleVi,
               colorRequirements,
               designWishes,
+              analysisReport: report,
               message: "Khởi tạo thành công qua AI Studio",
             });
           }
@@ -533,6 +543,7 @@ export async function POST(req: NextRequest) {
       spaceTitle: analysis.spaceTitleVi,
       colorRequirements,
       designWishes,
+      analysisReport: report,
       message: "AI Render 3D hoàn tất theo yêu cầu",
     });
   } catch (error: any) {

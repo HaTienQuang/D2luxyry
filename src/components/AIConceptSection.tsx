@@ -6,36 +6,54 @@ import { siteConfig } from "@/data/siteData";
 import { Sparkles, Maximize2, Download, ArrowRight, CheckCircle2, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 
+interface AnalysisReport {
+  overview: string;
+  ceiling: string;
+  wallsAndFurniture: string;
+  floorAndLighting: string;
+  architectAdvice: string;
+  tags: string[];
+}
+
 interface AIConceptSectionProps {
   onOpenZalo?: () => void;
 }
 
 export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps = {}) {
-  // Focus purely on customer design requirements without artificial area constraint
+  // Focus purely on customer design requirements
   const [designNeed, setDesignNeed] = useState("");
   const [colorRequirements, setColorRequirements] = useState("");
   const [designWishes, setDesignWishes] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
-  const [conceptImage, setConceptImage] = useState("/projects/d2-luxury-3d-sample.png");
+  const [conceptImage, setConceptImage] = useState("/concepts/bedroom-blue.png");
   const [conceptMeta, setConceptMeta] = useState<{
     spaceTitle: string;
     colorRequirements: string;
     isDemo: boolean;
     message?: string;
+    analysisReport?: AnalysisReport;
   }>({
-    spaceTitle: "Phối cảnh 3D Không gian",
-    colorRequirements: "Tone màu Luxury sang trọng",
+    spaceTitle: "Phòng ngủ Master cao cấp",
+    colorRequirements: "Tone xanh sapphire & Gỗ tự nhiên",
     isDemo: false,
+    analysisReport: {
+      overview: "Phối cảnh 3D toàn cảnh bao quát hài hòa giữa cấu trúc Trần nghệ thuật, điểm nhấn giường ngủ Master tone xanh dương hoàng gia và hệ vách gỗ chuẩn phong cách Luxury đương đại.",
+      ceiling: "Thiết kế hệ trần thạch cao giật cấp tinh tế, tích hợp rãnh đèn LED hắt gián tiếp 3000K tạo chiều sâu và độ thông thoáng tối đa.",
+      wallsAndFurniture: "Tâm điểm là giường ngủ King-size bọc nỉ nhung cao cấp màu xanh sapphire hoàng gia kết hợp vách ốp lam gỗ óc chó tự nhiên chạy dọc kịch trần.",
+      floorAndLighting: "Sàn gỗ lát xương cá cao cấp ấm áp, kết hợp thảm dệt tay sợi tự nhiên và cửa kính lớn tràn viền view thoáng đãng.",
+      architectAdvice: "Khuyến nghị từ KTS D2 Luxury: Sắc xanh navy/sapphire mang tính tĩnh lặng và vương giả cho phòng ngủ, phối hợp cùng vách gỗ tông ấm và ánh sáng vàng dịu 3000K.",
+      tags: ["PHÒNG NGỦ MASTER CAO CẤP", "TONE XANH SAPPHIRE & NAVY", "VÁCH ỐP GỖ ÓC CHÓ"],
+    },
   });
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const loadingStepsText = [
-    "Phân tích chuyên sâu nhu cầu không gian & công năng...",
-    "Phối hợp ánh sáng raytracing, vật liệu & tone màu...",
-    "Hoàn thiện phối cảnh 3D độ phân giải cao...",
+    "AI đang phân tích chuyên sâu 3 yêu cầu không gian & công năng...",
+    "Phối hợp ánh sáng raytracing, vật liệu & tone màu 3D...",
+    "Hoàn thiện phối cảnh 3D độ phân giải cao & báo cáo thiết kế...",
   ];
 
   const handleGenerate = async (e?: React.FormEvent) => {
@@ -74,6 +92,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
           colorRequirements: data.colorRequirements || colorRequirements || "Màu sắc Luxury",
           isDemo: data.isDemo,
           message: data.message,
+          analysisReport: data.analysisReport,
         });
       }
     } catch (err) {
@@ -118,7 +137,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
           </h2>
           <div className="w-20 sm:w-24 h-[1.5px] bg-black mt-3 sm:mt-4 mb-4" />
           <p className="text-sm sm:text-[15px] text-neutral-600 font-serif italic max-w-2xl leading-relaxed">
-            Nhập nhu cầu thiết kế không gian, tone màu và phong cách mong muốn của bạn. Hệ thống AI Studio của D2 Luxury Design sẽ phân tích chuyên sâu các mô tả và kiến tạo bản vẽ phối cảnh 3D trực quan theo đúng mong muốn.
+            Nhập 3 yêu cầu thiết kế của bạn. Hệ thống AI Studio của D2 Luxury Design sẽ phân tích chuyên sâu toàn bộ không gian, trần, tường, sàn và kiến tạo bản vẽ phối cảnh 3D tổng quan nhất.
           </p>
         </div>
 
@@ -138,7 +157,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                 type="text"
                 value={designNeed}
                 onChange={(e) => setDesignNeed(e.target.value)}
-                placeholder="Ví dụ: Thiết kế phòng ngủ master khép kín, Phòng bếp & đảo bar, Phòng khách biệt thự, Phòng thờ gia tiên, Biệt thự sân vườn..."
+                placeholder="Ví dụ: Thiết kế phòng ngủ master, Phòng bếp & bàn ăn, Phòng khách thông tầng, Biệt thự sân vườn..."
                 className="w-full text-xs sm:text-[13px] font-sans px-4 py-3 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400"
               />
             </div>
@@ -152,7 +171,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                 type="text"
                 value={colorRequirements}
                 onChange={(e) => setColorRequirements(e.target.value)}
-                placeholder="Ví dụ: Tone xanh dương sang trọng, Gỗ óc chó & đá tự nhiên, Tone trắng kem & vàng champagne..."
+                placeholder="Ví dụ: Tone xanh dương, Gỗ óc chó & đá tự nhiên, Tone trắng kem & vàng champagne..."
                 className="w-full text-xs sm:text-[13px] font-sans px-4 py-3 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400"
               />
             </div>
@@ -165,7 +184,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
               <textarea
                 value={designWishes}
                 onChange={(e) => setDesignWishes(e.target.value)}
-                placeholder="Mô tả chi tiết mong muốn của bạn (Ví dụ: Không gian riêng tư khép kín, vách ốp đầu giường da cao cấp, cửa kính lớn đón nắng tự nhiên, đèn thả trang trí...)"
+                placeholder="Mô tả chi tiết mong muốn của bạn (Ví dụ: Trần gỗ có quạt trần, vách ốp đầu giường da cao cấp, cửa kính lớn view sân vườn, đèn thả trang trí...)"
                 rows={4}
                 className="w-full text-xs sm:text-[13px] font-sans p-4 bg-[#fdfbf9] border border-[#ded8ce] focus:border-black focus:outline-none transition-colors placeholder:text-neutral-400 leading-relaxed"
               />
@@ -236,7 +255,7 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                         <div className="w-14 h-14 border-2 border-luxury-gold border-t-transparent rounded-full animate-spin" />
                       </div>
                       <p className="text-xs font-serif tracking-[0.25em] uppercase font-semibold text-luxury-gold mb-1.5 drop-shadow">
-                        ĐANG KHỞI TẠO BẢN VẼ 3D...
+                        ĐANG PHÂN TÍCH VÀ KHỞI TẠO BẢN VẼ 3D...
                       </p>
                       <p className="text-xs text-neutral-300 font-light max-w-sm">
                         {loadingStepsText[loadingStep]}
@@ -283,28 +302,70 @@ export default function AIConceptSection({ onOpenZalo }: AIConceptSectionProps =
                   )}
                 </div>
 
-                {/* Concept Information Footer */}
+                {/* Concept Information & AI Architectural Report Footer */}
                 <div className="p-5 bg-white border-t border-[#ded8ce] space-y-4">
-                  <div className="space-y-1.5 text-xs font-serif">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div className="leading-relaxed">
-                        <span className="text-neutral-500">Không gian: </span>
-                        <strong className="text-black font-medium">{conceptMeta.spaceTitle}</strong>
-                        <span className="mx-2 text-neutral-300">|</span>
-                        <span className="text-neutral-500">Màu sắc: </span>
-                        <strong className="text-black font-medium">{conceptMeta.colorRequirements}</strong>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-emerald-700 text-[11px] shrink-0">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Render 8K</span>
-                      </div>
+                  {/* Space & Color Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-serif">
+                    <div className="leading-relaxed">
+                      <span className="text-neutral-500">Không gian: </span>
+                      <strong className="text-black font-medium">{conceptMeta.spaceTitle}</strong>
+                      <span className="mx-2 text-neutral-300">|</span>
+                      <span className="text-neutral-500">Màu sắc: </span>
+                      <strong className="text-black font-medium">{conceptMeta.colorRequirements}</strong>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-emerald-700 text-[11px] shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Render 8K Raytracing</span>
                     </div>
                   </div>
+
+                  {/* Detected Feature Tags */}
+                  {conceptMeta.analysisReport?.tags && conceptMeta.analysisReport.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {conceptMeta.analysisReport.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 bg-[#f4efe8] border border-[#ded8ce] text-black text-[10px] font-sans uppercase font-medium tracking-wider"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Deep AI Architectural Analysis Card */}
+                  {conceptMeta.analysisReport && (
+                    <div className="mt-2 p-3.5 bg-[#faf8f5] border border-[#e8e2d8] space-y-2.5 text-xs font-serif leading-relaxed">
+                      <div className="flex items-center gap-2 pb-1.5 border-b border-[#eae3d7] text-neutral-900 font-semibold tracking-wider uppercase text-[11px]">
+                        <Sparkles className="w-3.5 h-3.5 text-luxury-gold shrink-0" />
+                        <span>Phân tích kiến trúc & giải pháp 3D tổng quan từ AI Studio:</span>
+                      </div>
+                      <p className="text-neutral-700 italic text-[12px]">
+                        {conceptMeta.analysisReport.overview}
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-[11px]">
+                        <div className="bg-white p-2.5 border border-[#eee8df] shadow-2xs space-y-1">
+                          <strong className="block text-black font-semibold text-[11.5px]">🏛️ Hệ Trần & Làm Mát / Chiếu Sáng:</strong>
+                          <span className="text-neutral-600 leading-relaxed block">{conceptMeta.analysisReport.ceiling}</span>
+                        </div>
+                        <div className="bg-white p-2.5 border border-[#eee8df] shadow-2xs space-y-1">
+                          <strong className="block text-black font-semibold text-[11.5px]">🛋️ Vách & Nội Thất Điểm Nhấn:</strong>
+                          <span className="text-neutral-600 leading-relaxed block">{conceptMeta.analysisReport.wallsAndFurniture}</span>
+                        </div>
+                      </div>
+                      {conceptMeta.analysisReport.architectAdvice && (
+                        <div className="p-2.5 bg-[#f4efe8] border-l-2 border-black text-[11px] text-neutral-800 leading-relaxed">
+                          <strong>💡 Khuyến nghị kỹ thuật từ KTS D2 Luxury: </strong>
+                          <span>{conceptMeta.analysisReport.architectAdvice}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Consultation Lead Box */}
                   <div className="pt-3 border-t border-[#f0ebe3] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <p className="text-xs text-neutral-600 font-serif italic">
-                      Ưng ý với ý tưởng này? Hãy để D2 Luxury Design hiện thực hóa thành bản vẽ thi công thực tế.
+                      Ưng ý với giải pháp tổng quan này? Hãy để D2 Luxury Design phát triển thành hồ sơ thiết kế và thi công hoàn thiện.
                     </p>
                     <motion.a
                       href={siteConfig.zaloUrl}
